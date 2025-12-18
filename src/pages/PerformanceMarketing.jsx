@@ -32,13 +32,11 @@ export default function PerformanceMarketing() {
           <TargetIcon />
         </div>
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-          Stop Running Ads.{" "}
-          <span className="text-gradient">Start Running Admissions.</span>
+          We Don't Run Ads.{" "}
+          <span className="text-gradient">We Build Revenue Engines.</span>
         </h1>
         <p className="text-xl text-neutral-400 max-w-3xl mx-auto mb-8">
-          “We don’t do ‘awareness campaigns.’ We build ad systems that fill your
-          batches, convert leads, and bring in real, trackable revenue month
-          after month.
+          Predictable growth isn't a myth. We design performance systems that bring leads, customers, bookings, calls — and real, trackable revenue for your business.
         </p>
         <div className="flex justify-center">
           <LandingButton
@@ -48,7 +46,7 @@ export default function PerformanceMarketing() {
             size="default"
             className="text-lg"
           >
-            👉 Get My Free Marketing Audit →
+            👉 Scale My Revenue
           </LandingButton>
         </div>
       </section>
@@ -57,18 +55,22 @@ export default function PerformanceMarketing() {
       <section className="container mx-auto px-4 py-20">
         <div className="bg-white/5 border border-white/10 rounded-2xl p-8 md:p-12 max-w-5xl mx-auto">
           <h3 className="text-sm font-semibold text-red-400 uppercase mb-3">
-            💡 The Problem
+            💡 THE PROBLEM
           </h3>
           <h2 className="text-3xl font-bold text-white mb-6">
-            You’re Spending on Ads. But Are You Really Earning From Them?
+            Most Ads Get Clicks. Your Ads Should Create Customers.
           </h2>
           <p className="text-lg text-neutral-300 mb-4">
-            Most educators waste money on random boosts and “brand awareness.”
-            No funnel. No retargeting. No conversion system.
+            Companies burn money on random boosts. Founders get disappointed with "brand awareness." Entrepreneurs waste months testing what never works.
           </p>
-          <p className="text-lg text-white font-medium">
-            Clicks look good on reports. Admissions look good in your bank
-            account — We focus on admissions.
+          <p className="text-lg text-neutral-300 mb-4">
+            Because in today's noisy world, attention isn't enough. Conversion is everything.
+          </p>
+          <p className="text-lg text-neutral-300 mb-4">
+            Clicks don't mean growth. Reach doesn't mean revenue. Metrics don't mean meaning.
+          </p>
+          <p className="text-lg text-white font-semibold">
+            Your ads shouldn't just be seen. They should move people to act.
           </p>
         </div>
       </section>
@@ -104,15 +106,16 @@ export default function PerformanceMarketing() {
       <section className="container mx-auto px-4 py-20">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h3 className="text-sm font-semibold text-cyan-400 uppercase mb-3">
-            ⚙️ Our Process
+            🚀 THE SOLUTION
           </h3>
           <h2 className="text-4xl font-bold text-white mb-6">
-            The Teach 2 Grow Ad Formula.
+            Precision Funnels. High-Intent Leads. Scalable Revenue.
           </h2>
-          <p className="text-lg text-neutral-400">
-            We merge creative storytelling with cold data & laser focused
-            targeting to build ad campaigns that sell trust first — then
-            courses.
+          <p className="text-lg text-neutral-300 mb-6">
+            We create ad systems that are scientific, psychological, and obsessively optimized.
+          </p>
+          <p className="text-lg text-neutral-400 mb-8">
+            What you get:
           </p>
         </div>
 
@@ -129,8 +132,9 @@ export default function PerformanceMarketing() {
             </MoshiCard>
           ))}
         </div>
-        <p className="text-center text-white mt-10 font-medium text-lg">
-          💬 No random boosts. No wasted spend. Just results.
+        <p className="text-center text-white mt-10 font-medium text-xl">
+          Founders don't need "campaigns." <br />
+          Founders need compounding revenue systems that scale without drama.
         </p>
       </section>
 
@@ -144,10 +148,10 @@ export default function PerformanceMarketing() {
           <div className="absolute inset-0 bg-cyan-600/10 blur-3xl z-0"></div>
           <div className="relative z-10">
             <h2 className="text-4xl font-bold text-white mb-4">
-              Let’s Build Ads That Don’t Just Run — They Win.
+              Your Business Has Potential. Let's Turn It into Performance.
             </h2>
             <p className="text-xl text-neutral-300 mb-8">
-              You focus on mentoring. We’ll handle the marketing math.
+              Real systems. Real tracking. Real revenue growth.
             </p>
             <LandingButton
               as="a"
@@ -156,7 +160,7 @@ export default function PerformanceMarketing() {
               size="default"
               className="text-lg"
             >
-              👉 Book My Free Performance Call
+              👉 Book My Performance Call
             </LandingButton>
           </div>
         </div>

@@ -66,36 +66,36 @@ export const testimonialsData = [
   },
 ];
 
-// --- Service Page: YouTube Growth ---
+// --- Service Page: Personal Brand Growth ---
 export const youtubeFeatures = [
   {
-    title: "YouTube Strategy",
+    title: "YouTube Authority Positioning",
     description:
-      "Topics, thumbnails, titles, analytics, retention hacks and dominating the algorithms.",
+      "Crafting videos that educate, inspire, and position you as a category leader.",
     icon: <YoutubeIcon />,
   },
   {
-    title: "Instagram Authority",
+    title: "Instagram Reputation Building",
     description:
-      "Reels, captions, trends, storytelling, and a complete hashtag strategy to maximize reach.",
+      "Reels, carousels, stories — strategically aligned to your voice & audience psychology.",
     icon: <CheckCircleIcon />,
   },
   {
-    title: "Scripting & Storytelling",
+    title: "Content Strategy & Story Engineering",
     description:
-      "We make your lessons viral and your words unforgettable through psychological hooks.",
+      "We turn your experiences into consumable, viral, emotional storytelling.",
     icon: <CheckCircleIcon />,
   },
   {
-    title: "Content Repurposing",
+    title: "Content Repurposing Engine",
     description:
-      "One shoot = 20+ usable pieces. We slice long-form into shorts, reels, and posts.",
+      "1 shoot → 30+ premium pieces across platforms.",
     icon: <VideoIcon />,
   },
   {
-    title: "Performance Insights",
+    title: "Growth Systems & Analytics",
     description:
-      "Real-time analytics & monthly growth reports to track what's working.",
+      "What to publish, when to publish, who it's for, and how it scales.",
     icon: <TargetIcon />,
   },
 ];
@@ -134,58 +134,68 @@ export const youtubeTestimonials = [
 // --- Service Page: Performance Marketing ---
 export const marketingFeatures = [
   {
-    title: "Lead Generation",
-    description: "Meta, Google, YouTube Ads that drive inquiries and walk-ins.",
+    title: "Meta + Google + YouTube Ads Done Right",
+    description: "Targeting, psychology, creative — all precision-based.",
     icon: <TargetIcon />,
   },
   {
     title: "Retargeting Funnels",
     description:
-      "Convert interested parents & students who didn’t sign up yet.",
+      "Turn \"thinking about it\" into \"take my money.\"",
     icon: <CheckCircleIcon />,
   },
   {
-    title: "Automation Setup",
-    description: "WhatsApp + CRM follow-ups for instant engagement.",
+    title: "Landing Page Systems",
+    description: "Messaging built for conversions, not confusion.",
     icon: <CheckCircleIcon />,
   },
   {
-    title: "Landing Page Optimization",
-    description: "Turn clicks into admissions with high-converting designs.",
+    title: "Automation & CRM Setup",
+    description: "Never lose a lead again.",
     icon: <CheckCircleIcon />,
   },
   {
-    title: "Performance Dashboards",
-    description: "Track ROI in real time. No random boosts.",
+    title: "Revenue Dashboards",
+    description: "Real numbers. Real clarity. Real confidence.",
     icon: <TargetIcon />,
   },
 ];
 
-// --- Service Page: Content Production ---
+// --- Service Page: Creative Production ---
 export const productionFeatures = [
   {
-    title: "Ad Films & Brand Shoots",
-    description: "Cinematic storytelling that converts.",
+    title: "Brand Films",
+    description: "Cinematic storytelling that builds identity and trust.",
     icon: <VideoIcon />,
   },
   {
-    title: "Influencer Campaigns",
-    description: "Collaborate with trusted faces that sell your vision.",
+    title: "Founder Story Videos",
+    description: "Personal narratives that connect and inspire.",
     icon: <CheckCircleIcon />,
   },
   {
-    title: "Studio Setup",
-    description: "Build your recording environment the right way.",
-    icon: <YoutubeIcon />,
-  },
-  {
-    title: "Editing & Post-Production",
-    description: "From lectures to luxury-level ads.",
+    title: "Product Commercials",
+    description: "Ads that make your product irresistible.",
     icon: <VideoIcon />,
   },
   {
-    title: "Motion Graphics",
-    description: "High-end visual effects to keep viewers glued.",
+    title: "Ad Films & Digital Campaigns",
+    description: "High-impact creative for paid media.",
+    icon: <VideoIcon />,
+  },
+  {
+    title: "Influencer & Celebrity Shoots",
+    description: "Premium production for high-profile collaborations.",
+    icon: <CheckCircleIcon />,
+  },
+  {
+    title: "Cinematic Edits & Motion Graphics",
+    description: "Post-production that elevates every frame.",
+    icon: <VideoIcon />,
+  },
+  {
+    title: "Office Culture & Company Story Films",
+    description: "Authentic narratives that showcase your team and mission.",
     icon: <CheckCircleIcon />,
   },
 ];
