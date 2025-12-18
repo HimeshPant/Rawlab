@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: "Inter", sans-serif;
+    background-image: radial-gradient(
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 1px
+    );
+    background-size: 24px 24px;
+    background-color: #000;
+    scroll-behavior: smooth;
+  }
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #000;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #0070f3;
+    border-radius: 6px;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(to right, #00c6ff, #0070f3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Testimonial Card Style */
+  .testimonial-card {
+    @apply relative p-6 border bg-black/30 border-white/10 rounded-xl backdrop-blur-sm;
+  }
+
+  /* --- Horizontal Scrolling (Logos & Cards) --- */
+  .logo-ticker-container,
+  .card-ticker-container {
+    overflow: hidden;
+    width: 100%;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      white 10%,
+      white 90%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      white 10%,
+      white 90%,
+      transparent
+    );
+  }
+
+  .logo-ticker-track {
+    display: flex;
+    width: fit-content;
+    animation: scroll 30s linear infinite;
+  }
+
+  .card-ticker-container {
+    padding: 40px 0;
+  }
+  .card-ticker-track {
+    display: flex;
+    width: max-content;
+    gap: 2rem;
+    animation: scroll-cards 15s linear infinite;
+  }
+
+  .logo-ticker-item {
+    flex-shrink: 0;
+    @apply px-10 text-2xl font-medium text-neutral-500 opacity-60;
+  }
+
+  .card-ticker-item {
+    flex-shrink: 0;
+    width: 380px;
+  }
+
+  /* --- Vertical Carousel Animation (Showcase) --- */
+  .vertical-scroll-container {
+    position: relative;
+    overflow: hidden;
+    height: 600px;
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      black 10%,
+      black 90%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      black 10%,
+      black 90%,
+      transparent
+    );
+  }
+
+  .vertical-scroll-track {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    will-change: transform;
+  }
+
+  .animate-scroll-up {
+    animation: scroll-vertical 30s linear infinite;
+  }
+  .animate-scroll-down {
+    animation: scroll-vertical 30s linear infinite reverse;
+  }
+
+  /* Removed hover pause for vertical scroll as requested */
+
+  /* --- Keyframes --- */
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes scroll-cards {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-100% / 3));
+    }
+  }
+  @keyframes scroll-vertical {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-50%);
+    }
+  }
+
+  /* Neon scanning light animation */
+  @keyframes scan {
+    0% {
+      top: -128px;
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      top: 100%;
+      opacity: 0;
+    }
+  }
+
+  .animate-scan {
+    animation: scan 3s ease-in-out infinite;
+  }
+}
