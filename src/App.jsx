@@ -34,10 +34,7 @@ export default function App() {
               path="/services/youtube-growth"
               element={<YoutubeGrowth />}
             />
-            <Route
-              path="/about"
-              element={<About />}
-            />
+
             <Route
               path="/services/performance-marketing"
               element={<PerformanceMarketing />}
@@ -46,6 +43,7 @@ export default function App() {
               path="/services/content-production"
               element={<ContentProduction />}
             />
+            <Route path="/about" element={<About />} />
           </Routes>
         </main>
 
