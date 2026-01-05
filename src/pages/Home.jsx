@@ -15,7 +15,6 @@ import FinalCTA from "../Components/sections/FinalCTA.jsx";
 export default function Home() {
   return (
     <div className="relative w-full overflow-hidden">
-      <NeonCursor />
       <Hero />
       <TrustedBy />
       <Animate />

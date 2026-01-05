@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 //NeonCursor
-import NeonCursor from "./Components/NeonCursor.jsx";
 // Layout
 import Header from "./Components/layout/Header.jsx";
 import Footer from "./Components/layout/Footer.jsx";
@@ -13,6 +12,7 @@ import YoutubeGrowth from "./pages/YoutubeGrowth.jsx";
 import PerformanceMarketing from "./pages/PerformanceMarketing.jsx";
 import ContentProduction from "./pages/ContentProduction.jsx";
 import About from "./pages/About.jsx";
+import OurStory from "./pages/OurStory.jsx";
 
 export default function App() {
   return (
@@ -44,6 +44,7 @@ export default function App() {
               element={<ContentProduction />}
             />
             <Route path="/about" element={<About />} />
+            <Route path="/OurStory" element={<OurStory />} />
           </Routes>
         </main>
 

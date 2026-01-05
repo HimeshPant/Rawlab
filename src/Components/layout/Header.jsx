@@ -9,10 +9,11 @@ export default function Header() {
   // Navigation links configuration
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
     { href: "/services/youtube-growth", label: "YouTube Growth" },
     { href: "/services/performance-marketing", label: "Performance-marketing" },
     { href: "/services/content-production", label: "Content-production" },
+    { href: "/about", label: "About" },
+    { href: "/OurStory", label: "Our Story" },
   ];
 
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 
-// Re-purposed for the "Logos/Badges Section"
+// The "Visual Masterpiece" Component - Adapted for TrustedBy
 export default function TrustedBy() {
   const logos = [
     "/1.jpeg",
@@ -24,56 +24,91 @@ export default function TrustedBy() {
     "/19.jpeg",
     "/20.jpeg",
   ];
-  // Duplicate for seamless loop
-  const extendedLogos = [...logos, ...logos];
+
+  // Split into two rows for dynamic flow
+  const row1 = [...logos, ...logos];
+  const row2 = [...logos.reverse(), ...logos];
 
   return (
-    <section className="container px-4 py-12 mx-auto sm:px-6 lg:px-8 overflow-hidden">
-      {/* Embedded CSS for the ticker animation */}
-      <style>{`
-        @keyframes scroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .logo-ticker-track {
-          display: flex;
-          align-items: center;
-          gap: 4rem; /* Spacing between items */
-          width: max-content;
-          animation: scroll 40s linear infinite; /* Continuous scroll */
-        }
-        /* Explicitly force running state on hover to override any external styles */
-        .logo-ticker-track:hover {
-          animation-play-state: running !important;
-        }
-      `}</style>
+    <section className="py-24 overflow-hidden relative bg-white">
+      {/* Vignette fade */}
+      <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-b from-white via-transparent to-white"></div>
 
-      <p className="text-sm font-semibold tracking-wider text-center uppercase text-neutral-400">
-        Trusted by clients across the industry
-      </p>
+      {/* Background Decor */}
+      <div className="absolute top-[-20%] left-[-10%] w-[70vw] h-[70vw] bg-blue-50/60 rounded-full blur-[150px] mix-blend-multiply animate-pulse-slow pointer-events-none"></div>
 
-      <div className="mt-8 logo-ticker-container w-full overflow-hidden">
-        <div className="logo-ticker-track">
-          {extendedLogos.map((logo, index) => (
-            <span key={index} className="logo-ticker-item flex-shrink-0">
-              <div className="relative flex items-center justify-center w-64 h-64">
-                {/* Bright blue glowing background effect */}
-                <div className="absolute inset-0 rounded-full bg-blue-500/40 blur-2xl animate-pulse"></div>
-                <div className="absolute inset-0 rounded-full bg-blue-400/30 blur-3xl"></div>
+      <div className="container mx-auto px-4 mb-12 relative z-20 text-center">
+        <p className="text-sm font-bold tracking-widest text-center uppercase text-neutral-400">
+          Trusted by clients across the industry
+        </p>
+      </div>
 
-                {/* Image container with circular shape */}
-                <div className="relative w-56 h-56 overflow-hidden rounded-full shadow-2xl ring-4 ring-blue-400/50 shadow-blue-500/50">
-                  <img
-                    src={logo}
-                    alt={`Logo ${index}`}
-                    className="object-cover w-full h-full brightness-125 contrast-125 saturate-110"
-                  />
-                </div>
-              </div>
-            </span>
+      {/* Flat Container (No Tilt) */}
+      <div className="relative z-10 flex flex-col gap-8">
+        {/* Row 1: Left - Fast */}
+        <div className="flex gap-6 animate-marquee w-max">
+          {row1.map((src, i) => (
+            <div
+              key={`r1-${i}`}
+              className="relative w-64 h-40 rounded-2xl overflow-hidden shadow-lg border border-neutral-100 bg-white transform transition-transform duration-500 hover:scale-105 group flex items-center justify-center p-4"
+            >
+              <img
+                src={src}
+                alt={`Client ${i}`}
+                // Removed grayscale and opacity to make it bright by default
+                className="w-full h-full object-contain transition-all duration-500"
+              />
+              {/* Shine effect on hover */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+            </div>
+          ))}
+        </div>
+
+        {/* Row 2: Right - Slower */}
+        <div className="flex gap-6 animate-marquee-reverse w-max ml-[-200px]">
+          {row2.map((src, i) => (
+            <div
+              key={`r2-${i}`}
+              className="relative w-64 h-40 rounded-2xl overflow-hidden shadow-lg border border-neutral-100 bg-white transform transition-transform duration-500 hover:scale-105 group flex items-center justify-center p-4"
+            >
+              <img
+                src={src}
+                alt={`Client ${i}`}
+                // Removed grayscale and opacity to make it bright by default
+                className="w-full h-full object-contain transition-all duration-500"
+              />
+              {/* Shine effect on hover */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+            </div>
           ))}
         </div>
       </div>
+
+      <style>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+          animation: marquee 40s linear infinite;
+        }
+        
+        @keyframes marquee-reverse {
+          0% { transform: translateX(-50%); }
+          100% { transform: translateX(0); }
+        }
+        .animate-marquee-reverse {
+          animation: marquee-reverse 40s linear infinite;
+        }
+        
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+        .animate-pulse-slow {
+            animation: pulse-slow 8s ease-in-out infinite;
+        }
+      `}</style>
     </section>
   );
 }
