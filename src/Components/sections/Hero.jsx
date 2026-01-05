@@ -43,7 +43,7 @@ const LandingButton = ({ children, href, variant = "primary" }) => {
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-20 px-4 overflow-hidden">
+    <section className="relative min-h-screen flex flex-col items-center justify-center pt-24 pb-20 px-4 overflow-hidden">
       <CinematicBackground />
 
       {/* Hero Content */}
@@ -61,7 +61,7 @@ export default function Hero() {
 
         {/* Headline - "Whisper" Style Kinetic Type */}
         <h1
-          className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-10 leading-[1.05] text-neutral-900 animate-fade-in-up"
+          className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter mb-10 leading-[1.05] text-neutral-900 animate-fade-in-up"
           style={{ animationDelay: "100ms" }}
         >
           We Turn Brands Into <br />
