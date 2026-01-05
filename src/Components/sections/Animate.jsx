@@ -1,432 +1,366 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Lightbulb,
-  Settings,
+  Globe,
   PenTool,
-  Code,
-  Cpu,
-  Link,
-  FlaskConical,
+  Video,
+  TrendingUp,
+  Layers,
+  BarChart3,
   Rocket,
-  CheckCircle2,
-  ArrowRight,
-  ArrowLeft,
-  ArrowDown,
+  Crown,
+  Maximize2,
+  Sparkles,
+  Zap,
+  Youtube,
+  Instagram,
+  Repeat,
 } from "lucide-react";
 
+// --- DATA ---
+// Updated with Personal Brand Growth System content
 const steps = [
   {
     id: 1,
-    title: "Ideation & Input",
-    description: "Gathering initial concepts and raw data requirements.",
-    icon: Lightbulb,
-    color: "text-yellow-400",
-    border: "border-yellow-400/30",
-    shadow: "shadow-yellow-400/20",
-    hoverShadow: "hover:shadow-yellow-400/40",
+    title: "YouTube Authority Positioning",
+    description:
+      "Crafting videos that educate, inspire, and position you as a category leader.",
+    icon: Youtube,
   },
   {
     id: 2,
-    title: "System Setup",
-    description: "Configuring the environment and necessary dependencies.",
-    icon: Settings,
-    color: "text-cyan-400",
-    border: "border-cyan-400/30",
-    shadow: "shadow-cyan-400/20",
-    hoverShadow: "hover:shadow-cyan-400/40",
+    title: "Instagram Reputation Building",
+    description:
+      "Reels, carousels, stories — strategically aligned to your voice & audience psychology.",
+    icon: Instagram,
   },
   {
     id: 3,
-    title: "Design Phase",
-    description: "Creating wireframes and architecture diagrams.",
+    title: "Content Strategy & Story Engineering",
+    description:
+      "We turn your experiences into consumable, viral, emotional storytelling.",
     icon: PenTool,
-    color: "text-pink-400",
-    border: "border-pink-400/30",
-    shadow: "shadow-pink-400/20",
-    hoverShadow: "hover:shadow-pink-400/40",
   },
-  // Row 2 (Reversed Flow visually: 6 <- 5 <- 4)
   {
     id: 4,
-    title: "Development Start",
-    description: "Writing core logic and feature implementation.",
-    icon: Code,
-    color: "text-blue-400",
-    border: "border-blue-400/30",
-    shadow: "shadow-blue-400/20",
-    hoverShadow: "hover:shadow-blue-400/40",
+    title: "Content Repurposing Engine",
+    description:
+      "1 shoot → 30+ premium pieces across platforms. Maximum output, minimum input.",
+    icon: Repeat,
   },
   {
     id: 5,
-    title: "Core Logic",
-    description: "Implementing the central, critical business rules.",
-    icon: Cpu,
-    color: "text-purple-400",
-    border: "border-purple-400/30",
-    shadow: "shadow-purple-400/20",
-    hoverShadow: "hover:shadow-purple-400/40",
-  },
-  {
-    id: 6,
-    title: "Integration",
-    description: "Connecting all modules and external APIs seamlessly.",
-    icon: Link,
-    color: "text-indigo-400",
-    border: "border-indigo-400/30",
-    shadow: "shadow-indigo-400/20",
-    hoverShadow: "hover:shadow-indigo-400/40",
-  },
-  // Row 3 (Standard Flow: 7 -> 8 -> 9)
-  {
-    id: 7,
-    title: "Testing & QA",
-    description: "Rigorous unit, integration, and user acceptance testing.",
-    icon: FlaskConical,
-    color: "text-green-400",
-    border: "border-green-400/30",
-    shadow: "shadow-green-400/20",
-    hoverShadow: "hover:shadow-green-400/40",
-  },
-  {
-    id: 8,
-    title: "Deployment",
-    description: "Moving the final product to the live production environment.",
+    title: "Growth Systems & Analytics",
+    description:
+      "What to publish, when to publish, who it’s for, and how it scales.",
     icon: Rocket,
-    color: "text-orange-400",
-    border: "border-orange-400/30",
-    shadow: "shadow-orange-400/20",
-    hoverShadow: "hover:shadow-orange-400/40",
-  },
-  {
-    id: 9,
-    title: "Success & Review",
-    description: "Final sign-off and retrospective on the process.",
-    icon: CheckCircle2,
-    color: "text-emerald-400",
-    border: "border-emerald-400/30",
-    shadow: "shadow-emerald-400/20",
-    hoverShadow: "hover:shadow-emerald-400/40",
   },
 ];
 
-// Helper to determine arrow direction based on grid position
-const Connector = ({ type, className = "" }) => {
-  const common = `absolute text-neutral-600 z-0 ${className}`;
-  // Electric flow line style
-  const flowLine =
-    "absolute w-full h-[3px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-0 animate-energy-flow shadow-[0_0_8px_rgba(34,211,238,0.8)]";
-  const flowLineVertical =
-    "absolute h-full w-[3px] bg-gradient-to-b from-transparent via-cyan-400 to-transparent opacity-0 animate-energy-flow shadow-[0_0_8px_rgba(34,211,238,0.8)]";
+// --- 1. VISUAL ELEMENTS ---
 
-  if (type === "right")
-    return (
-      <div
-        className={`${common} -right-6 md:-right-8 top-1/2 -translate-y-1/2`}
-      >
-        <ArrowRight size={24} className="text-neutral-700" />
-        <div className="absolute top-1/2 left-0 w-full -translate-y-1/2 overflow-hidden h-[4px]">
-          <div className={`${flowLine} left-[-100%]`}></div>
-        </div>
-      </div>
-    );
+const FilmGrain = () => (
+  <div className="absolute inset-0 pointer-events-none z-50 mix-blend-multiply opacity-[0.08] overflow-hidden">
+    <div className="w-[200%] h-[200%] absolute top-[-50%] left-[-50%] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] animate-grain"></div>
+    <style>{`
+      @keyframes grain {
+        0%, 100% { transform: translate(0, 0); }
+        10% { transform: translate(-5%, -10%); }
+        20% { transform: translate(-15%, 5%); }
+        30% { transform: translate(7%, -25%); }
+        40% { transform: translate(-5%, 25%); }
+        50% { transform: translate(-15%, 10%); }
+        60% { transform: translate(15%, 0%); }
+        70% { transform: translate(0%, 15%); }
+        80% { transform: translate(3%, 35%); }
+        90% { transform: translate(-10%, 10%); }
+      }
+      .animate-grain {
+        animation: grain 8s steps(10) infinite;
+      }
+    `}</style>
+  </div>
+);
 
-  if (type === "left")
-    return (
-      <div className={`${common} -left-6 md:-left-8 top-1/2 -translate-y-1/2`}>
-        <ArrowLeft size={24} className="text-neutral-700" />
-        <div className="absolute top-1/2 left-0 w-full -translate-y-1/2 overflow-hidden h-[4px] rotate-180">
-          <div className={`${flowLine} left-[-100%]`}></div>
-        </div>
-      </div>
-    );
+// --- 2. 3D INTERACTIVE GRAPHIC (Growth Reactor) ---
+const GrowthReactor = () => {
+  const [rotate, setRotate] = useState({ x: 0, y: 0 });
 
-  if (type === "down")
-    return (
-      <div className={`${common} -bottom-10 left-1/2 -translate-x-1/2`}>
-        <div className="relative flex flex-col items-center h-10 justify-center">
-          <div className="h-full w-[20px] relative overflow-hidden">
-            <div
-              className={`${flowLineVertical} top-[-100%] left-1/2 -translate-x-1/2`}
-            ></div>
-          </div>
-          <ArrowDown
-            size={24}
-            className="text-neutral-700 absolute bottom-[-6px]"
-          />
-        </div>
-      </div>
-    );
+  const handleMouseMove = (e) => {
+    const { clientX, clientY } = e;
+    const { innerWidth, innerHeight } = window;
+    const x = (clientX - innerWidth / 2) / 20;
+    const y = (clientY - innerHeight / 2) / 20;
+    setRotate({ x: -y, y: x });
+  };
 
-  if (type === "down-right")
-    return (
-      <div className={`${common} -bottom-12 right-1/2 translate-x-1/2`}>
-        <div className="relative h-12 w-[2px] bg-neutral-800/50 overflow-hidden">
-          <div className={`${flowLineVertical} top-[-100%]`}></div>
-        </div>
-        {/* Use a right arrow rotated 90 degrees to point down if preferred, or just a vertical line connector visually */}
-        <ArrowDown
-          size={24}
-          className="text-neutral-700 absolute -bottom-3 -left-[11px]"
-        />
-      </div>
-    );
-
-  if (type === "down-left")
-    return (
-      <div className={`${common} -bottom-12 left-1/2 -translate-x-1/2`}>
-        <div className="relative h-12 w-[2px] bg-neutral-800/50 overflow-hidden">
-          <div className={`${flowLineVertical} top-[-100%]`}></div>
-        </div>
-        <ArrowDown
-          size={24}
-          className="text-neutral-700 absolute -bottom-3 -left-[11px]"
-        />
-      </div>
-    );
-
-  return null;
-};
-
-export default function ProcessFlow() {
-  // Mobile Reordering: 1, 2, 4, 3, 5, 6, 8, 7, 9
-  const mobileSteps = [
-    steps[0],
-    steps[1], // Row 1
-    steps[3],
-    steps[2], // Row 2
-    steps[4],
-    steps[5], // Row 3
-    steps[7],
-    steps[6], // Row 4
-    steps[8], // Row 5
-  ];
+  useEffect(() => {
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   return (
-    <section
-      id="process-flow"
-      className="py-20 bg-black overflow-hidden relative"
-    >
-      {/* Background Ambient Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-blue-900/10 rounded-full blur-[120px] pointer-events-none"></div>
+    <div className="w-full h-full min-h-[400px] flex items-center justify-center perspective-1000">
+      <div
+        className="relative w-64 h-64 transform-style-3d transition-transform duration-100 ease-linear"
+        style={{ transform: `rotateX(${rotate.x}deg) rotateY(${rotate.y}deg)` }}
+      >
+        {/* Core Glow */}
+        <div className="absolute inset-0 bg-blue-500/20 blur-[80px] rounded-full animate-pulse-slow"></div>
+
+        {/* 1. Back Structure (Dark Metal) */}
+        <div className="absolute inset-0 rounded-full border-[1px] border-neutral-800 bg-[#050505] transform -translate-z-20 opacity-80 shadow-2xl"></div>
+
+        {/* 2. Middle Ring (Glass) */}
+        <div className="absolute inset-4 rounded-full border-[2px] border-white/10 bg-white/5 backdrop-blur-md transform translate-z-0 shadow-[0_0_30px_rgba(59,130,246,0.1)]"></div>
+
+        {/* 3. Orbiting Data Ring (Animated) */}
+        <div className="absolute -inset-8 border border-blue-500/30 rounded-full transform rotateX(70deg) animate-spin-slow border-dashed"></div>
+        <div className="absolute -inset-2 border border-cyan-400/20 rounded-full transform rotateY(60deg) animate-spin-reverse-slow"></div>
+
+        {/* 4. Central Reactor Core */}
+        <div className="absolute inset-20 rounded-full bg-gradient-to-br from-blue-900 to-black border border-blue-500/50 transform translate-z-20 flex items-center justify-center shadow-inner">
+          <div className="z-10 p-4 bg-blue-500/20 rounded-full blur-md absolute inset-0 animate-pulse"></div>
+          <Zap
+            className="text-blue-400 w-10 h-10 relative z-20"
+            strokeWidth={1.5}
+          />
+        </div>
+
+        {/* 5. Floating Particles */}
+        {[...Array(8)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1.5 h-1.5 bg-blue-400 rounded-full"
+            style={{
+              top: "50%",
+              left: "50%",
+              transform: `rotate(${
+                i * 45
+              }deg) translateX(${120}px) translateZ(${Math.sin(i) * 50}px)`,
+              opacity: 0.6,
+            }}
+          ></div>
+        ))}
+      </div>
 
       <style>{`
-        @keyframes energy-flow {
-          0% { transform: translateX(0); opacity: 0; }
-          10% { opacity: 1; }
-          50% { opacity: 1; }
-          100% { transform: translateX(200%); opacity: 0; }
-        }
-        @keyframes energy-flow-vertical {
-            0% { transform: translateY(0); opacity: 0; }
-            10% { opacity: 1; }
-            50% { opacity: 1; }
-            100% { transform: translateY(200%); opacity: 0; }
-          }
-        .animate-energy-flow { animation: energy-flow 2s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
-        
-        .animate-energy-flow-v { animation: energy-flow-vertical 2s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        .animate-fade-in-up {
-            animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-
-        /* New Animations for Constant Motion */
-        @keyframes sheen {
-          0% { transform: translateX(-150%) skewX(-45deg); }
-          20% { transform: translateX(150%) skewX(-45deg); } 
-          100% { transform: translateX(150%) skewX(-45deg); }
-        }
-        .animate-sheen {
-          animation: sheen 6s ease-in-out infinite;
-        }
-
-        @keyframes float-icon {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-4px); }
-        }
-        .animate-float-icon {
-          animation: float-icon 4s ease-in-out infinite;
-        }
+        .perspective-1000 { perspective: 1000px; }
+        .transform-style-3d { transform-style: preserve-3d; }
+        .translate-z-10 { transform: translateZ(20px); }
+        .translate-z-20 { transform: translateZ(40px); }
+        .-translate-z-20 { transform: translateZ(-40px); }
+        .animate-spin-slow { animation: spin 20s linear infinite; }
+        .animate-spin-reverse-slow { animation: spin 25s linear infinite reverse; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .animate-pulse-slow { animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
       `}</style>
+    </div>
+  );
+};
+
+// --- STACKED CARD COMPONENT ---
+const StackedCardDeck = () => {
+  const [cards, setCards] = useState(steps);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const handleCardClick = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+
+    // Cycle cards: Top card moves to bottom
+    setTimeout(() => {
+      setCards((prev) => {
+        const newCards = [...prev];
+        const topCard = newCards.shift();
+        newCards.push(topCard);
+        return newCards;
+      });
+      setIsAnimating(false);
+    }, 300);
+  };
+
+  return (
+    <div className="relative w-full max-w-md h-[450px] perspective-1000 mx-auto mt-12 md:mt-0">
+      {cards.map((step, index) => {
+        // --- STACKING LOGIC ---
+        const isTop = index === 0;
+
+        // Stack Upwards (Negative Y)
+        const offset = index * -20;
+        const scale = 1 - index * 0.05;
+        const rotation = index * -2;
+        const zIndex = cards.length - index;
+
+        // Visibility & Depth
+        const opacity = index > 3 ? 0 : 1;
+        const brightness =
+          index > 0 ? `brightness(${100 - index * 15}%)` : "none";
+
+        let style = {
+          zIndex: zIndex,
+          transform: `translateY(${offset}px) scale(${scale}) rotate(${rotation}deg)`,
+          opacity: opacity,
+          filter: `${brightness}`,
+          transformOrigin: "top center",
+        };
+
+        // Exit Animation
+        if (isTop && isAnimating) {
+          style.transform = `translateY(120%) rotate(10deg) scale(0.9)`;
+          style.opacity = 0;
+        }
+
+        return (
+          <div
+            key={step.id}
+            onClick={isTop ? handleCardClick : undefined}
+            className={`
+                absolute top-12 left-0 w-full h-[380px] 
+                rounded-3xl border p-8 flex flex-col justify-between overflow-hidden
+                transition-all duration-500 cubic-bezier(0.23, 1, 0.32, 1)
+                ${
+                  isTop
+                    ? "bg-[#0a0f18] border-blue-500/50 cursor-pointer hover:-translate-y-2 shadow-[0_20px_60px_-15px_rgba(59,130,246,0.3)]"
+                    : "bg-[#05080c] border-white/5 pointer-events-none select-none shadow-lg"
+                }
+            `}
+            style={style}
+          >
+            {/* Grid Overlay */}
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.03)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none"></div>
+
+            {isTop && (
+              <div className="absolute -top-20 -right-20 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px] pointer-events-none animate-pulse"></div>
+            )}
+
+            <div className="relative z-10">
+              <div className="flex justify-between items-start mb-6">
+                <div
+                  className={`
+                        w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 shadow-sm
+                        ${
+                          isTop
+                            ? "bg-blue-900/20 border border-blue-500/50 text-blue-400"
+                            : "bg-white/5 border border-white/5 text-neutral-600"
+                        }
+                    `}
+                >
+                  <step.icon size={26} strokeWidth={isTop ? 2 : 1.5} />
+                </div>
+
+                <div className="flex flex-col items-end">
+                  <span className="font-mono text-[10px] font-bold text-blue-900 tracking-widest uppercase mb-1">
+                    System
+                  </span>
+                  <span
+                    className={`font-black text-3xl leading-none font-mono ${
+                      isTop ? "text-blue-500" : "text-neutral-800"
+                    }`}
+                  >
+                    0{index + 1}
+                  </span>
+                </div>
+              </div>
+
+              <h3
+                className={`text-2xl font-bold mb-3 leading-[1.1] tracking-tight ${
+                  isTop ? "text-white" : "text-neutral-600"
+                }`}
+              >
+                {step.title}
+              </h3>
+              <p
+                className={`text-sm leading-relaxed ${
+                  isTop ? "text-neutral-400" : "text-neutral-700"
+                }`}
+              >
+                {step.description}
+              </p>
+            </div>
+
+            <div className="relative z-10 border-t border-white/5 pt-4 flex justify-between items-center">
+              <div className="flex gap-2 items-center">
+                <div
+                  className={`w-1.5 h-1.5 rounded-full ${
+                    isTop ? "bg-blue-500 animate-pulse" : "bg-neutral-800"
+                  }`}
+                ></div>
+                <span className="font-mono text-[9px] uppercase tracking-wider text-neutral-500">
+                  {isTop ? "Click_Next" : "Locked"}
+                </span>
+              </div>
+              {isTop && (
+                <div className="text-blue-500 animate-bounce">
+                  <Maximize2 size={16} />
+                </div>
+              )}
+            </div>
+          </div>
+        );
+      })}
+
+      <div className="absolute -bottom-8 w-full text-center text-xs font-mono text-blue-900/50 animate-pulse tracking-widest">
+        [ CLICK TO CYCLE PROCESS ]
+      </div>
+    </div>
+  );
+};
+
+// --- MAIN EXPORT ---
+export default function Animate1() {
+  return (
+    <section className="py-32 bg-black overflow-hidden relative">
+      {/* Global Overlays */}
+      <FilmGrain />
+
+      {/* Background Ambience */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-blue-900/20 rounded-full blur-[120px] mix-blend-screen"></div>
+        <div className="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-purple-900/20 rounded-full blur-[120px] mix-blend-screen"></div>
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05]"></div>
+      </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Our{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">
-              Production Engine
-            </span>
-          </h2>
-          <p className="text-neutral-400 max-w-2xl mx-auto">
-            From concept to deployment, our 9-step growth architecture ensures
-            precision at every stage.
-          </p>
-        </div>
-
-        {/* --- DESKTOP LAYOUT (Hidden on Mobile) --- */}
-        <div className="hidden md:grid max-w-6xl mx-auto grid-cols-3 gap-y-16 gap-x-16 relative">
-          {/* ROW 1: 1 -> 2 -> 3 */}
-          {steps.slice(0, 3).map((step, index) => (
-            <div key={step.id} className="relative group perspective-1000">
-              <div
-                className={`relative z-10 h-full bg-neutral-900/80 backdrop-blur-md border ${step.border} rounded-2xl p-6 transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-[1.02] hover:${step.shadow} ${step.hoverShadow} opacity-0 animate-fade-in-up overflow-hidden`}
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                {/* Sheen Effect */}
-                <div className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-10">
-                  <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white to-transparent transform -skew-x-12 animate-sheen"></div>
-                </div>
-
-                <div className="flex items-center justify-between mb-4 relative z-10">
-                  <div
-                    className={`p-3 rounded-lg bg-white/5 ${step.color} shadow-inner animate-float-icon`}
-                  >
-                    <step.icon size={24} />
-                  </div>
-                  <span className="text-4xl font-black text-neutral-800/50 group-hover:text-neutral-700 transition-colors select-none">
-                    0{step.id}
-                  </span>
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors relative z-10">
-                  {step.title}
-                </h3>
-                <p className="text-sm text-neutral-400 leading-relaxed relative z-10">
-                  {step.description}
-                </p>
-              </div>
-              {index < 2 && <Connector type="right" />}
-              {index === 2 && <Connector type="down-right" />}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+          {/* Left: Text & Graphic */}
+          <div className="text-left relative z-20">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-8 backdrop-blur-md">
+              <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+              <span className="text-xs font-bold tracking-widest text-blue-400 uppercase">
+                The Solution
+              </span>
             </div>
-          ))}
 
-          {/* ROW 2: 6 <- 5 <- 4 */}
-          {[steps[5], steps[4], steps[3]].map((step, index) => (
-            <div key={step.id} className="relative group">
-              <div
-                className={`relative z-10 h-full bg-neutral-900/80 backdrop-blur-md border ${step.border} rounded-2xl p-6 transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-[1.02] hover:${step.shadow} ${step.hoverShadow} opacity-0 animate-fade-in-up overflow-hidden`}
-                style={{ animationDelay: `${(index + 3) * 100}ms` }}
-              >
-                {/* Sheen Effect */}
-                <div className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-10">
-                  <div
-                    className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white to-transparent transform -skew-x-12 animate-sheen"
-                    style={{ animationDelay: "1s" }}
-                  ></div>
-                </div>
+            <h2 className="text-5xl md:text-6xl font-black text-white mb-8 leading-tight tracking-tighter">
+              Your Expertise. <br />
+              Our Strategy. <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-300">
+                Global Influence.
+              </span>
+            </h2>
 
-                <div className="flex items-center justify-between mb-4 relative z-10">
-                  <div
-                    className={`p-3 rounded-lg bg-white/5 ${step.color} shadow-inner animate-float-icon`}
-                    style={{ animationDelay: "0.5s" }}
-                  >
-                    <step.icon size={24} />
-                  </div>
-                  <span className="text-4xl font-black text-neutral-800/50 group-hover:text-neutral-700 transition-colors select-none">
-                    0{step.id}
-                  </span>
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors relative z-10">
-                  {step.title}
-                </h3>
-                <p className="text-sm text-neutral-400 leading-relaxed relative z-10">
-                  {step.description}
-                </p>
-              </div>
-              {index > 0 && <Connector type="left" />}
-              {index === 0 && <Connector type="down-left" />}
+            <div className="text-neutral-400 text-lg mb-16 max-w-md leading-relaxed space-y-6">
+              <p>
+                Every founder has a story. Every entrepreneur has insights no
+                one else sees. Every leader carries a perspective that can
+                change someone’s life, or business, or belief.
+              </p>
+              <p className="text-white font-medium border-l-2 border-blue-500 pl-4">
+                We turn that into a brand people want to learn from.
+              </p>
             </div>
-          ))}
 
-          {/* ROW 3: 7 -> 8 -> 9 */}
-          {steps.slice(6, 9).map((step, index) => (
-            <div key={step.id} className="relative group">
-              <div
-                className={`relative z-10 h-full bg-neutral-900/80 backdrop-blur-md border ${step.border} rounded-2xl p-6 transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-[1.02] hover:${step.shadow} ${step.hoverShadow} opacity-0 animate-fade-in-up overflow-hidden`}
-                style={{ animationDelay: `${(index + 6) * 100}ms` }}
-              >
-                {/* Sheen Effect */}
-                <div className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-10">
-                  <div
-                    className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white to-transparent transform -skew-x-12 animate-sheen"
-                    style={{ animationDelay: "2s" }}
-                  ></div>
-                </div>
-
-                <div className="flex items-center justify-between mb-4 relative z-10">
-                  <div
-                    className={`p-3 rounded-lg bg-white/5 ${step.color} shadow-inner animate-float-icon`}
-                    style={{ animationDelay: "1s" }}
-                  >
-                    <step.icon size={24} />
-                  </div>
-                  <span className="text-4xl font-black text-neutral-800/50 group-hover:text-neutral-700 transition-colors select-none">
-                    0{step.id}
-                  </span>
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors relative z-10">
-                  {step.title}
-                </h3>
-                <p className="text-sm text-neutral-400 leading-relaxed relative z-10">
-                  {step.description}
-                </p>
-              </div>
-              {index < 2 && <Connector type="right" />}
+            {/* 3D Graphic (Desktop Only) */}
+            <div className="hidden lg:block relative h-[300px] w-full">
+              <GrowthReactor />
             </div>
-          ))}
-        </div>
+          </div>
 
-        {/* --- MOBILE LAYOUT (2 Columns, Snake Flow) --- */}
-        <div className="grid md:hidden grid-cols-2 gap-x-8 gap-y-16 max-w-md mx-auto relative">
-          {mobileSteps.map((step, index) => (
-            <div key={step.id} className="relative group">
-              <div
-                className={`relative z-10 h-full bg-neutral-900/80 backdrop-blur-md border ${step.border} rounded-2xl p-4 transition-all duration-500 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:${step.shadow} ${step.hoverShadow} opacity-0 animate-fade-in-up overflow-hidden`}
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                {/* Sheen Effect Mobile */}
-                <div className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-10">
-                  <div
-                    className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white to-transparent transform -skew-x-12 animate-sheen"
-                    style={{ animationDelay: `${index * 0.5}s` }}
-                  ></div>
-                </div>
-
-                <div className="flex items-center justify-between mb-3 relative z-10">
-                  <div
-                    className={`p-2 rounded-lg bg-white/5 ${step.color} shadow-inner animate-float-icon`}
-                  >
-                    <step.icon size={20} />
-                  </div>
-                  <span className="text-3xl font-black text-neutral-800/50 group-hover:text-neutral-700 select-none">
-                    0{step.id}
-                  </span>
-                </div>
-                <h3 className="text-lg font-bold text-white mb-1 leading-tight group-hover:text-cyan-400 transition-colors relative z-10">
-                  {step.title}
-                </h3>
-                <p className="text-xs text-neutral-400 leading-relaxed relative z-10">
-                  {step.description}
-                </p>
-              </div>
-
-              {/* Mobile Arrows based on visual index in the 2-col grid */}
-              {index === 0 && <Connector type="right" />}
-              {index === 1 && <Connector type="down" />}
-
-              {index === 3 && <Connector type="left" />}
-              {index === 2 && <Connector type="down" />}
-
-              {index === 4 && <Connector type="right" />}
-              {index === 5 && <Connector type="down" />}
-
-              {index === 7 && <Connector type="left" />}
-              {index === 6 && <Connector type="down" />}
-            </div>
-          ))}
+          {/* Right: Stacked Cards */}
+          <div className="flex justify-center lg:justify-end">
+            <StackedCardDeck />
+          </div>
         </div>
       </div>
     </section>
