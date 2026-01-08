@@ -5,21 +5,18 @@ import {
   BarChart2,
   Database,
   Activity,
-  Layers,
   MousePointer,
-  Maximize2,
-  ArrowRight,
   Zap,
   Globe,
   Filter,
-  Users,
+  ArrowRight,
 } from "lucide-react";
 
 // --- VISUAL ELEMENTS ---
 
-// 1. ANIMATED DIGITAL NOISE (Light Mode)
+// 1. DIGITAL NOISE (Optimized: Hidden on Mobile)
 const DigitalNoise = () => (
-  <div className="absolute inset-0 pointer-events-none z-50 mix-blend-multiply opacity-[0.03] overflow-hidden">
+  <div className="absolute inset-0 pointer-events-none z-50 mix-blend-multiply opacity-[0.03] overflow-hidden hidden md:block">
     <div className="w-[200%] h-[200%] absolute top-[-50%] left-[-50%] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] animate-grain"></div>
     <style>{`
       @keyframes grain {
@@ -41,37 +38,37 @@ const DigitalNoise = () => (
   </div>
 );
 
-// 2. CLEAN BACKGROUND (Optimized)
+// 2. CLEAN BACKGROUND (Optimized: No Animation on Mobile)
 const CleanBackground = () => (
   <div className="absolute inset-0 overflow-hidden bg-white pointer-events-none transform-gpu">
-    {/* Soft Green/Blue Gradients - GPU Accelerated */}
-    <div className="absolute top-[-20%] right-[-10%] w-[80vw] h-[80vw] bg-emerald-100/60 rounded-full blur-[120px] mix-blend-multiply animate-pulse-slow will-change-transform translate-z-0"></div>
-    <div className="absolute bottom-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-blue-100/60 rounded-full blur-[120px] mix-blend-multiply animate-pulse-slow delay-1000 will-change-transform translate-z-0"></div>
+    {/* Soft Green/Blue Gradients - GPU Accelerated - Hidden on Mobile */}
+    <div className="hidden md:block absolute top-[-20%] right-[-10%] w-[80vw] h-[80vw] bg-emerald-100/60 rounded-full blur-[120px] mix-blend-multiply animate-pulse-slow will-change-transform translate-z-0"></div>
+    <div className="hidden md:block absolute bottom-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-blue-100/60 rounded-full blur-[120px] mix-blend-multiply animate-pulse-slow delay-1000 will-change-transform translate-z-0"></div>
 
     {/* Dotted Pattern */}
     <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,black_40%,transparent_100%)] opacity-70"></div>
   </div>
 );
 
-// 3. ANALYTICS VIEWPORT (Enhanced)
+// 3. ANALYTICS VIEWPORT (Mobile Optimized)
 const AnalyticsViewport = () => (
-  <div className="absolute inset-0 pointer-events-none z-0 m-4 md:m-12 rounded-[3rem] border border-neutral-100 shadow-[0_20px_80px_-20px_rgba(0,0,0,0.05)] bg-white/40 backdrop-blur-sm overflow-hidden transform-gpu">
+  <div className="absolute inset-0 pointer-events-none z-0 m-4 md:m-12 rounded-[2rem] md:rounded-[3rem] border border-neutral-100 shadow-[0_20px_80px_-20px_rgba(0,0,0,0.05)] bg-white/40 backdrop-blur-sm overflow-hidden transform-gpu">
     {/* Mac-style Window Dots */}
-    <div className="absolute top-8 left-10 flex gap-2 z-10">
-      <div className="w-3 h-3 rounded-full bg-red-400/80"></div>
-      <div className="w-3 h-3 rounded-full bg-yellow-400/80"></div>
-      <div className="w-3 h-3 rounded-full bg-green-400/80"></div>
+    <div className="absolute top-4 md:top-8 left-6 md:left-10 flex gap-2 z-10">
+      <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-red-400/80"></div>
+      <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-yellow-400/80"></div>
+      <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-green-400/80"></div>
     </div>
 
     {/* Top Right Status */}
-    <div className="absolute top-6 right-8 flex items-center gap-2 bg-white/90 px-3 py-1.5 rounded-full shadow-sm border border-neutral-100 z-10">
+    <div className="absolute top-4 md:top-6 right-4 md:right-8 flex items-center gap-2 bg-white/90 px-3 py-1.5 rounded-full shadow-sm border border-neutral-100 z-10">
       <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-      <span className="text-xs font-semibold text-neutral-600 tracking-wide">
+      <span className="text-[10px] md:text-xs font-semibold text-neutral-600 tracking-wide">
         Live Pipeline
       </span>
     </div>
 
-    {/* Decorative Graph Background */}
+    {/* Decorative Graph Background - Optimized SVG */}
     <div className="absolute inset-x-0 bottom-0 h-[60%] opacity-30">
       <svg
         className="w-full h-full"
@@ -110,12 +107,12 @@ const AnalyticsViewport = () => (
   </div>
 );
 
-// --- COMPONENT: INTERACTIVE BENTO CARD (Optimized Light Mode Spotlight) ---
+// --- COMPONENT: INTERACTIVE BENTO CARD (Optimized) ---
 const InteractiveBentoCard = ({ children, className = "", delay = "0ms" }) => {
   const cardRef = useRef(null);
 
   const handleMouseMove = (e) => {
-    // Optimization: Skip on mobile
+    // Optimization: Skip completely on mobile
     if (window.matchMedia("(pointer: coarse)").matches) return;
 
     if (!cardRef.current) return;
@@ -123,7 +120,6 @@ const InteractiveBentoCard = ({ children, className = "", delay = "0ms" }) => {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    // Direct DOM update (No State)
     cardRef.current.style.setProperty("--mouse-x", `${x}px`);
     cardRef.current.style.setProperty("--mouse-y", `${y}px`);
     cardRef.current.style.setProperty("--opacity", "1");
@@ -142,9 +138,9 @@ const InteractiveBentoCard = ({ children, className = "", delay = "0ms" }) => {
       className={`relative overflow-hidden bg-white rounded-3xl border border-neutral-200 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-900/5 group animate-fade-in-up ${className}`}
       style={{ animationDelay: delay }}
     >
-      {/* Spotlight Effect - CSS Variable Driven */}
+      {/* Spotlight Effect - Desktop Only */}
       <div
-        className="pointer-events-none absolute -inset-px transition-opacity duration-300 z-0"
+        className="pointer-events-none absolute -inset-px transition-opacity duration-300 z-0 hidden md:block"
         style={{
           opacity: "var(--opacity, 0)",
           background: `radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(16,185,129,0.08), transparent 40%)`,
@@ -171,7 +167,7 @@ const LandingButton = ({ children, href }) => {
   );
 };
 
-// --- COMPONENT: INTERACTIVE TARGETING RADAR ---
+// --- COMPONENT: TARGETING RADAR (Simple CSS Animation) ---
 const TargetingRadar = () => {
   return (
     <div className="w-full h-full min-h-[300px] relative flex items-center justify-center overflow-hidden">
@@ -182,7 +178,7 @@ const TargetingRadar = () => {
         <div className="w-2 h-2 bg-emerald-500 rounded-full shadow-[0_0_10px_#10b981]"></div>
       </div>
 
-      {/* Scanner */}
+      {/* Scanner - CSS only */}
       <div
         className="absolute w-64 h-64 rounded-full border-t-2 border-r-2 border-transparent border-t-emerald-400/50 animate-spin-slow"
         style={{ maskImage: "linear-gradient(to bottom, black, transparent)" }}
@@ -215,11 +211,7 @@ const MetricCardContent = ({ title, value, sub, icon: Icon, trend = "up" }) => (
             : "bg-red-50 text-red-700 border-red-100"
         }`}
       >
-        {trend === "up" ? (
-          <TrendingUp size={12} />
-        ) : (
-          <TrendingUp size={12} className="rotate-180" />
-        )}
+        <TrendingUp size={12} className={trend !== "up" ? "rotate-180" : ""} />
         {sub}
       </div>
     </div>
@@ -281,9 +273,10 @@ const FunnelVisualizer = () => (
   </div>
 );
 
+// --- COMPONENT: PLATFORM MODULE ---
 const PlatformModule = () => (
   <div className="bg-neutral-900 text-white p-8 h-full relative overflow-hidden">
-    {/* Animated Background */}
+    {/* Animated Background - Simplified for mobile */}
     <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.05)_50%,transparent_75%,transparent_100%)] bg-[length:250%_250%] animate-shine"></div>
 
     <div className="relative z-10 h-full flex flex-col justify-between">
@@ -321,7 +314,8 @@ const DataTicker = () => {
   return (
     <div className="w-full bg-white border-y border-neutral-100 py-6 overflow-hidden relative">
       <div className="absolute inset-0 bg-neutral-50/50"></div>
-      <div className="flex animate-marquee gap-16 items-center whitespace-nowrap relative z-10">
+      {/* will-change-transform for mobile performance */}
+      <div className="flex animate-marquee gap-16 items-center whitespace-nowrap relative z-10 will-change-transform">
         {[
           "ROAS: 4.5x",
           "CAC: -40%",
@@ -337,7 +331,6 @@ const DataTicker = () => {
             </span>
           </div>
         ))}
-        {/* Duplicate for Loop */}
         {[
           "ROAS: 4.5x",
           "CAC: -40%",
@@ -358,34 +351,44 @@ const DataTicker = () => {
   );
 };
 
-// --- COMPONENT: TESTIMONIAL CARD ---
-const DataTestimonial = ({ quote, metric, author }) => (
-  <div className="bg-white border border-neutral-200 p-8 rounded-3xl relative overflow-hidden group hover:border-emerald-500/30 transition-all duration-300 shadow-sm hover:shadow-xl hover:shadow-emerald-900/5">
-    <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity transform group-hover:scale-110 duration-500">
-      <Zap size={64} className="text-emerald-600" />
-    </div>
-    <div className="relative z-10">
-      <div className="text-5xl font-black text-neutral-900 mb-3 tracking-tighter">
-        {metric}
+// --- COMPONENT: CAMPAIGN SLIDER (Renamed & Updated) ---
+const CampaignSlider = () => {
+  const images = ["/m1.jpeg", "/m2.jpeg", "/m3.jpeg", "/m4.jpeg", "/m5.jpeg"];
+
+  return (
+    <section className="py-24 bg-white border-t border-neutral-100">
+      <div className="container mx-auto px-4 mb-12 text-center">
+        <h2 className="text-3xl font-bold text-neutral-900 tracking-tight mb-2">
+          Campaigns That Convert
+        </h2>
+        <p className="text-neutral-500 text-sm">
+          Real-time data from our top performing accounts
+        </p>
       </div>
-      <div className="h-1.5 w-16 bg-emerald-500 rounded-full mb-8"></div>
-      <p className="text-neutral-600 text-xl font-medium leading-relaxed mb-8">
-        "{quote}"
-      </p>
-      <div className="flex items-center gap-4">
-        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-neutral-100 to-neutral-200 border border-neutral-100"></div>
-        <div>
-          <div className="text-sm font-bold text-neutral-900">
-            Verified Partner
-          </div>
-          <div className="font-mono text-xs text-neutral-400 uppercase tracking-widest">
-            {author}
-          </div>
+
+      <div className="w-full overflow-hidden relative bg-neutral-50/50 py-8">
+        <div className="absolute left-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-r from-neutral-50 to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute right-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-l from-neutral-50 to-transparent z-10 pointer-events-none"></div>
+
+        <div className="flex gap-6 animate-marquee whitespace-nowrap will-change-transform">
+          {[...images, ...images].map((src, i) => (
+            <div
+              key={i}
+              className="w-[280px] md:w-[400px] aspect-video flex-shrink-0 rounded-xl overflow-hidden border border-neutral-200 shadow-sm relative bg-white"
+            >
+              <img
+                src={src}
+                alt={`Campaign Visual ${i}`}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          ))}
         </div>
       </div>
-    </div>
-  </div>
-);
+    </section>
+  );
+};
 
 // --- MAIN PAGE ---
 export default function PerformanceMarketing() {
@@ -404,8 +407,8 @@ export default function PerformanceMarketing() {
           <div className="mb-8 flex justify-center">
             <div className="px-4 py-1 border border-emerald-200 rounded-full bg-green-50/50 backdrop-blur-md flex items-center gap-3 shadow-sm">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_#22c55e]"></div>
-              <span className="font-mono text-xs text-green-700 tracking-widest uppercase">
-                Performance Engine Active
+              <span className="font-semibold text-xs text-green-700 tracking-widest uppercase">
+                Performance Marketing
               </span>
             </div>
           </div>
@@ -417,15 +420,15 @@ export default function PerformanceMarketing() {
             </span>
           </h1>
 
-          <p className="max-w-xl mx-auto text-lg md:text-xl text-green-100/60 font-mono leading-relaxed mb-12">
+          <p className="max-w-xl mx-auto text-lg md:text-xl text-green-100/60 font-medium leading-relaxed mb-12">
             We don't just run ads. We build predictable, scalable revenue
             systems for founders.
           </p>
 
           <div className="flex flex-col items-center gap-4">
             <LandingButton href="#contact">SCALE MY REVENUE</LandingButton>
-            <span className="font-mono text-xs text-green-800 mt-4 animate-bounce">
-              INITIALIZING_SYSTEM...
+            <span className="font-medium text-xs text-green-800 mt-4 animate-bounce">
+              Ready to Scale?
             </span>
           </div>
         </div>
@@ -484,7 +487,7 @@ export default function PerformanceMarketing() {
             <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4 text-neutral-900">
               Growth Protocols
             </h2>
-            <p className="text-green-700/60 font-mono max-w-lg mx-auto">
+            <p className="text-green-700/60 font-medium max-w-lg mx-auto">
               DEPLOYING COMPOUNDING REVENUE SYSTEMS...
             </p>
           </div>
@@ -571,73 +574,40 @@ export default function PerformanceMarketing() {
       {/* --- SOCIAL PROOF --- */}
       <section className="py-24 bg-neutral-50 border-t border-neutral-200">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-mono font-bold text-neutral-900 text-center mb-16">
-            [ VALIDATED_RESULTS ]
+          <h2 className="text-3xl font-bold text-neutral-900 text-center mb-16 tracking-tight">
+            Real Business Impact
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div className="group hover:-translate-y-1 transition-transform duration-300">
               <div className="text-5xl font-black text-green-600 mb-2 group-hover:text-green-500 transition-colors">
                 2.3M+
               </div>
-              <div className="text-neutral-500 font-mono text-sm group-hover:text-neutral-700">
-                MONTHLY_PIPELINE
+              <div className="text-neutral-500 font-medium text-sm group-hover:text-neutral-700">
+                Monthly Pipeline
               </div>
             </div>
             <div className="group hover:-translate-y-1 transition-transform duration-300">
               <div className="text-5xl font-black text-green-600 mb-2 group-hover:text-green-500 transition-colors">
                 300%
               </div>
-              <div className="text-neutral-500 font-mono text-sm group-hover:text-neutral-700">
-                ROI_INCREASE
+              <div className="text-neutral-500 font-medium text-sm group-hover:text-neutral-700">
+                ROI Increase
               </div>
             </div>
             <div className="group hover:-translate-y-1 transition-transform duration-300">
               <div className="text-5xl font-black text-green-600 mb-2 group-hover:text-green-500 transition-colors">
                 -40%
               </div>
-              <div className="text-neutral-500 font-mono text-sm group-hover:text-neutral-700">
-                CAC_REDUCTION
-              </div>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
-            <DataTestimonial
-              metric="2.3M/mo"
-              quote="From 0 to consistent 2.3M/month pipeline in just 4 months."
-              author="SaaS Founder"
-            />
-            <DataTestimonial
-              metric="300% ROI"
-              quote="Doubled revenue in 60 days. The system just works."
-              author="E-com Brand"
-            />
-            <DataTestimonial
-              metric="-40% CAC"
-              quote="Cut our acquisition costs nearly in half while scaling volume."
-              author="EdTech CEO"
-            />
-          </div>
-
-          {/* Placeholder for PDF/Visual */}
-          <div className="mt-20 p-1 border border-neutral-200 rounded-2xl bg-white shadow-sm">
-            <div className="aspect-video w-full rounded-xl bg-neutral-100 flex items-center justify-center relative overflow-hidden group cursor-pointer hover:border-green-500/20 border border-transparent transition-all">
-              <div className="absolute inset-0 bg-green-50 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <div className="text-center z-10">
-                <div className="text-6xl mb-4 group-hover:scale-110 transition-transform">
-                  📄
-                </div>
-                <h3 className="text-neutral-900 font-bold text-xl group-hover:text-green-600 transition-colors">
-                  Google Campaigns Case Study
-                </h3>
-                <p className="text-neutral-500 text-sm group-hover:text-neutral-700">
-                  Click to view the PDF breakdown
-                </p>
+              <div className="text-neutral-500 font-medium text-sm group-hover:text-neutral-700">
+                CAC Reduction
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* --- CAMPAIGN SLIDER (Renamed from Case Study) --- */}
+      <CampaignSlider />
 
       {/* --- FINAL CTA --- */}
       <section
@@ -661,7 +631,7 @@ export default function PerformanceMarketing() {
           <div className="group relative inline-flex justify-center items-center">
             <div className="absolute -inset-1 bg-emerald-500 rounded-full blur opacity-20 group-hover:opacity-50 transition duration-500"></div>
             <a
-              href="#contact"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSf8jNC6LO5KNpe1Rf0oJ-sqo9C_6UrtJopoyEdxnx45Yil_oA/viewform"
               className="relative px-12 py-6 bg-white text-black font-bold text-xl rounded-full tracking-wide hover:scale-105 transition-transform duration-300 shadow-2xl flex items-center gap-3"
             >
               <Zap className="w-6 h-6 text-emerald-600 fill-current" />

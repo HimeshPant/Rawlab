@@ -92,9 +92,6 @@ export default function Hero() {
           <LandingButton href="#contact" variant="primary">
             👉 Book a Strategy Call
           </LandingButton>
-          <LandingButton href="#process" variant="secondary">
-            View The Process
-          </LandingButton>
         </div>
       </div>
 

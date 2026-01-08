@@ -202,7 +202,10 @@ const OurStory = () => {
                   className="pl-0 md:pl-12 pt-8 animate-fade-in-up"
                   style={{ animationDelay: "500ms" }}
                 >
-                  <LandingButton href="#contact" variant="primary">
+                  <LandingButton
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSf8jNC6LO5KNpe1Rf0oJ-sqo9C_6UrtJopoyEdxnx45Yil_oA/viewform"
+                    variant="primary"
+                  >
                     <Mic className="w-5 h-5 mr-2" /> Start Your Chapter
                   </LandingButton>
                 </div>
@@ -211,11 +214,6 @@ const OurStory = () => {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="border-t border-neutral-200 py-12 bg-white text-center text-neutral-500 text-sm relative z-10">
-        <p>&copy; 2024 Teach To Grow. All rights reserved.</p>
-      </footer>
     </div>
   );
 };

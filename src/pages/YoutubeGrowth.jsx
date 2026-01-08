@@ -21,6 +21,7 @@ import {
   Eye,
   Heart,
   Flame,
+  Globe,
 } from "lucide-react";
 
 // --- 1. VISUAL ENGINE: CINEMATIC BACKGROUND (Light Mode - Red Theme) ---
@@ -147,7 +148,7 @@ const ViralReactor = () => {
             <div className="p-1 bg-red-50 rounded-full text-red-500">
               <Heart size={12} className="fill-red-500" />
             </div>
-            <span>Influence</span>
+            <span>Trust</span>
           </div>
         </div>
         <div
@@ -156,9 +157,9 @@ const ViralReactor = () => {
         >
           <div className="flex items-center gap-2 text-xs font-bold text-neutral-800">
             <div className="p-1 bg-green-50 rounded-full text-green-500">
-              <TrendingUp size={12} />
+              <Globe size={12} />
             </div>
-            <span>Growth</span>
+            <span>Influence</span>
           </div>
         </div>
       </div>
@@ -166,82 +167,7 @@ const ViralReactor = () => {
   );
 };
 
-// --- 4. COMPONENT: BRAND SHOWCASE (The Wall of Influence) ---
-const BrandShowcase = () => {
-  const images = [
-    "/1.jpeg",
-    "/2.jpeg",
-    "/3.jpeg",
-    "/25.jpeg",
-    "/7.jpeg",
-    "/8.jpeg",
-    "/9.jpeg",
-    "/10.jpeg",
-    "/11.jpeg",
-    "/12.jpeg",
-    "/22.jpeg",
-    "/14.jpeg",
-    "/15.jpeg",
-    "/16.jpeg",
-    "/17.jpeg",
-    "/18.jpeg",
-    "/19.jpeg",
-    "/20.jpeg",
-  ];
-
-  return (
-    <section className="py-20 overflow-hidden relative">
-      <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-b from-[#fafafa] via-transparent to-[#fafafa]"></div>
-
-      {/* 3D Tilted Container */}
-      <div className="relative z-10 transform -rotate-2 scale-105 flex flex-col gap-8 opacity-90 hover:opacity-100 transition-opacity duration-700">
-        {/* Row 1: Left */}
-        <div className="flex gap-6 animate-marquee w-max">
-          {[...images, ...images].map((src, i) => (
-            <div
-              key={`r1-${i}`}
-              className="relative w-64 h-80 rounded-2xl overflow-hidden shadow-xl border-4 border-white transform transition-transform duration-500 hover:scale-105 group"
-            >
-              <img
-                src={src}
-                alt="Brand Result"
-                className="w-full h-full object-cover filter grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-red-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <span className="text-white font-bold tracking-widest text-sm uppercase translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                  Authority
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Row 2: Right */}
-        <div className="flex gap-6 animate-marquee-reverse w-max ml-[-200px]">
-          {[...images.reverse(), ...images].map((src, i) => (
-            <div
-              key={`r2-${i}`}
-              className="relative w-64 h-80 rounded-2xl overflow-hidden shadow-xl border-4 border-white transform transition-transform duration-500 hover:scale-105 group"
-            >
-              <img
-                src={src}
-                alt="Brand Result"
-                className="w-full h-full object-cover filter grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-red-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <span className="text-white font-bold tracking-widest text-sm uppercase translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                  Influence
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-// --- 5. COMPONENT: AESTHETIC CARD COMPONENT (Optimized) ---
+// --- 4. COMPONENT: AESTHETIC CARD COMPONENT (Optimized) ---
 const AestheticCard = ({
   title,
   description,
@@ -437,9 +363,9 @@ const TestimonialsSection = () => {
   const testimonials = [
     {
       name: "Sarah Jenkins",
-      title: "Math Educator",
+      title: "CEO & Founder",
       quote:
-        "My channel went from 1k to 100k subs in 6 months. The strategy is real.",
+        "My personal brand now drives 80% of our inbound leads. The authority I've built is real.",
       logoUrl: "https://placehold.co/100x100/222/fff?text=S",
     },
     {
@@ -450,11 +376,11 @@ const TestimonialsSection = () => {
       logoUrl: "https://placehold.co/100x100/222/fff?text=A",
     },
     {
-      name: "Coding with Lewis",
-      title: "Tech Influencer",
+      name: "Tech Leader",
+      title: "Founder, SaaS",
       quote:
-        "Teach to Grow handles everything. I just record and they make it viral.",
-      logoUrl: "https://placehold.co/100x100/222/fff?text=C",
+        "They turned my expertise into a scalable content machine. My LinkedIn and YouTube are flying.",
+      logoUrl: "https://placehold.co/100x100/222/fff?text=T",
     },
   ];
 
@@ -506,41 +432,41 @@ const TestimonialsSection = () => {
 export default function YouTubeGrowth() {
   const features = [
     {
-      title: "YouTube Strategy",
+      title: "YouTube Authority Positioning",
       description:
-        "Topics, thumbnails, titles, analytics, retention hacks and dominating the algorithms.",
+        "Crafting videos that educate, inspire, and position you as a category leader.",
       icon: Youtube,
     },
     {
-      title: "Instagram Authority",
+      title: "Instagram Reputation Building",
       description:
-        "Reels, captions, trends, storytelling, and a complete hashtag strategy to maximize reach.",
+        "Reels, carousels, stories — strategically aligned to your voice & audience psychology.",
       icon: Instagram,
     },
     {
-      title: "Scripting & Storytelling",
+      title: "Content Strategy & Story Engineering",
       description:
-        "We make your lessons viral and your words unforgettable through psychological hooks.",
+        "We turn your experiences into consumable, viral, emotional storytelling.",
       icon: PenTool,
     },
     {
-      title: "Content Repurposing",
+      title: "Content Repurposing Engine",
       description:
-        "One shoot = 20+ usable pieces. We slice long-form into shorts, reels, and posts.",
+        "One shoot = 30+ premium pieces across platforms. Maximize your output.",
       icon: Repeat,
     },
     {
-      title: "Performance Insights",
+      title: "Growth Systems & Analytics",
       description:
-        "Real-time analytics & monthly growth reports to track what's working.",
+        "What to publish, when to publish, who it’s for, and how it scales.",
       icon: BarChart3,
     },
     // The 6th Card - Special Dark Variant
     {
-      title: "Not Just Viral. Valuable.",
+      title: "It's About Positioning.",
       description:
-        "This isn't about followers. It's about becoming follow-worthy. We focus on impact over vanity metrics.",
-      icon: Flame,
+        "This isn’t about going viral. It’s about becoming valuable. This isn’t about followers. It’s about becoming follow-worthy.",
+      icon: Crown,
       variant: "dark",
     },
   ];
@@ -555,24 +481,24 @@ export default function YouTubeGrowth() {
         <div className="relative z-10 max-w-6xl mx-auto">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white border border-neutral-200 mb-12 shadow-sm animate-fade-in-up hover:border-red-300 hover:shadow-md transition-all duration-500 cursor-default group hover:-translate-y-0.5">
-            <Youtube
+            <User
               size={16}
               className="text-red-600 fill-red-600 group-hover:scale-110 transition-transform"
             />
             <span className="text-xs font-bold tracking-[0.25em] text-neutral-500 uppercase group-hover:text-red-800 transition-colors">
-              YouTube Growth
+              Personal Brand Growth
             </span>
           </div>
 
           {/* Headline - Black & Grey Contrast */}
           <h1
-            className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-10 text-neutral-900 leading-[1.0] drop-shadow-sm animate-fade-in-up"
+            className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter mb-10 text-neutral-900 leading-[1.0] drop-shadow-sm animate-fade-in-up"
             style={{ animationDelay: "100ms" }}
           >
-            You’re One Strategy <br className="hidden md:block" /> Away from{" "}
-            <br />
+            You’re One Strategy <br className="hidden md:block" /> Away From
+            Becoming a <br />
             <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-red-600 to-orange-500 pb-2">
-              Becoming a Brand.
+              Category Leader.
             </span>
           </h1>
 
@@ -581,10 +507,12 @@ export default function YouTubeGrowth() {
             className="max-w-3xl mx-auto text-xl md:text-2xl text-neutral-500 mb-16 leading-relaxed font-light animate-fade-in-up"
             style={{ animationDelay: "200ms" }}
           >
-            Whether you’re starting from zero or already have an audience, we
-            help you dominate YouTube and Instagram —{" "}
+            Your experience deserves attention. Your ideas deserve followers.
+            Your story deserves a stage. We help founders & leaders turn their
+            personality, expertise, and voice into a{" "}
             <strong className="font-semibold text-neutral-900">
-              organically, strategically, and at scale.
+              powerful personal brand that attracts opportunities, clients,
+              talent, and trust.
             </strong>
           </p>
 
@@ -594,7 +522,7 @@ export default function YouTubeGrowth() {
             style={{ animationDelay: "300ms" }}
           >
             <LandingButton href="#contact" variant="primary">
-              👉 Let’s Grow My Brand
+              👉 Build My Personal Brand
             </LandingButton>
           </div>
         </div>
@@ -608,32 +536,43 @@ export default function YouTubeGrowth() {
               <div className="flex items-center gap-3 mb-8">
                 <div className="h-px w-12 bg-red-600"></div>
                 <div className="text-red-600 font-bold tracking-[0.2em] uppercase text-sm">
-                  The Reality Check
+                  The Problem
                 </div>
               </div>
 
               <h2 className="text-4xl md:text-6xl font-black text-neutral-900 mb-10 leading-[1.1] tracking-tight">
-                Great Teachers are <br />
+                You Speak, But the <br />
                 <span className="text-neutral-400">
-                  Often Invisible Online.
+                  Internet Doesn’t Hear You Yet.
                 </span>
               </h2>
 
               <div className="space-y-8 text-lg text-neutral-600 font-normal leading-relaxed">
                 <p>
-                  You’ve mastered the art of teaching — but in the digital
-                  world, attention is currency. And being “good” isn’t enough —{" "}
+                  The modern world rewards visibility, not just ability. You may
+                  be brilliant at what you do — but if your audience can’t find
+                  you, follow you, or feel connected to your story…{" "}
                   <span className="text-neutral-900 font-medium border-b-2 border-red-100">
-                    you need to be visible.
+                    your impact stays hidden.
                   </span>
                 </p>
-                <blockquote className="pl-6 border-l-4 border-red-600 py-2 bg-white shadow-sm rounded-r-xl italic text-neutral-800">
-                  "If you’re struggling to grow your YouTube channel... you’re
-                  not alone."
-                </blockquote>
                 <p>
-                  Most educators don’t need a new platform — they need the right
-                  growth system.
+                  Content doesn’t grow on its own. Algorithms don’t favor you
+                  automatically. Your expertise isn’t enough without a system
+                  that amplifies it.
+                </p>
+                <p>
+                  Most founders have the knowledge. Most companies have the
+                  message. But very few have the content strategy, story
+                  structure, and distribution system that turns them into
+                  thought leaders.
+                </p>
+                <blockquote className="pl-6 border-l-4 border-red-600 py-2 bg-white shadow-sm rounded-r-xl italic text-neutral-800">
+                  "People don’t follow you because of what you do. They follow
+                  you because of what you believe and how you make them feel."
+                </blockquote>
+                <p className="font-semibold text-neutral-900">
+                  We help you communicate exactly that.
                 </p>
               </div>
             </div>
@@ -655,21 +594,23 @@ export default function YouTubeGrowth() {
         <div className="container mx-auto px-4 max-w-7xl relative z-10">
           <div className="mb-24 text-center max-w-3xl mx-auto">
             <span className="text-xs font-bold tracking-[0.2em] text-red-600 uppercase block mb-6">
-              The Teach 2 Grow Solution
+              The Solution
             </span>
             <h2 className="text-4xl md:text-6xl font-black text-neutral-900 mb-8 tracking-tight leading-tight">
-              From Classroom Hero to <br />
+              Your Expertise. <br />
+              Our Strategy. <br />
               <span className="text-red-600 relative inline-block">
-                Online Authority.
+                Global Influence.
                 <span className="absolute bottom-1 left-0 w-full h-3 bg-red-100 -z-10 transform -rotate-1"></span>
               </span>
             </h2>
             <p className="text-xl text-neutral-500 font-light leading-relaxed">
-              We combine storytelling, psychology, and analytics to build your
-              personal brand into a magnet.
+              Every founder has a story. Every entrepreneur has insights no one
+              else sees. Every leader carries a perspective that can change
+              someone’s life, or business, or belief.
               <br className="hidden md:block" />
               <strong className="text-neutral-900 font-medium">
-                Our team doesn’t just manage content — we engineer growth.
+                We turn that into a brand people want to learn from.
               </strong>
             </p>
           </div>
@@ -689,9 +630,9 @@ export default function YouTubeGrowth() {
             <div className="inline-flex items-center gap-3 bg-red-50 px-6 py-3 rounded-full border border-red-100 shadow-sm transition-shadow cursor-default">
               <Zap className="w-5 h-5 text-yellow-500 fill-yellow-500 animate-pulse" />
               <span className="text-neutral-700 font-medium text-lg">
-                You bring the knowledge.{" "}
+                This isn't about posting.{" "}
                 <span className="font-bold text-red-700">
-                  We’ll bring the spotlight.
+                  It's about positioning.
                 </span>
               </span>
             </div>
@@ -712,22 +653,25 @@ export default function YouTubeGrowth() {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="mb-10 font-mono text-red-600 tracking-widest uppercase font-bold text-sm bg-red-50 px-4 py-2 rounded-full inline-block border border-red-100">
-            Ready to Lead?
+            Ready for Impact?
           </div>
-          <h2 className="text-5xl md:text-8xl font-black text-neutral-900 tracking-tighter mb-10 leading-tight">
-            Ready to Become the <br />
+          <h2 className="text-5xl md:text-7xl font-black text-neutral-900 tracking-tighter mb-10 leading-tight">
+            Let’s Build Your <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-700 to-orange-600 relative">
-              Name Everyone Remembers?
+              Digital Reputation.
             </span>
           </h2>
 
           <p className="text-xl md:text-2xl text-neutral-500 mb-16 max-w-3xl mx-auto font-light leading-relaxed">
-            Let’s turn your expertise into influence — and your content into
-            community.
+            The one your work deserves. Your story is powerful. Let’s make the
+            world hear it.
           </p>
 
-          <LandingButton href="#contact" variant="primary">
-            <Mic className="w-5 h-5 mr-2" /> Book a Free Brand Strategy Call
+          <LandingButton
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf8jNC6LO5KNpe1Rf0oJ-sqo9C_6UrtJopoyEdxnx45Yil_oA/viewform"
+            variant="primary"
+          >
+            <Mic className="w-5 h-5 mr-2" /> Schedule My Brand Growth Call
           </LandingButton>
         </div>
       </section>
