@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef } from "react";
 import {
   TrendingUp,
   Target,
@@ -10,32 +10,52 @@ import {
   Maximize2,
   ArrowRight,
   Zap,
-  Cpu,
   Globe,
-  CheckCircle,
   Filter,
   Users,
-  Search,
-  PieChart,
 } from "lucide-react";
 
 // --- VISUAL ELEMENTS ---
 
-// 1. CLEAN BACKGROUND (Refined)
+// 1. ANIMATED DIGITAL NOISE (Light Mode)
+const DigitalNoise = () => (
+  <div className="absolute inset-0 pointer-events-none z-50 mix-blend-multiply opacity-[0.03] overflow-hidden">
+    <div className="w-[200%] h-[200%] absolute top-[-50%] left-[-50%] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] animate-grain"></div>
+    <style>{`
+      @keyframes grain {
+        0%, 100% { transform: translate(0, 0); }
+        10% { transform: translate(-5%, -10%); }
+        20% { transform: translate(-15%, 5%); }
+        30% { transform: translate(7%, -25%); }
+        40% { transform: translate(-5%, 25%); }
+        50% { transform: translate(-15%, 10%); }
+        60% { transform: translate(15%, 0%); }
+        70% { transform: translate(0%, 15%); }
+        80% { transform: translate(3%, 35%); }
+        90% { transform: translate(-10%, 10%); }
+      }
+      .animate-grain {
+        animation: grain 8s steps(10) infinite;
+      }
+    `}</style>
+  </div>
+);
+
+// 2. CLEAN BACKGROUND (Optimized)
 const CleanBackground = () => (
-  <div className="absolute inset-0 overflow-hidden bg-white pointer-events-none">
-    {/* Soft Green/Blue Gradients - Slightly more vibrant */}
-    <div className="absolute top-[-20%] right-[-10%] w-[80vw] h-[80vw] bg-emerald-100/60 rounded-full blur-[120px] mix-blend-multiply animate-pulse-slow"></div>
-    <div className="absolute bottom-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-blue-100/60 rounded-full blur-[120px] mix-blend-multiply animate-pulse-slow delay-1000"></div>
+  <div className="absolute inset-0 overflow-hidden bg-white pointer-events-none transform-gpu">
+    {/* Soft Green/Blue Gradients - GPU Accelerated */}
+    <div className="absolute top-[-20%] right-[-10%] w-[80vw] h-[80vw] bg-emerald-100/60 rounded-full blur-[120px] mix-blend-multiply animate-pulse-slow will-change-transform translate-z-0"></div>
+    <div className="absolute bottom-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-blue-100/60 rounded-full blur-[120px] mix-blend-multiply animate-pulse-slow delay-1000 will-change-transform translate-z-0"></div>
 
     {/* Dotted Pattern */}
     <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,black_40%,transparent_100%)] opacity-70"></div>
   </div>
 );
 
-// 2. ANALYTICS VIEWPORT (Enhanced with Live Graph)
+// 3. ANALYTICS VIEWPORT (Enhanced)
 const AnalyticsViewport = () => (
-  <div className="absolute inset-0 pointer-events-none z-0 m-4 md:m-12 rounded-[3rem] border border-neutral-100 shadow-[0_20px_80px_-20px_rgba(0,0,0,0.05)] bg-white/40 backdrop-blur-sm overflow-hidden">
+  <div className="absolute inset-0 pointer-events-none z-0 m-4 md:m-12 rounded-[3rem] border border-neutral-100 shadow-[0_20px_80px_-20px_rgba(0,0,0,0.05)] bg-white/40 backdrop-blur-sm overflow-hidden transform-gpu">
     {/* Mac-style Window Dots */}
     <div className="absolute top-8 left-10 flex gap-2 z-10">
       <div className="w-3 h-3 rounded-full bg-red-400/80"></div>
@@ -90,21 +110,28 @@ const AnalyticsViewport = () => (
   </div>
 );
 
-// --- COMPONENT: INTERACTIVE BENTO CARD (Light Mode Spotlight) ---
+// --- COMPONENT: INTERACTIVE BENTO CARD (Optimized Light Mode Spotlight) ---
 const InteractiveBentoCard = ({ children, className = "", delay = "0ms" }) => {
   const cardRef = useRef(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [opacity, setOpacity] = useState(0);
 
   const handleMouseMove = (e) => {
+    // Optimization: Skip on mobile
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-    setOpacity(1);
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    // Direct DOM update (No State)
+    cardRef.current.style.setProperty("--mouse-x", `${x}px`);
+    cardRef.current.style.setProperty("--mouse-y", `${y}px`);
+    cardRef.current.style.setProperty("--opacity", "1");
   };
 
   const handleMouseLeave = () => {
-    setOpacity(0);
+    if (!cardRef.current) return;
+    cardRef.current.style.setProperty("--opacity", "0");
   };
 
   return (
@@ -115,12 +142,12 @@ const InteractiveBentoCard = ({ children, className = "", delay = "0ms" }) => {
       className={`relative overflow-hidden bg-white rounded-3xl border border-neutral-200 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-900/5 group animate-fade-in-up ${className}`}
       style={{ animationDelay: delay }}
     >
-      {/* Spotlight Effect */}
+      {/* Spotlight Effect - CSS Variable Driven */}
       <div
-        className="pointer-events-none absolute -inset-px transition-opacity duration-300 opacity-0 group-hover:opacity-100 z-0"
+        className="pointer-events-none absolute -inset-px transition-opacity duration-300 z-0"
         style={{
-          opacity: opacity,
-          background: `radial-gradient(600px circle at ${mousePos.x}px ${mousePos.y}px, rgba(16,185,129,0.08), transparent 40%)`,
+          opacity: "var(--opacity, 0)",
+          background: `radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(16,185,129,0.08), transparent 40%)`,
         }}
       />
 
@@ -304,7 +331,7 @@ const DataTicker = () => {
           "CONVERSION: 12%",
         ].map((stat, i) => (
           <div key={i} className="flex items-center gap-3">
-            <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></div>
+            <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_#22c55e]"></div>
             <span className="text-lg text-neutral-600 font-semibold tracking-wide font-mono">
               {stat}
             </span>
@@ -320,7 +347,7 @@ const DataTicker = () => {
           "CONVERSION: 12%",
         ].map((stat, i) => (
           <div key={`dup-${i}`} className="flex items-center gap-3">
-            <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></div>
+            <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_#22c55e]"></div>
             <span className="text-lg text-neutral-600 font-semibold tracking-wide font-mono">
               {stat}
             </span>
@@ -364,52 +391,42 @@ const DataTestimonial = ({ quote, metric, author }) => (
 export default function PerformanceMarketing() {
   return (
     <div className="relative min-h-screen bg-white text-neutral-900 font-sans selection:bg-emerald-100 selection:text-emerald-900 overflow-x-hidden">
+      <DigitalNoise />
+
       {/* NAVBAR REMOVED */}
 
       {/* --- HERO SECTION --- */}
-      <section className="relative h-screen flex flex-col items-center justify-center pt-10 px-4 overflow-hidden">
+      <section className="relative h-screen flex flex-col items-center justify-center pt-20 px-4 overflow-hidden">
         <CleanBackground />
         <AnalyticsViewport />
 
         <div className="relative z-10 max-w-5xl mx-auto text-center">
-          <div className="mb-10 flex justify-center">
-            <div className="px-5 py-2 border border-emerald-200/60 rounded-full bg-white/50 backdrop-blur-md shadow-sm flex items-center gap-3 animate-fade-in-up">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-              </span>
-              <span className="text-xs font-bold text-emerald-800 tracking-widest uppercase">
+          <div className="mb-8 flex justify-center">
+            <div className="px-4 py-1 border border-emerald-200 rounded-full bg-green-50/50 backdrop-blur-md flex items-center gap-3 shadow-sm">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_#22c55e]"></div>
+              <span className="font-mono text-xs text-green-700 tracking-widest uppercase">
                 Performance Engine Active
               </span>
             </div>
           </div>
 
-          <h1
-            className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-8 text-neutral-900 leading-[0.95] drop-shadow-sm animate-fade-in-up"
-            style={{ animationDelay: "100ms" }}
-          >
-            We Don't Run Ads. <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-700">
-              We Build Revenue.
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-8 text-neutral-900 leading-[0.9]">
+            REVENUE <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-b from-green-400 to-green-900">
+              ENGINE.
             </span>
           </h1>
 
-          <p
-            className="max-w-2xl mx-auto text-xl md:text-2xl text-neutral-500 font-medium leading-relaxed mb-12 animate-fade-in-up"
-            style={{ animationDelay: "200ms" }}
-          >
-            Predictable growth isn’t a myth. We design performance systems that
-            bring leads, customers, and real, trackable revenue.
+          <p className="max-w-xl mx-auto text-lg md:text-xl text-green-100/60 font-mono leading-relaxed mb-12">
+            We don't just run ads. We build predictable, scalable revenue
+            systems for founders.
           </p>
 
-          <div
-            className="flex flex-col items-center gap-6 animate-fade-in-up"
-            style={{ animationDelay: "300ms" }}
-          >
+          <div className="flex flex-col items-center gap-4">
             <LandingButton href="#contact">SCALE MY REVENUE</LandingButton>
-            <p className="text-xs font-bold tracking-widest text-neutral-400 uppercase">
-              Trusted by 50+ Education Brands
-            </p>
+            <span className="font-mono text-xs text-green-800 mt-4 animate-bounce">
+              INITIALIZING_SYSTEM...
+            </span>
           </div>
         </div>
       </section>
@@ -417,78 +434,43 @@ export default function PerformanceMarketing() {
       {/* --- TICKER --- */}
       <DataTicker />
 
-      {/* --- THE PROBLEM (Clean Contrast) --- */}
-      <section className="py-32 px-6 bg-neutral-50">
+      {/* --- THE PROBLEM (Glitch/Alert Style) --- */}
+      <section className="py-32 px-6 bg-neutral-50 border-b border-neutral-200">
         <div className="container mx-auto">
-          <div className="flex flex-col md:flex-row gap-20 items-center">
-            <div className="md:w-1/2">
-              <div className="inline-block px-3 py-1 bg-red-100 text-red-700 rounded-lg text-xs font-bold mb-6 tracking-wide">
+          <div className="flex flex-col md:flex-row gap-16 items-start">
+            <div className="md:w-1/3 sticky top-32">
+              <div className="inline-block px-2 py-1 bg-red-100 text-red-700 rounded-lg text-xs font-bold mb-6 tracking-wide">
                 CRITICAL ERROR
               </div>
-              <h2 className="text-5xl md:text-6xl font-bold text-neutral-900 mb-8 leading-none tracking-tight">
-                Most Ads Get Clicks. <br />
-                <span className="text-neutral-400">
-                  Yours Should Get Customers.
-                </span>
+              <h2 className="text-5xl font-bold mb-6 leading-none text-neutral-900">
+                Clicks <br /> ≠ Cash.
               </h2>
-              <div className="space-y-8 text-xl text-neutral-600 font-light">
-                <p>
-                  Companies burn money on random boosts. Founders get
-                  disappointed with “brand awareness.”
-                </p>
-                <div className="border-l-4 border-red-500 pl-8 py-2">
-                  <p className="font-semibold text-neutral-900 italic">
-                    "Attention isn’t enough. Conversion is everything."
-                  </p>
-                </div>
-                <p>
-                  Clicks don’t mean growth. Reach doesn’t mean revenue. You need
-                  a system that closes deals.
-                </p>
-              </div>
+              <div className="h-1 w-20 bg-red-600 mb-6"></div>
+              <p className="text-neutral-500 text-lg">
+                Most ads get attention. <br /> Yours need to get customers.
+              </p>
             </div>
 
-            <div className="md:w-1/2 w-full">
-              {/* Illustration of Broken Funnel */}
-              <div className="bg-white rounded-[2.5rem] shadow-2xl shadow-neutral-200/50 border border-neutral-100 p-10 relative overflow-hidden transform rotate-2 hover:rotate-0 transition-transform duration-500">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-red-50 rounded-bl-full -mr-16 -mt-16 pointer-events-none"></div>
+            <div className="md:w-2/3 space-y-12">
+              <div className="p-8 bg-white border-l-4 border-red-500 rounded-r-2xl shadow-sm">
+                <h3 className="text-2xl font-bold mb-4 text-neutral-900">
+                  The Awareness Trap
+                </h3>
+                <p className="text-neutral-600 text-lg">
+                  Founders burn money on "brand awareness" while their bank
+                  accounts stay empty. Metrics don't pay rent. Revenue does.
+                </p>
+              </div>
 
-                <div className="space-y-6 relative z-10">
-                  <div>
-                    <div className="flex justify-between text-sm font-bold text-neutral-400 uppercase tracking-widest mb-2">
-                      <span>Ad Spend</span>
-                      <span className="text-red-500">-$15,400</span>
-                    </div>
-                    <div className="w-full bg-neutral-100 rounded-full h-4 overflow-hidden">
-                      <div className="bg-red-500 w-[85%] h-full rounded-full striped-bar"></div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="flex justify-between text-sm font-bold text-neutral-400 uppercase tracking-widest mb-2">
-                      <span>Revenue</span>
-                      <span className="text-neutral-900">$0</span>
-                    </div>
-                    <div className="w-full bg-neutral-100 rounded-full h-4 overflow-hidden">
-                      <div className="bg-neutral-300 w-[5%] h-full rounded-full"></div>
-                    </div>
-                  </div>
-
-                  <div className="mt-8 p-6 bg-red-50 rounded-2xl border border-red-100 flex items-start gap-4">
-                    <div className="p-2 bg-white rounded-xl shadow-sm text-red-500">
-                      <Zap size={20} />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-red-900 text-sm">
-                        Leak Detected
-                      </h4>
-                      <p className="text-red-700/80 text-sm mt-1">
-                        High traffic, zero conversion. Funnel optimization
-                        required immediately.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+              <div className="p-8 bg-white border-l-4 border-neutral-300 rounded-r-2xl shadow-sm">
+                <h3 className="text-2xl font-bold mb-4 text-neutral-900">
+                  The Broken Funnel
+                </h3>
+                <p className="text-neutral-600 text-lg">
+                  Traffic without a system is just noise. We don't just send
+                  clicks; we engineer the entire journey from "Who are you?" to
+                  "Take my money."
+                </p>
               </div>
             </div>
           </div>
@@ -498,16 +480,16 @@ export default function PerformanceMarketing() {
       {/* --- THE SOLUTION (Bento Grid) --- */}
       <section className="py-32 bg-white relative overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="mb-24 text-center max-w-3xl mx-auto">
-            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-6 text-neutral-900">
+          <div className="mb-20 text-center">
+            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4 text-neutral-900">
               Growth Protocols
             </h2>
-            <p className="text-emerald-700/80 font-mono font-medium tracking-wide">
+            <p className="text-green-700/60 font-mono max-w-lg mx-auto">
               DEPLOYING COMPOUNDING REVENUE SYSTEMS...
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {/* 1. Analytics Metric */}
             <InteractiveBentoCard delay="0ms">
               <MetricCardContent
@@ -587,13 +569,39 @@ export default function PerformanceMarketing() {
       </section>
 
       {/* --- SOCIAL PROOF --- */}
-      <section className="py-32 bg-neutral-50 border-t border-neutral-200">
+      <section className="py-24 bg-neutral-50 border-t border-neutral-200">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-mono font-bold text-neutral-900 text-center mb-20 tracking-tight">
-            [ VALIDATED RESULTS ]
+          <h2 className="text-3xl font-mono font-bold text-neutral-900 text-center mb-16">
+            [ VALIDATED_RESULTS ]
           </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div className="group hover:-translate-y-1 transition-transform duration-300">
+              <div className="text-5xl font-black text-green-600 mb-2 group-hover:text-green-500 transition-colors">
+                2.3M+
+              </div>
+              <div className="text-neutral-500 font-mono text-sm group-hover:text-neutral-700">
+                MONTHLY_PIPELINE
+              </div>
+            </div>
+            <div className="group hover:-translate-y-1 transition-transform duration-300">
+              <div className="text-5xl font-black text-green-600 mb-2 group-hover:text-green-500 transition-colors">
+                300%
+              </div>
+              <div className="text-neutral-500 font-mono text-sm group-hover:text-neutral-700">
+                ROI_INCREASE
+              </div>
+            </div>
+            <div className="group hover:-translate-y-1 transition-transform duration-300">
+              <div className="text-5xl font-black text-green-600 mb-2 group-hover:text-green-500 transition-colors">
+                -40%
+              </div>
+              <div className="text-neutral-500 font-mono text-sm group-hover:text-neutral-700">
+                CAC_REDUCTION
+              </div>
+            </div>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
             <DataTestimonial
               metric="2.3M/mo"
               quote="From 0 to consistent 2.3M/month pipeline in just 4 months."
@@ -612,18 +620,20 @@ export default function PerformanceMarketing() {
           </div>
 
           {/* Placeholder for PDF/Visual */}
-          <div className="mt-24 p-2 border border-neutral-200 rounded-[2rem] bg-white shadow-xl max-w-3xl mx-auto transform hover:scale-[1.01] transition-transform cursor-pointer group">
-            <div className="aspect-video w-full rounded-[1.5rem] bg-neutral-50 flex flex-col items-center justify-center relative overflow-hidden">
-              <div className="absolute inset-0 bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:20px_20px] opacity-50"></div>
-              <div className="w-20 h-20 bg-white rounded-full shadow-lg flex items-center justify-center text-4xl mb-6 group-hover:scale-110 transition-transform group-hover:text-emerald-600">
-                <BarChart2 />
+          <div className="mt-20 p-1 border border-neutral-200 rounded-2xl bg-white shadow-sm">
+            <div className="aspect-video w-full rounded-xl bg-neutral-100 flex items-center justify-center relative overflow-hidden group cursor-pointer hover:border-green-500/20 border border-transparent transition-all">
+              <div className="absolute inset-0 bg-green-50 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <div className="text-center z-10">
+                <div className="text-6xl mb-4 group-hover:scale-110 transition-transform">
+                  📄
+                </div>
+                <h3 className="text-neutral-900 font-bold text-xl group-hover:text-green-600 transition-colors">
+                  Google Campaigns Case Study
+                </h3>
+                <p className="text-neutral-500 text-sm group-hover:text-neutral-700">
+                  Click to view the PDF breakdown
+                </p>
               </div>
-              <h3 className="text-neutral-900 font-bold text-2xl mb-2">
-                Google Campaigns Case Study
-              </h3>
-              <p className="text-neutral-500 font-medium group-hover:text-emerald-600 transition-colors">
-                Click to access PDF breakdown
-              </p>
             </div>
           </div>
         </div>
@@ -631,7 +641,7 @@ export default function PerformanceMarketing() {
 
       {/* --- FINAL CTA --- */}
       <section
-        className="relative py-40 bg-neutral-900 overflow-hidden flex flex-col items-center justify-center min-h-[70vh]"
+        className="relative py-40 bg-neutral-900 overflow-hidden flex flex-col items-center justify-center min-h-[70vh] text-center"
         id="contact"
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.15)_0%,transparent_60%)] animate-pulse"></div>
@@ -641,8 +651,11 @@ export default function PerformanceMarketing() {
           <div className="mb-8 font-mono text-emerald-400 tracking-widest uppercase animate-pulse">
             System_Ready
           </div>
-          <h2 className="text-6xl md:text-9xl font-black text-white tracking-tighter mb-12 leading-none">
-            IGNITE <br /> <span className="text-emerald-500">GROWTH.</span>
+          <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-12 leading-tight">
+            Your Business Has Potential. <br />
+            <span className="text-emerald-500">
+              Let’s Turn It into Performance.
+            </span>
           </h2>
 
           <div className="group relative inline-flex justify-center items-center">
@@ -652,7 +665,7 @@ export default function PerformanceMarketing() {
               className="relative px-12 py-6 bg-white text-black font-bold text-xl rounded-full tracking-wide hover:scale-105 transition-transform duration-300 shadow-2xl flex items-center gap-3"
             >
               <Zap className="w-6 h-6 text-emerald-600 fill-current" />
-              <span>BOOK PERFORMANCE CALL</span>
+              <span>Book My Performance Call</span>
             </a>
           </div>
         </div>

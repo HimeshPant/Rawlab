@@ -9,20 +9,16 @@ import {
   Zap,
   ArrowRight,
   Play,
-  Sparkles,
   Maximize2,
-  Disc,
-  ArrowDown,
   Layers,
-  Camera,
 } from "lucide-react";
 
 // --- VISUAL ELEMENTS ---
 
-// 1. ANIMATED GRAIN TEXTURE
+// 1. ANIMATED GRAIN TEXTURE (Optimized)
 const FilmGrain = () => (
   <div className="absolute inset-0 pointer-events-none z-50 mix-blend-multiply opacity-[0.08] overflow-hidden">
-    <div className="w-[200%] h-[200%] absolute top-[-50%] left-[-50%] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] animate-grain"></div>
+    <div className="w-[200%] h-[200%] absolute top-[-50%] left-[-50%] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] animate-grain will-change-transform translate-z-0"></div>
     <style>{`
       @keyframes grain {
         0%, 100% { transform: translate(0, 0); }
@@ -73,9 +69,9 @@ const Viewfinder = () => (
 
 // --- COMPONENT: HERO VIDEO PLACEHOLDER ---
 const HeroGraphic = () => (
-  <div className="absolute inset-0 overflow-hidden bg-white">
-    <div className="absolute top-[-10%] right-[-10%] w-[60vw] h-[60vw] bg-gradient-to-b from-blue-50 to-transparent rounded-full blur-[100px] opacity-60"></div>
-    <div className="absolute bottom-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-gradient-to-t from-gray-100 to-transparent rounded-full blur-[100px] opacity-60"></div>
+  <div className="absolute inset-0 overflow-hidden bg-white transform-gpu">
+    <div className="absolute top-[-10%] right-[-10%] w-[60vw] h-[60vw] bg-gradient-to-b from-blue-50 to-transparent rounded-full blur-[100px] opacity-60 will-change-transform translate-z-0"></div>
+    <div className="absolute bottom-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-gradient-to-t from-gray-100 to-transparent rounded-full blur-[100px] opacity-60 will-change-transform translate-z-0"></div>
     <div className="absolute inset-0 bg-[linear-gradient(to_right,#f5f5f5_1px,transparent_1px),linear-gradient(to_bottom,#f5f5f5_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
   </div>
 );
@@ -95,28 +91,46 @@ const LandingButton = ({ children, href }) => {
   );
 };
 
-// --- COMPONENT: 3D INTERACTIVE AVATAR (Floating Camera Lens) ---
+// --- COMPONENT: 3D INTERACTIVE AVATAR (Optimized - No Lag) ---
 const InteractiveLens = () => {
-  const [rotate, setRotate] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (e) => {
-    const { clientX, clientY } = e;
-    const { innerWidth, innerHeight } = window;
-    const x = (clientX - innerWidth / 2) / 20;
-    const y = (clientY - innerHeight / 2) / 20;
-    setRotate({ x: -y, y: x });
-  };
+  // Use ref for direct DOM manipulation (High Performance)
+  const lensRef = useRef(null);
 
   useEffect(() => {
+    // Disable on mobile to save battery
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
+    let rafId;
+
+    const handleMouseMove = (e) => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        if (!lensRef.current) return;
+
+        const { clientX, clientY } = e;
+        const { innerWidth, innerHeight } = window;
+
+        // Reduced sensitivity divisor (30) for smoother feel
+        const x = (clientX - innerWidth / 2) / 30;
+        const y = (clientY - innerHeight / 2) / 30;
+
+        // Apply transform directly to DOM element
+        lensRef.current.style.transform = `rotateX(${-y}deg) rotateY(${x}deg)`;
+      });
+    };
+
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      cancelAnimationFrame(rafId);
+    };
   }, []);
 
   return (
     <div className="w-64 h-64 relative perspective-1000 hidden lg:flex items-center justify-center">
       <div
-        className="relative w-40 h-40 transform-style-3d transition-transform duration-100 ease-linear"
-        style={{ transform: `rotateX(${rotate.x}deg) rotateY(${rotate.y}deg)` }}
+        ref={lensRef}
+        className="relative w-40 h-40 transform-style-3d transition-transform duration-75 ease-out will-change-transform"
       >
         {/* Abstract 3D Lens Construction using CSS */}
         {/* Back Ring */}
@@ -127,7 +141,7 @@ const InteractiveLens = () => {
         <div className="absolute inset-6 rounded-full bg-gradient-to-tr from-blue-500/20 to-purple-500/20 border border-white/30 transform translate-z-10 shadow-inner flex items-center justify-center">
           <div className="w-4 h-4 bg-white rounded-full blur-sm opacity-80 animate-pulse"></div>
         </div>
-        {/* Orbiting Decor */}
+        {/* Orbiting Decor - CSS Animation is performant */}
         <div className="absolute -inset-4 border border-blue-500/30 rounded-full transform rotateY(45deg) animate-spin-slow"></div>
         <div className="absolute -inset-8 border border-neutral-300/30 rounded-full transform rotateX(45deg) animate-spin-reverse-slow"></div>
       </div>
@@ -144,7 +158,7 @@ const InteractiveLens = () => {
   );
 };
 
-// --- COMPONENT: STACKED CARD DECK (VISUALLY ENHANCED) ---
+// --- COMPONENT: STACKED CARD DECK ---
 const StackedCardDeck = ({ features }) => {
   const [cards, setCards] = useState(features);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -205,7 +219,7 @@ const StackedCardDeck = ({ features }) => {
             className={`
                 absolute top-12 left-0 w-full h-[400px] 
                 rounded-3xl border p-8 flex flex-col justify-between overflow-hidden
-                transition-all duration-500 cubic-bezier(0.23, 1, 0.32, 1)
+                transition-all duration-500 cubic-bezier(0.23, 1, 0.32, 1) will-change-transform
                 ${
                   isTop
                     ? "bg-white border-neutral-100 cursor-pointer hover:-translate-y-4 shadow-2xl hover:shadow-[0_30px_60px_-15px_rgba(220,38,38,0.2)]"
@@ -245,7 +259,7 @@ const StackedCardDeck = ({ features }) => {
                     Step
                   </span>
                   <span
-                    className={`font-black text-4xl leading-none ${
+                    className={`font-black text-4xl leading-none font-mono ${
                       isTop ? "text-neutral-200" : "text-neutral-300"
                     }`}
                   >
@@ -517,7 +531,7 @@ export default function ContentProduction() {
       </section>
 
       {/* --- FINAL CTA: PREMIERE NIGHT --- */}
-      <section className="relative py-40 bg-[#050505] overflow-hidden flex flex-col items-center justify-center min-h-[85vh]">
+      <section className="relative py-40 bg-black overflow-hidden flex flex-col items-center justify-center min-h-[85vh]">
         {/* 1. Dynamic Background Atmosphere */}
         <div className="absolute inset-0 w-full h-full pointer-events-none">
           {/* Pulsing Spotlight */}

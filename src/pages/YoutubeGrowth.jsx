@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import {
   Youtube,
   Instagram,
@@ -7,8 +7,13 @@ import {
   BarChart3,
   Rocket,
   Crown,
+  Zap,
   ArrowRight,
+  User,
   Mic,
+  Layout,
+  CheckCircle2,
+  Sparkles,
   Star,
   Quote,
   Play,
@@ -20,10 +25,10 @@ import {
 
 // --- 1. VISUAL ENGINE: CINEMATIC BACKGROUND (Light Mode - Red Theme) ---
 const CinematicBackground = () => (
-  <div className="absolute inset-0 overflow-hidden bg-[#fafafa] pointer-events-none">
-    {/* Soft Red/Orange Atmospheric Glows */}
-    <div className="absolute top-[-20%] left-[-10%] w-[80vw] h-[80vw] bg-red-100/60 rounded-full blur-[150px] mix-blend-multiply animate-pulse-slow"></div>
-    <div className="absolute bottom-[-20%] right-[-10%] w-[80vw] h-[80vw] bg-orange-100/60 rounded-full blur-[150px] mix-blend-multiply animate-pulse-slow delay-1000"></div>
+  <div className="absolute inset-0 overflow-hidden bg-[#fafafa] pointer-events-none transform-gpu">
+    {/* Soft Red/Orange Atmospheric Glows - Reduced blur for performance */}
+    <div className="absolute top-[-20%] left-[-10%] w-[80vw] h-[80vw] bg-red-100/60 rounded-full blur-[100px] mix-blend-multiply animate-pulse-slow will-change-transform translate-z-0"></div>
+    <div className="absolute bottom-[-20%] right-[-10%] w-[80vw] h-[80vw] bg-orange-100/60 rounded-full blur-[100px] mix-blend-multiply animate-pulse-slow delay-1000 will-change-transform translate-z-0"></div>
 
     {/* Moving "Data Mist" */}
     <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.4] brightness-100 contrast-150 mix-blend-overlay"></div>
@@ -52,29 +57,44 @@ const LandingButton = ({ children, href, variant = "primary" }) => {
   );
 };
 
-// --- 3. COMPONENT: 3D VIRAL REACTOR (Interactive Graphic) ---
+// --- 3. COMPONENT: 3D VIRAL REACTOR (Optimized) ---
 const ViralReactor = () => {
-  const [rotate, setRotate] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (e) => {
-    // Disable on mobile
-    if (window.matchMedia("(pointer: coarse)").matches) return;
-
-    const { clientX, clientY } = e;
-    const { innerWidth, innerHeight } = window;
-    const x = (clientX - innerWidth / 2) / 20;
-    const y = (clientY - innerHeight / 2) / 20;
-    setRotate({ x: -y, y: x });
-  };
+  // Use Ref instead of State to avoid re-renders on mouse move
+  const elementRef = useRef(null);
 
   useEffect(() => {
+    // Disable on mobile/touch devices to save battery/performance
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
+    let rafId;
+
+    const handleMouseMove = (e) => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        if (!elementRef.current) return;
+
+        const { clientX, clientY } = e;
+        const { innerWidth, innerHeight } = window;
+
+        // Calculate rotation (Reduced sensitivity)
+        const x = (clientX - innerWidth / 2) / 40;
+        const y = (clientY - innerHeight / 2) / 40;
+
+        // Direct DOM update for performance
+        elementRef.current.style.transform = `rotateX(${-y}deg) rotateY(${x}deg)`;
+      });
+    };
+
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      cancelAnimationFrame(rafId);
+    };
   }, []);
 
   return (
     <div className="w-full h-[500px] flex items-center justify-center perspective-1000 relative">
-      {/* Orbiting Elements */}
+      {/* Orbiting Elements - Using CSS Animation (GPU) */}
       <div
         className="absolute w-[350px] h-[350px] rounded-full border border-red-200/40 animate-[spin_25s_linear_infinite]"
         style={{ transform: `rotateX(70deg) rotateZ(0deg)` }}
@@ -88,10 +108,10 @@ const ViralReactor = () => {
         <div className="absolute bottom-0 left-1/2 w-2 h-2 bg-orange-400 rounded-full blur-[2px]"></div>
       </div>
 
-      {/* Main 3D Object */}
+      {/* Main 3D Object - Controlled by Ref for Desktop, Static for Mobile */}
       <div
-        className="relative w-56 h-40 bg-gradient-to-br from-[#dc2626] to-[#7f1d1d] rounded-[2rem] shadow-2xl flex items-center justify-center transform-style-3d transition-transform duration-100 ease-linear group border border-red-400/30"
-        style={{ transform: `rotateX(${rotate.x}deg) rotateY(${rotate.y}deg)` }}
+        ref={elementRef}
+        className="relative w-56 h-40 bg-gradient-to-br from-[#dc2626] to-[#7f1d1d] rounded-[2rem] shadow-2xl flex items-center justify-center transform-style-3d transition-transform duration-100 ease-out group border border-red-400/30 will-change-transform"
       >
         {/* Glow */}
         <div className="absolute inset-0 bg-red-600 blur-[80px] opacity-30 rounded-full -z-10 animate-pulse"></div>
@@ -99,15 +119,15 @@ const ViralReactor = () => {
         {/* Screen Shine */}
         <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-tr from-white/10 to-transparent pointer-events-none"></div>
 
-        {/* Play Icon */}
+        {/* Play Icon - Crown for Personal Brand */}
         <div className="relative z-10 w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-[inset_0_4px_10px_rgba(0,0,0,0.1)] md:group-hover:scale-110 transition-transform duration-300">
-          <Play
+          <Crown
             className="fill-red-600 text-red-600 ml-1 drop-shadow-sm"
             size={48}
           />
         </div>
 
-        {/* Floating Metrics Cards */}
+        {/* Floating Metrics Cards - CSS Animation */}
         <div
           className="absolute -top-10 -right-16 bg-white/90 backdrop-blur-sm p-3 rounded-2xl shadow-xl border border-neutral-100 animate-float"
           style={{ animationDelay: "0s" }}
@@ -116,7 +136,7 @@ const ViralReactor = () => {
             <div className="p-1 bg-blue-50 rounded-full text-blue-500">
               <Eye size={12} />
             </div>
-            <span>1.2M+ Views</span>
+            <span>Authority</span>
           </div>
         </div>
         <div
@@ -127,7 +147,7 @@ const ViralReactor = () => {
             <div className="p-1 bg-red-50 rounded-full text-red-500">
               <Heart size={12} className="fill-red-500" />
             </div>
-            <span>High Engagement</span>
+            <span>Influence</span>
           </div>
         </div>
         <div
@@ -138,7 +158,7 @@ const ViralReactor = () => {
             <div className="p-1 bg-green-50 rounded-full text-green-500">
               <TrendingUp size={12} />
             </div>
-            <span>+450% Growth</span>
+            <span>Growth</span>
           </div>
         </div>
       </div>
@@ -146,7 +166,82 @@ const ViralReactor = () => {
   );
 };
 
-// --- 4. COMPONENT: AESTHETIC CARD COMPONENT ---
+// --- 4. COMPONENT: BRAND SHOWCASE (The Wall of Influence) ---
+const BrandShowcase = () => {
+  const images = [
+    "/1.jpeg",
+    "/2.jpeg",
+    "/3.jpeg",
+    "/25.jpeg",
+    "/7.jpeg",
+    "/8.jpeg",
+    "/9.jpeg",
+    "/10.jpeg",
+    "/11.jpeg",
+    "/12.jpeg",
+    "/22.jpeg",
+    "/14.jpeg",
+    "/15.jpeg",
+    "/16.jpeg",
+    "/17.jpeg",
+    "/18.jpeg",
+    "/19.jpeg",
+    "/20.jpeg",
+  ];
+
+  return (
+    <section className="py-20 overflow-hidden relative">
+      <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-b from-[#fafafa] via-transparent to-[#fafafa]"></div>
+
+      {/* 3D Tilted Container */}
+      <div className="relative z-10 transform -rotate-2 scale-105 flex flex-col gap-8 opacity-90 hover:opacity-100 transition-opacity duration-700">
+        {/* Row 1: Left */}
+        <div className="flex gap-6 animate-marquee w-max">
+          {[...images, ...images].map((src, i) => (
+            <div
+              key={`r1-${i}`}
+              className="relative w-64 h-80 rounded-2xl overflow-hidden shadow-xl border-4 border-white transform transition-transform duration-500 hover:scale-105 group"
+            >
+              <img
+                src={src}
+                alt="Brand Result"
+                className="w-full h-full object-cover filter grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-red-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                <span className="text-white font-bold tracking-widest text-sm uppercase translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                  Authority
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Row 2: Right */}
+        <div className="flex gap-6 animate-marquee-reverse w-max ml-[-200px]">
+          {[...images.reverse(), ...images].map((src, i) => (
+            <div
+              key={`r2-${i}`}
+              className="relative w-64 h-80 rounded-2xl overflow-hidden shadow-xl border-4 border-white transform transition-transform duration-500 hover:scale-105 group"
+            >
+              <img
+                src={src}
+                alt="Brand Result"
+                className="w-full h-full object-cover filter grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-red-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                <span className="text-white font-bold tracking-widest text-sm uppercase translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                  Influence
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// --- 5. COMPONENT: AESTHETIC CARD COMPONENT (Optimized) ---
 const AestheticCard = ({
   title,
   description,
@@ -280,7 +375,7 @@ const AestheticCard = ({
   );
 };
 
-// --- 5. COMPONENT: TESTIMONIAL CARD ---
+// --- 5. COMPONENT: TESTIMONIAL CARD (Mobile Optimized) ---
 const TestimonialCard = ({ name, title, quote, logoUrl }) => {
   // Safety check for name
   const initial = name ? name.charAt(0) : "?";
@@ -315,7 +410,6 @@ const TestimonialCard = ({ name, title, quote, logoUrl }) => {
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-neutral-100 to-white flex items-center justify-center text-red-600 font-bold text-xl shadow-inner border border-white">
               {initial}
             </div>
-            {/* Optional logo overlay if available */}
             {logoUrl && (
               <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-sm border border-neutral-100">
                 <img
