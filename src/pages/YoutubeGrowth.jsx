@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   Youtube,
   Instagram,
@@ -7,13 +7,8 @@ import {
   BarChart3,
   Rocket,
   Crown,
-  Zap,
   ArrowRight,
-  User,
   Mic,
-  Layout,
-  CheckCircle2,
-  Sparkles,
   Star,
   Quote,
   Play,
@@ -62,6 +57,9 @@ const ViralReactor = () => {
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e) => {
+    // Disable on mobile
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
     const { clientX, clientY } = e;
     const { innerWidth, innerHeight } = window;
     const x = (clientX - innerWidth / 2) / 20;
@@ -102,7 +100,7 @@ const ViralReactor = () => {
         <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-tr from-white/10 to-transparent pointer-events-none"></div>
 
         {/* Play Icon */}
-        <div className="relative z-10 w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-[inset_0_4px_10px_rgba(0,0,0,0.1)] group-hover:scale-110 transition-transform duration-300">
+        <div className="relative z-10 w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-[inset_0_4px_10px_rgba(0,0,0,0.1)] md:group-hover:scale-110 transition-transform duration-300">
           <Play
             className="fill-red-600 text-red-600 ml-1 drop-shadow-sm"
             size={48}
@@ -157,45 +155,74 @@ const AestheticCard = ({
   variant = "default",
 }) => {
   const isDark = variant === "dark";
+  const cardRef = useRef(null);
+
+  const handleMouseMove = (e) => {
+    // Disable JS visual effects on mobile to prevent scroll lag
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    // Apply styles directly to CSS variables
+    cardRef.current.style.setProperty("--mouse-x", `${x}px`);
+    cardRef.current.style.setProperty("--mouse-y", `${y}px`);
+  };
 
   return (
     <div
       className="group relative h-full animate-fade-in-up"
       style={{ animationDelay: `${index * 100}ms` }}
     >
-      {/* Subtle Drop Shadow */}
+      {/* Subtle Drop Shadow - Always visible on mobile, hover on desktop */}
       <div
-        className={`absolute inset-0 rounded-[2rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 transform translate-y-4 ${
+        className={`absolute inset-0 rounded-[2rem] blur-xl transition-opacity duration-700 transform translate-y-4 opacity-50 md:opacity-0 md:group-hover:opacity-100 ${
           isDark ? "bg-red-600/30" : "bg-red-100/50"
         }`}
       ></div>
 
       <div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
         className={`
-        relative h-full rounded-[2rem] p-10 border overflow-hidden transition-all duration-500 ease-out group-hover:-translate-y-2 group-hover:shadow-2xl flex flex-col justify-between
+        relative h-full rounded-[2rem] p-10 border overflow-hidden transition-all duration-300 ease-out flex flex-col justify-between
+        md:group-hover:-translate-y-1 md:group-hover:shadow-2xl
         ${
           isDark
-            ? "bg-[#0a0a0a] border-red-900/30 group-hover:border-red-600 text-white"
-            : "bg-white border-neutral-100 group-hover:border-red-100"
+            ? "bg-[#0a0a0a] border-red-900/30 md:group-hover:border-red-600 text-white shadow-xl"
+            : "bg-white border-neutral-100 md:group-hover:border-red-100 shadow-md"
         }
       `}
       >
-        {/* Background Interaction */}
+        {/* MOBILE: Static Tint Background */}
         <div
-          className={`absolute top-0 right-0 w-64 h-64 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ${
+          className={`absolute inset-0 pointer-events-none md:hidden opacity-30 ${
             isDark
-              ? "bg-[radial-gradient(circle_at_100%_0%,#7f1d1d_0%,transparent_70%)]"
-              : "bg-[radial-gradient(circle_at_100%_0%,#fef2f2_0%,transparent_70%)]"
+              ? "bg-gradient-to-br from-red-900/40 to-transparent"
+              : "bg-gradient-to-br from-red-50 to-transparent"
           }`}
+        ></div>
+
+        {/* DESKTOP: Dynamic Spotlight Interaction */}
+        <div
+          className="hidden md:block absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+          style={{
+            background: `radial-gradient(600px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), ${
+              isDark ? "rgba(127, 29, 29, 0.4)" : "rgba(254, 242, 242, 1)"
+            }, transparent 40%)`,
+          }}
         ></div>
 
         {/* Index Number */}
         <div
-          className={`absolute top-8 right-8 text-7xl font-bold select-none font-sans tracking-tighter scale-150 origin-top-right group-hover:scale-100 transition-all duration-500 ${
-            isDark
-              ? "text-neutral-800 opacity-20 group-hover:text-red-900 group-hover:opacity-100"
-              : "text-neutral-50 opacity-40 group-hover:text-red-50 group-hover:opacity-100"
-          }`}
+          className={`absolute top-8 right-8 text-7xl font-bold select-none font-sans tracking-tighter scale-100 md:scale-150 md:origin-top-right md:group-hover:scale-100 transition-all duration-500 
+           ${
+             isDark
+               ? "text-red-900 opacity-20 md:text-neutral-800 md:group-hover:text-red-900 md:group-hover:opacity-100"
+               : "text-red-50 opacity-100 md:text-neutral-50 md:opacity-40 md:group-hover:text-red-50 md:group-hover:opacity-100"
+           }`}
         >
           0{index + 1}
         </div>
@@ -204,11 +231,11 @@ const AestheticCard = ({
         <div className="relative z-10 flex flex-col justify-between h-full gap-8">
           {/* Icon Box */}
           <div
-            className={`w-16 h-16 rounded-2xl border flex items-center justify-center transition-all duration-500 relative overflow-hidden group-hover:scale-110 group-hover:rotate-[-3deg] group-hover:shadow-lg
+            className={`w-16 h-16 rounded-2xl border flex items-center justify-center transition-all duration-500 relative overflow-hidden md:group-hover:scale-110 md:group-hover:rotate-[-3deg] md:group-hover:shadow-lg
                 ${
                   isDark
-                    ? "bg-red-900/20 border-red-500/30 text-red-500 group-hover:bg-red-600 group-hover:text-white"
-                    : "bg-neutral-50 border-neutral-100 text-neutral-400 group-hover:bg-red-600 group-hover:text-white group-hover:shadow-red-500/20"
+                    ? "bg-red-900/20 border-red-500/30 text-red-500 md:group-hover:bg-red-600 md:group-hover:text-white"
+                    : "bg-neutral-50 border-neutral-100 text-neutral-400 md:bg-red-50 md:text-red-600 md:border-red-100 md:group-hover:bg-red-600 md:group-hover:text-white md:group-hover:shadow-red-500/20"
                 }
             `}
           >
@@ -221,7 +248,7 @@ const AestheticCard = ({
               className={`text-2xl font-bold leading-tight tracking-tight transition-colors duration-300 ${
                 isDark
                   ? "text-white"
-                  : "text-neutral-900 group-hover:text-red-700"
+                  : "text-neutral-900 md:group-hover:text-red-700"
               }`}
             >
               {title}
@@ -231,8 +258,8 @@ const AestheticCard = ({
             <p
               className={`text-sm font-medium leading-relaxed transition-colors ${
                 isDark
-                  ? "text-neutral-400 group-hover:text-neutral-200"
-                  : "text-neutral-500 group-hover:text-neutral-700"
+                  ? "text-neutral-400 md:group-hover:text-neutral-200"
+                  : "text-neutral-500 md:group-hover:text-neutral-700"
               }`}
             >
               {description}
@@ -240,10 +267,10 @@ const AestheticCard = ({
 
             {/* Decorative Line */}
             <div
-              className={`w-12 h-1 rounded-full group-hover:w-full transition-all duration-700 ease-in-out ${
+              className={`w-12 md:w-12 h-1 rounded-full md:group-hover:w-full transition-all duration-700 ease-in-out ${
                 isDark
-                  ? "bg-red-900 group-hover:bg-red-500"
-                  : "bg-neutral-100 group-hover:bg-red-600"
+                  ? "bg-red-900 md:group-hover:bg-red-500"
+                  : "bg-red-500 md:bg-neutral-100 md:group-hover:bg-red-600"
               }`}
             ></div>
           </div>
@@ -259,8 +286,8 @@ const TestimonialCard = ({ name, title, quote, logoUrl }) => {
   const initial = name ? name.charAt(0) : "?";
 
   return (
-    <div className="relative w-[400px] flex-shrink-0 p-8 bg-white/60 backdrop-blur-md rounded-3xl border border-neutral-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(220,38,38,0.15)] transition-all duration-500 group hover:-translate-y-1">
-      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-red-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+    <div className="relative w-[300px] md:w-[400px] flex-shrink-0 p-8 bg-white/80 md:bg-white/60 backdrop-blur-md rounded-3xl border border-neutral-200 shadow-lg md:shadow-[0_8px_30px_rgb(0,0,0,0.04)] md:hover:shadow-[0_8px_30px_rgb(220,38,38,0.15)] transition-all duration-500 group md:hover:-translate-y-1">
+      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-red-50/50 to-transparent opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
 
       <div className="relative z-10 flex flex-col h-full justify-between gap-6">
         <div className="flex justify-between items-start">
@@ -275,7 +302,7 @@ const TestimonialCard = ({ name, title, quote, logoUrl }) => {
           </div>
           <Quote
             size={32}
-            className="text-red-100 fill-red-50 group-hover:text-red-200 transition-colors"
+            className="text-red-200 md:text-red-100 fill-red-50 md:group-hover:text-red-200 transition-colors"
           />
         </div>
 
@@ -313,7 +340,6 @@ const TestimonialCard = ({ name, title, quote, logoUrl }) => {
 
 // --- 6. COMPONENT: TESTIMONIALS SECTION ---
 const TestimonialsSection = () => {
-  // Using YouTube specific testimonials
   const testimonials = [
     {
       name: "Sarah Jenkins",
@@ -420,7 +446,7 @@ export default function YouTubeGrowth() {
       title: "Not Just Viral. Valuable.",
       description:
         "This isn't about followers. It's about becoming follow-worthy. We focus on impact over vanity metrics.",
-      icon: Flame, // Changed icon for distinction
+      icon: Flame,
       variant: "dark",
     },
   ];
@@ -566,7 +592,7 @@ export default function YouTubeGrowth() {
           </div>
 
           <div className="text-center">
-            <div className="inline-flex items-center gap-3 bg-red-50 px-6 py-3 rounded-full border border-red-100">
+            <div className="inline-flex items-center gap-3 bg-red-50 px-6 py-3 rounded-full border border-red-100 shadow-sm transition-shadow cursor-default">
               <Zap className="w-5 h-5 text-yellow-500 fill-yellow-500 animate-pulse" />
               <span className="text-neutral-700 font-medium text-lg">
                 You bring the knowledge.{" "}
