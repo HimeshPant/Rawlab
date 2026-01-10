@@ -6,8 +6,8 @@ import { ArrowRight, Sparkles } from "lucide-react";
 const growthTriangleData = [
   {
     title: "Personal Brand Growth",
-    image: "/c1.jpeg",
-    path: "/personal-branding",
+    image: "/t1.jpg",
+    path: "/services/youtube-growth",
     description:
       "Turn your voice into influence and your ideas into a movement.",
     // Red Theme
@@ -17,8 +17,8 @@ const growthTriangleData = [
   },
   {
     title: "Performance Marketing",
-    image: "/c2.jpeg",
-    path: "/performance-marketing",
+    image: "/t2.png",
+    path: "/services/performance-marketing",
     description:
       "Ads that convert. Funnels that scale. Revenue you can measure.",
     // Green Theme
@@ -28,8 +28,8 @@ const growthTriangleData = [
   },
   {
     title: "Content Production",
-    image: "/c3.jpeg",
-    path: "/content-production",
+    image: "/t3.png",
+    path: "/services/content-production",
     description:
       "Cinematic storytelling that makes your brand impossible to ignore.",
     // Blue Theme
@@ -123,12 +123,10 @@ const GrowthCard = ({
           <img
             src={imageSrc}
             alt={title}
-            className={`w-full h-full transition-transform duration-700 ease-out group-hover:scale-110 opacity-100 ${
-              isFirst ? "object-contain bg-white p-8" : "object-cover"
-            }`}
+            className={`w-full h-full transition-transform duration-700 ease-out group-hover:scale-110 opacity-100 object-cover`}
           />
           {/* Gradient Overlay ONLY at bottom for Text Readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 transition-opacity duration-500"></div>
+          <div className="absolute inset-0 transition-opacity duration-500 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80"></div>
         </div>
 
         {/* 2. Spotlight Effect (Mouse Follow) */}
@@ -187,7 +185,7 @@ const GrowthCard = ({
 
         {/* 5. Content Layer */}
         <div className="absolute inset-0 z-20 flex flex-col justify-end p-8 transform translate-z-10">
-          <div className="transform transition-transform duration-500 group-hover:-translate-y-2">
+          <div className="transition-transform duration-500 transform group-hover:-translate-y-2">
             {/* Step Badge */}
             <div
               className={`inline-flex items-center gap-2 px-3 py-1.5 mb-4 border rounded-full backdrop-blur-md w-fit ${badgeBorderClass}`}
@@ -200,13 +198,13 @@ const GrowthCard = ({
               <ArrowRight size={12} className={textColorClass} />
             </div>
 
-            <h3 className="text-3xl font-bold leading-tight text-white mb-2 transition-colors drop-shadow-md">
+            <h3 className="mb-2 text-3xl font-bold leading-tight text-white transition-colors drop-shadow-md">
               {title}
             </h3>
 
             {/* Hover Reveal Content */}
-            <div className="overflow-hidden h-0 group-hover:h-auto opacity-0 group-hover:opacity-100 transition-all duration-500 delay-75">
-              <p className="text-sm text-neutral-200 mt-2 line-clamp-2 font-medium drop-shadow-sm">
+            <div className="h-0 overflow-hidden transition-all duration-500 delay-75 opacity-0 group-hover:h-auto group-hover:opacity-100">
+              <p className="mt-2 text-sm font-medium text-neutral-200 line-clamp-2 drop-shadow-sm">
                 {description}
               </p>
 
@@ -216,7 +214,7 @@ const GrowthCard = ({
                 <span>Explore Strategy</span>
                 <ArrowRight
                   size={16}
-                  className="group-hover:translate-x-1 transition-transform"
+                  className="transition-transform group-hover:translate-x-1"
                 />
               </div>
             </div>
@@ -231,15 +229,15 @@ export default function GrowthTriangle() {
   return (
     <section
       id="growth-triangle"
-      className="py-32 bg-white relative overflow-hidden"
+      className="relative py-32 overflow-hidden bg-white"
     >
       {/* Background Decor - White Theme */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-[radial-gradient(ellipse_at_top,_rgba(59,130,246,0.1),_transparent_70%)] pointer-events-none mix-blend-multiply"></div>
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none"></div>
 
-      <div className="container px-4 mx-auto max-w-7xl relative z-10">
+      <div className="container relative z-10 px-4 mx-auto max-w-7xl">
         {/* Header */}
-        <div className="mb-20 text-center max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto mb-20 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 mb-6 backdrop-blur-md shadow-sm">
             <Sparkles size={14} className="text-blue-600" />
             <span className="text-xs font-bold tracking-[0.2em] text-blue-600 uppercase">
@@ -247,20 +245,20 @@ export default function GrowthTriangle() {
             </span>
           </div>
 
-          <h2 className="text-4xl md:text-6xl font-black text-neutral-900 mb-6 tracking-tight">
+          <h2 className="mb-6 text-4xl font-black tracking-tight md:text-6xl text-neutral-900">
             The Three{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
               Growth Engines
             </span>
           </h2>
-          <p className="text-xl text-neutral-500 font-light">
+          <p className="text-xl font-light text-neutral-500">
             Our specialized services designed to build a self-sustaining
             ecosystem for your brand.
           </p>
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {growthTriangleData.map((item, index) => (
             <GrowthCard key={index} {...item} index={index} />
           ))}
