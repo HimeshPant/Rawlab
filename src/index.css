@@ -43,6 +43,7 @@
   .card-ticker-container {
     overflow: hidden;
     width: 100%;
+    background-color: #ffffff; /* Ensure mask reveals white, not page background */
     -webkit-mask-image: linear-gradient(
       to right,
       transparent,

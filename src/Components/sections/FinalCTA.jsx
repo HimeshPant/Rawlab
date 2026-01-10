@@ -16,37 +16,37 @@ const CTAButton = ({ children, href }) => {
 
 export default function FinalCTA() {
   return (
-    <section id="final-cta" className="relative py-24 overflow-hidden bg-black">
+    <section id="final-cta" className="relative py-24 overflow-hidden bg-white">
       {/* Background Decor */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_100%,rgba(59,130,246,0.15),transparent_60%)]"></div>
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05]"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_100%,rgba(59,130,246,0.12),transparent_60%)]"></div>
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03]"></div>
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="relative max-w-5xl mx-auto text-center group">
           {/* 1. Behind Glow (Blue/Indigo) */}
-          <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-800 rounded-[2.5rem] opacity-30 blur-3xl group-hover:opacity-50 group-hover:blur-3xl transition-all duration-700"></div>
+          <div className="absolute -inset-1 bg-gradient-to-r from-blue-200 to-indigo-300 rounded-[2.5rem] opacity-40 blur-2xl group-hover:opacity-50 transition-all duration-700"></div>
 
           {/* 2. The Card (Dark Mode) */}
-          <div className="relative z-10 bg-neutral-900 border border-white/10 rounded-[2rem] p-12 md:p-20 shadow-2xl shadow-blue-900/20 overflow-hidden">
+          <div className="relative z-10 bg-white border border-neutral-200 rounded-[2rem] p-12 md:p-20 shadow-2xl shadow-blue-900/10 overflow-hidden">
             {/* Internal Texture */}
-            <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:32px_32px] opacity-5 mix-blend-overlay"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(#000000_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.03] mix-blend-overlay"></div>
 
             {/* Floating Icon */}
-            <div className="w-20 h-20 mx-auto bg-white/5 rounded-2xl flex items-center justify-center mb-8 border border-white/10 shadow-inner transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500 backdrop-blur-sm">
+            <div className="w-20 h-20 mx-auto bg-neutral-50 rounded-2xl flex items-center justify-center mb-8 border border-neutral-200 shadow-inner transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500">
               <Zap className="w-10 h-10 text-blue-500 fill-blue-500 animate-pulse" />
             </div>
 
             <div className="relative z-20">
-              <h2 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-[1.1]">
+              <h2 className="text-4xl md:text-6xl font-black text-neutral-900 mb-6 tracking-tight leading-[1.1]">
                 Ready to Build the Brand <br className="hidden md:block" />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
                   Your Business Deserves?
                 </span>
               </h2>
 
-              <p className="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto mb-10 font-medium leading-relaxed">
+              <p className="text-lg md:text-xl text-neutral-600 max-w-2xl mx-auto mb-10 font-medium leading-relaxed">
                 Let’s architect your growth — with clarity, creativity, and
                 systems. Stop guessing and start scaling.
               </p>

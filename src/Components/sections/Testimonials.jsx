@@ -13,10 +13,10 @@ export default function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="py-20 my-12 overflow-hidden bg-white/5"
+      className="py-20 my-12 overflow-hidden bg-white"
     >
       <div className="container px-4 mx-auto mb-12">
-        <h2 className="mb-12 text-4xl font-bold text-center text-white">
+        <h2 className="mb-12 text-4xl font-bold text-center text-neutral-900">
           Results That Speak
         </h2>
       </div>
