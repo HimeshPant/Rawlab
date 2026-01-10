@@ -14,15 +14,17 @@ const photosColumn2 = [
 ];
 
 const PhotoCard = ({ src, label, objectPosition = "center" }) => (
-  <div className="relative group rounded-2xl overflow-hidden border border-gray-200 bg-gray-50 transition-all duration-300 hover:scale-[1.02] shadow-md hover:shadow-xl hover:border-blue-400 mb-6">
+  <div className="relative group rounded-2xl overflow-hidden border border-gray-200 bg-gray-50 transition-all duration-300 hover:scale-[1.02] shadow-md hover:shadow-xl hover:border-blue-400 mb-6 will-change-transform">
     <img
       src={src}
       alt={label}
       className="object-cover w-full h-80 md:h-96 transition-opacity duration-500 brightness-100 group-hover:brightness-105"
       style={{ objectPosition: objectPosition }}
+      loading="lazy"
+      decoding="async"
     />
     {/* Overlay Gradient for Label Readability */}
-    <div className="absolute inset-0 flex items-end p-6 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-100 transition-opacity duration-300">
+    <div className="absolute inset-0 flex items-end p-6 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-100 transition-opacity duration-300 pointer-events-none">
       <span className="pl-3 text-sm font-bold text-white border-l-4 border-blue-500 sm:text-base drop-shadow-md tracking-wide">
         {label}
       </span>
@@ -74,9 +76,9 @@ export default function Showcase() {
           </div>
 
           {/* --- RIGHT COLUMN: VERTICAL CAROUSEL --- */}
-          <div className="relative h-[600px] md:h-[700px] w-full rounded-3xl bg-gray-50 border border-gray-100 shadow-inner overflow-hidden">
-            {/* Background Glow inside the carousel container */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-blue-100/50 blur-[80px] rounded-full z-0 mix-blend-multiply pointer-events-none"></div>
+          <div className="relative h-[600px] md:h-[700px] w-full rounded-3xl bg-gray-50 border border-gray-100 shadow-inner overflow-hidden will-change-transform">
+            {/* Background Glow inside the carousel container - GPU optimized */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-blue-100/30 blur-[60px] rounded-full z-0 mix-blend-multiply pointer-events-none will-change-transform hidden md:block"></div>
 
             <div className="relative z-10 grid h-full grid-cols-1 gap-6 p-4 md:grid-cols-2 vertical-scroll-container">
               {/* Column 1 - Scrolls UP */}

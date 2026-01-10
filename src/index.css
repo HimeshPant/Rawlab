@@ -38,7 +38,7 @@
     @apply relative p-6 border bg-black/30 border-white/10 rounded-xl backdrop-blur-sm;
   }
 
-  /* --- Horizontal Scrolling (Logos & Cards) --- */
+  /* --- Horizontal Scrolling (Logos & Cards) - OPTIMIZED --- */
   .logo-ticker-container,
   .card-ticker-container {
     overflow: hidden;
@@ -63,6 +63,8 @@
     display: flex;
     width: fit-content;
     animation: scroll 30s linear infinite;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
   }
 
   .card-ticker-container {
@@ -73,6 +75,8 @@
     width: max-content;
     gap: 2rem;
     animation: scroll-cards 15s linear infinite;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
   }
 
   .logo-ticker-item {
@@ -85,7 +89,7 @@
     width: 380px;
   }
 
-  /* --- Vertical Carousel Animation (Showcase) --- */
+  /* --- Vertical Carousel Animation (Showcase) - OPTIMIZED --- */
   .vertical-scroll-container {
     position: relative;
     overflow: hidden;
@@ -111,6 +115,7 @@
     flex-direction: column;
     gap: 1.5rem;
     will-change: transform;
+    transform: translate3d(0, 0, 0);
   }
 
   .animate-scroll-up {
@@ -120,31 +125,29 @@
     animation: scroll-vertical 30s linear infinite reverse;
   }
 
-  /* Removed hover pause for vertical scroll as requested */
-
   /* --- Keyframes --- */
   @keyframes scroll {
     0% {
-      transform: translateX(0);
+      transform: translate3d(0, 0, 0);
     }
     100% {
-      transform: translateX(-50%);
+      transform: translate3d(-50%, 0, 0);
     }
   }
   @keyframes scroll-cards {
     0% {
-      transform: translateX(0);
+      transform: translate3d(0, 0, 0);
     }
     100% {
-      transform: translateX(calc(-100% / 3));
+      transform: translate3d(calc(-100% / 3), 0, 0);
     }
   }
   @keyframes scroll-vertical {
     0% {
-      transform: translateY(0);
+      transform: translate3d(0, 0, 0);
     }
     100% {
-      transform: translateY(-50%);
+      transform: translate3d(0, -50%, 0);
     }
   }
 
@@ -168,5 +171,28 @@
 
   .animate-scan {
     animation: scan 3s ease-in-out infinite;
+  }
+
+  /* GPU acceleration for smooth animations */
+  .transform-gpu {
+    transform: translate3d(0, 0, 0);
+    -webkit-perspective: 1000;
+    perspective: 1000;
+  }
+
+  /* Reduce blur on mobile for performance */
+  @media (max-width: 768px) {
+    .blur-\[100px\],
+    .blur-\[120px\] {
+      filter: blur(60px);
+    }
+    .backdrop-blur-sm {
+      -webkit-backdrop-filter: blur(2px);
+      backdrop-filter: blur(2px);
+    }
+    .backdrop-blur-md {
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+    }
   }
 }

@@ -3,17 +3,17 @@ import { Zap, ArrowRight } from "lucide-react";
 
 // --- VISUAL MASTERPIECE BACKGROUND (White Mode - Blue Theme) ---
 const CinematicBackground = () => (
-  <div className="absolute inset-0 overflow-hidden bg-white pointer-events-none">
+  <div className="absolute inset-0 overflow-hidden bg-white pointer-events-none transform-gpu">
     {/* 1. Base Gradient (Clean White) */}
     <div className="absolute inset-0 bg-white"></div>
 
-    {/* 2. Moving Nebulas (Blue/Indigo Tints) */}
-    <div className="absolute top-[-10%] left-[-10%] w-[70vw] h-[70vw] bg-blue-100/60 rounded-full blur-[120px] mix-blend-multiply animate-pulse-slow"></div>
-    <div className="absolute bottom-[10%] right-[-10%] w-[60vw] h-[60vw] bg-indigo-100/60 rounded-full blur-[120px] mix-blend-multiply animate-pulse-slow delay-1000"></div>
-    <div className="absolute top-[30%] left-[40%] w-[40vw] h-[40vw] bg-sky-50/80 rounded-full blur-[100px] mix-blend-multiply animate-pulse-slow delay-500"></div>
+    {/* 2. Moving Nebulas (Blue/Indigo Tints) - GPU Accelerated & Hidden on Mobile */}
+    <div className="absolute top-[-10%] left-[-10%] w-[70vw] h-[70vw] bg-blue-100/40 rounded-full blur-[80px] mix-blend-multiply animate-pulse-slow will-change-transform hidden md:block"></div>
+    <div className="absolute bottom-[10%] right-[-10%] w-[60vw] h-[60vw] bg-indigo-100/40 rounded-full blur-[80px] mix-blend-multiply animate-pulse-slow delay-1000 will-change-transform hidden md:block"></div>
+    <div className="absolute top-[30%] left-[40%] w-[40vw] h-[40vw] bg-sky-50/60 rounded-full blur-[70px] mix-blend-multiply animate-pulse-slow delay-500 will-change-transform hidden md:block"></div>
 
-    {/* 3. Cinematic Noise (Film Grain) */}
-    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.4] brightness-100 contrast-150 mix-blend-overlay"></div>
+    {/* 3. Cinematic Noise (Film Grain) - Hidden on Mobile for Performance */}
+    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.2] brightness-100 contrast-150 mix-blend-overlay hidden md:block"></div>
 
     {/* 4. Vignette (Inverted for Light Mode) */}
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(255,255,255,0)_100%)]"></div>

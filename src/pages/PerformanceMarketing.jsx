@@ -41,12 +41,12 @@ const DigitalNoise = () => (
 // 2. CLEAN BACKGROUND (Optimized: No Animation on Mobile)
 const CleanBackground = () => (
   <div className="absolute inset-0 overflow-hidden bg-white pointer-events-none transform-gpu">
-    {/* Soft Green/Blue Gradients - GPU Accelerated - Hidden on Mobile */}
-    <div className="hidden md:block absolute top-[-20%] right-[-10%] w-[80vw] h-[80vw] bg-emerald-100/60 rounded-full blur-[120px] mix-blend-multiply animate-pulse-slow will-change-transform translate-z-0"></div>
-    <div className="hidden md:block absolute bottom-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-blue-100/60 rounded-full blur-[120px] mix-blend-multiply animate-pulse-slow delay-1000 will-change-transform translate-z-0"></div>
+    {/* Soft Green/Blue Gradients - GPU Accelerated - Hidden on Mobile & Reduced Blur */}
+    <div className="hidden md:block absolute top-[-20%] right-[-10%] w-[80vw] h-[80vw] bg-emerald-100/40 rounded-full blur-[80px] mix-blend-multiply animate-pulse-slow will-change-transform translate-z-0"></div>
+    <div className="hidden md:block absolute bottom-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-blue-100/40 rounded-full blur-[80px] mix-blend-multiply animate-pulse-slow delay-1000 will-change-transform translate-z-0"></div>
 
     {/* Dotted Pattern */}
-    <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,black_40%,transparent_100%)] opacity-70"></div>
+    <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,black_40%,transparent_100%)] opacity-50"></div>
   </div>
 );
 
@@ -205,11 +205,10 @@ const MetricCardContent = ({ title, value, sub, icon: Icon, trend = "up" }) => (
         <Icon size={24} />
       </div>
       <div
-        className={`flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-full border ${
-          trend === "up"
+        className={`flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-full border ${trend === "up"
             ? "bg-emerald-50 text-emerald-700 border-emerald-100"
             : "bg-red-50 text-red-700 border-red-100"
-        }`}
+          }`}
       >
         <TrendingUp size={12} className={trend !== "up" ? "rotate-180" : ""} />
         {sub}
@@ -370,17 +369,18 @@ const CampaignSlider = () => {
         <div className="absolute left-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-r from-neutral-50 to-transparent z-10 pointer-events-none"></div>
         <div className="absolute right-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-l from-neutral-50 to-transparent z-10 pointer-events-none"></div>
 
-        <div className="flex gap-6 animate-marquee whitespace-nowrap will-change-transform">
+        <div className="flex gap-6 animate-marquee whitespace-nowrap will-change-transform transform-gpu">
           {[...images, ...images].map((src, i) => (
             <div
               key={i}
-              className="w-[280px] md:w-[400px] aspect-video flex-shrink-0 rounded-xl overflow-hidden border border-neutral-200 shadow-sm relative bg-white"
+              className="w-[280px] md:w-[400px] aspect-video flex-shrink-0 rounded-xl overflow-hidden border border-neutral-200 shadow-sm relative bg-white will-change-transform"
             >
               <img
                 src={src}
                 alt={`Campaign Visual ${i}`}
                 className="w-full h-full object-cover"
                 loading="lazy"
+                decoding="async"
               />
             </div>
           ))}

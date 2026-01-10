@@ -27,15 +27,15 @@ import {
 // --- 1. VISUAL ENGINE: CINEMATIC BACKGROUND (Light Mode - Red Theme) ---
 const CinematicBackground = () => (
   <div className="absolute inset-0 overflow-hidden bg-[#fafafa] pointer-events-none transform-gpu">
-    {/* Soft Red/Orange Atmospheric Glows - Reduced blur for performance */}
-    <div className="absolute top-[-20%] left-[-10%] w-[80vw] h-[80vw] bg-red-100/60 rounded-full blur-[100px] mix-blend-multiply animate-pulse-slow will-change-transform translate-z-0"></div>
-    <div className="absolute bottom-[-20%] right-[-10%] w-[80vw] h-[80vw] bg-orange-100/60 rounded-full blur-[100px] mix-blend-multiply animate-pulse-slow delay-1000 will-change-transform translate-z-0"></div>
+    {/* Soft Red/Orange Atmospheric Glows - Reduced blur for performance & Hidden on Mobile */}
+    <div className="absolute top-[-20%] left-[-10%] w-[80vw] h-[80vw] bg-red-100/50 rounded-full blur-[80px] mix-blend-multiply animate-pulse-slow will-change-transform translate-z-0 hidden md:block"></div>
+    <div className="absolute bottom-[-20%] right-[-10%] w-[80vw] h-[80vw] bg-orange-100/50 rounded-full blur-[80px] mix-blend-multiply animate-pulse-slow delay-1000 will-change-transform translate-z-0 hidden md:block"></div>
 
-    {/* Moving "Data Mist" */}
-    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.4] brightness-100 contrast-150 mix-blend-overlay"></div>
+    {/* Moving "Data Mist" - Hidden on Mobile */}
+    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.15] brightness-100 contrast-150 mix-blend-overlay hidden md:block"></div>
 
     {/* Subtle Dot Grid */}
-    <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,black_40%,transparent_100%)] opacity-70"></div>
+    <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,black_40%,transparent_100%)] opacity-50"></div>
   </div>
 );
 
@@ -199,9 +199,8 @@ const AestheticCard = ({
     >
       {/* Subtle Drop Shadow - Always visible on mobile, hover on desktop */}
       <div
-        className={`absolute inset-0 rounded-[2rem] blur-xl transition-opacity duration-700 transform translate-y-4 opacity-50 md:opacity-0 md:group-hover:opacity-100 ${
-          isDark ? "bg-red-600/30" : "bg-red-100/50"
-        }`}
+        className={`absolute inset-0 rounded-[2rem] blur-xl transition-opacity duration-700 transform translate-y-4 opacity-50 md:opacity-0 md:group-hover:opacity-100 ${isDark ? "bg-red-600/30" : "bg-red-100/50"
+          }`}
       ></div>
 
       <div
@@ -210,40 +209,36 @@ const AestheticCard = ({
         className={`
         relative h-full rounded-[2rem] p-10 border overflow-hidden transition-all duration-300 ease-out flex flex-col justify-between
         md:group-hover:-translate-y-1 md:group-hover:shadow-2xl
-        ${
-          isDark
+        ${isDark
             ? "bg-[#0a0a0a] border-red-900/30 md:group-hover:border-red-600 text-white shadow-xl"
             : "bg-white border-neutral-100 md:group-hover:border-red-100 shadow-md"
-        }
+          }
       `}
       >
         {/* MOBILE: Static Tint Background */}
         <div
-          className={`absolute inset-0 pointer-events-none md:hidden opacity-30 ${
-            isDark
+          className={`absolute inset-0 pointer-events-none md:hidden opacity-30 ${isDark
               ? "bg-gradient-to-br from-red-900/40 to-transparent"
               : "bg-gradient-to-br from-red-50 to-transparent"
-          }`}
+            }`}
         ></div>
 
         {/* DESKTOP: Dynamic Spotlight Interaction */}
         <div
           className="hidden md:block absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
           style={{
-            background: `radial-gradient(600px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), ${
-              isDark ? "rgba(127, 29, 29, 0.4)" : "rgba(254, 242, 242, 1)"
-            }, transparent 40%)`,
+            background: `radial-gradient(600px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), ${isDark ? "rgba(127, 29, 29, 0.4)" : "rgba(254, 242, 242, 1)"
+              }, transparent 40%)`,
           }}
         ></div>
 
         {/* Index Number */}
         <div
           className={`absolute top-8 right-8 text-7xl font-bold select-none font-sans tracking-tighter scale-100 md:scale-150 md:origin-top-right md:group-hover:scale-100 transition-all duration-500 
-           ${
-             isDark
-               ? "text-red-900 opacity-20 md:text-neutral-800 md:group-hover:text-red-900 md:group-hover:opacity-100"
-               : "text-red-50 opacity-100 md:text-neutral-50 md:opacity-40 md:group-hover:text-red-50 md:group-hover:opacity-100"
-           }`}
+           ${isDark
+              ? "text-red-900 opacity-20 md:text-neutral-800 md:group-hover:text-red-900 md:group-hover:opacity-100"
+              : "text-red-50 opacity-100 md:text-neutral-50 md:opacity-40 md:group-hover:text-red-50 md:group-hover:opacity-100"
+            }`}
         >
           0{index + 1}
         </div>
@@ -253,11 +248,10 @@ const AestheticCard = ({
           {/* Icon Box */}
           <div
             className={`w-16 h-16 rounded-2xl border flex items-center justify-center transition-all duration-500 relative overflow-hidden md:group-hover:scale-110 md:group-hover:rotate-[-3deg] md:group-hover:shadow-lg
-                ${
-                  isDark
-                    ? "bg-red-900/20 border-red-500/30 text-red-500 md:group-hover:bg-red-600 md:group-hover:text-white"
-                    : "bg-neutral-50 border-neutral-100 text-neutral-400 md:bg-red-50 md:text-red-600 md:border-red-100 md:group-hover:bg-red-600 md:group-hover:text-white md:group-hover:shadow-red-500/20"
-                }
+                ${isDark
+                ? "bg-red-900/20 border-red-500/30 text-red-500 md:group-hover:bg-red-600 md:group-hover:text-white"
+                : "bg-neutral-50 border-neutral-100 text-neutral-400 md:bg-red-50 md:text-red-600 md:border-red-100 md:group-hover:bg-red-600 md:group-hover:text-white md:group-hover:shadow-red-500/20"
+              }
             `}
           >
             <Icon size={28} strokeWidth={1.5} className="relative z-10" />
@@ -266,33 +260,30 @@ const AestheticCard = ({
           <div className="space-y-4">
             {/* Title */}
             <p
-              className={`text-2xl font-bold leading-tight tracking-tight transition-colors duration-300 ${
-                isDark
+              className={`text-2xl font-bold leading-tight tracking-tight transition-colors duration-300 ${isDark
                   ? "text-white"
                   : "text-neutral-900 md:group-hover:text-red-700"
-              }`}
+                }`}
             >
               {title}
             </p>
 
             {/* Description */}
             <p
-              className={`text-sm font-medium leading-relaxed transition-colors ${
-                isDark
+              className={`text-sm font-medium leading-relaxed transition-colors ${isDark
                   ? "text-neutral-400 md:group-hover:text-neutral-200"
                   : "text-neutral-500 md:group-hover:text-neutral-700"
-              }`}
+                }`}
             >
               {description}
             </p>
 
             {/* Decorative Line */}
             <div
-              className={`w-12 md:w-12 h-1 rounded-full md:group-hover:w-full transition-all duration-700 ease-in-out ${
-                isDark
+              className={`w-12 md:w-12 h-1 rounded-full md:group-hover:w-full transition-all duration-700 ease-in-out ${isDark
                   ? "bg-red-900 md:group-hover:bg-red-500"
                   : "bg-red-500 md:bg-neutral-100 md:group-hover:bg-red-600"
-              }`}
+                }`}
             ></div>
           </div>
         </div>
@@ -342,6 +333,8 @@ const TestimonialCard = ({ name, title, quote, logoUrl }) => {
                   src={logoUrl}
                   alt="brand"
                   className="w-4 h-4 object-contain opacity-80"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
             )}

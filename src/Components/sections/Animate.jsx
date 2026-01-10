@@ -87,6 +87,9 @@ const GrowthReactor = () => {
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e) => {
+    // Skip on mobile for performance
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
     const { clientX, clientY } = e;
     const { innerWidth, innerHeight } = window;
     const x = (clientX - innerWidth / 2) / 20;
@@ -102,42 +105,41 @@ const GrowthReactor = () => {
   return (
     <div className="w-full h-full min-h-[400px] flex items-center justify-center perspective-1000">
       <div
-        className="relative w-64 h-64 transform-style-3d transition-transform duration-100 ease-linear"
+        className="relative w-64 h-64 transition-transform duration-100 ease-linear transform-style-3d will-change-transform"
         style={{ transform: `rotateX(${rotate.x}deg) rotateY(${rotate.y}deg)` }}
       >
-        {/* Core Glow */}
-        <div className="absolute inset-0 bg-blue-500/20 blur-[80px] rounded-full animate-pulse-slow"></div>
+        {/* Core Glow - Hidden on Mobile */}
+        <div className="absolute inset-0 bg-blue-500/20 blur-[60px] rounded-full animate-pulse-slow hidden md:block will-change-transform"></div>
 
         {/* 1. Back Structure (Dark Metal) */}
         <div className="absolute inset-0 rounded-full border-[1px] border-neutral-800 bg-[#050505] transform -translate-z-20 opacity-80 shadow-2xl"></div>
 
-        {/* 2. Middle Ring (Glass) */}
-        <div className="absolute inset-4 rounded-full border-[2px] border-white/10 bg-white/5 backdrop-blur-md transform translate-z-0 shadow-[0_0_30px_rgba(59,130,246,0.1)]"></div>
+        {/* 2. Middle Ring (Glass) - Reduced blur on mobile */}
+        <div className="absolute inset-4 rounded-full border-[2px] border-white/10 bg-white/5 backdrop-blur-sm md:backdrop-blur-md transform translate-z-0 shadow-[0_0_30px_rgba(59,130,246,0.1)]"></div>
 
-        {/* 3. Orbiting Data Ring (Animated) */}
-        <div className="absolute -inset-8 border border-blue-500/30 rounded-full transform rotateX(70deg) animate-spin-slow border-dashed"></div>
-        <div className="absolute -inset-2 border border-cyan-400/20 rounded-full transform rotateY(60deg) animate-spin-reverse-slow"></div>
+        {/* 3. Orbiting Data Ring (Animated) - Hidden on Mobile */}
+        <div className="absolute -inset-8 border border-blue-500/30 rounded-full transform rotateX(70deg) animate-spin-slow border-dashed hidden md:block"></div>
+        <div className="absolute -inset-2 border border-cyan-400/20 rounded-full transform rotateY(60deg) animate-spin-reverse-slow hidden md:block"></div>
 
         {/* 4. Central Reactor Core */}
-        <div className="absolute inset-20 rounded-full bg-gradient-to-br from-blue-900 to-black border border-blue-500/50 transform translate-z-20 flex items-center justify-center shadow-inner">
-          <div className="z-10 p-4 bg-blue-500/20 rounded-full blur-md absolute inset-0 animate-pulse"></div>
+        <div className="absolute flex items-center justify-center transform border rounded-full shadow-inner inset-20 bg-gradient-to-br from-blue-900 to-black border-blue-500/50 translate-z-20">
+          <div className="absolute inset-0 z-10 p-4 rounded-full bg-blue-500/20 blur-sm md:blur-md animate-pulse"></div>
           <Zap
-            className="text-blue-400 w-10 h-10 relative z-20"
+            className="relative z-20 w-10 h-10 text-blue-400"
             strokeWidth={1.5}
           />
         </div>
 
-        {/* 5. Floating Particles */}
+        {/* 5. Floating Particles - Hidden on Mobile */}
         {[...Array(8)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1.5 h-1.5 bg-blue-400 rounded-full"
+            className="absolute w-1.5 h-1.5 bg-blue-400 rounded-full hidden md:block"
             style={{
               top: "50%",
               left: "50%",
-              transform: `rotate(${
-                i * 45
-              }deg) translateX(${120}px) translateZ(${Math.sin(i) * 50}px)`,
+              transform: `rotate(${i * 45
+                }deg) translateX(${120}px) translateZ(${Math.sin(i) * 50}px)`,
               opacity: 0.6,
             }}
           ></div>
@@ -219,11 +221,10 @@ const StackedCardDeck = () => {
                 absolute top-12 left-0 w-full h-[380px] 
                 rounded-3xl border p-8 flex flex-col justify-between overflow-hidden
                 transition-all duration-500 cubic-bezier(0.23, 1, 0.32, 1)
-                ${
-                  isTop
-                    ? "bg-[#0a0f18] border-blue-500/50 cursor-pointer hover:-translate-y-2 shadow-[0_20px_60px_-15px_rgba(59,130,246,0.3)]"
-                    : "bg-[#05080c] border-white/5 pointer-events-none select-none shadow-lg"
-                }
+                ${isTop
+                ? "bg-[#0a0f18] border-blue-500/50 cursor-pointer hover:-translate-y-2 shadow-[0_20px_60px_-15px_rgba(59,130,246,0.3)]"
+                : "bg-[#05080c] border-white/5 pointer-events-none select-none shadow-lg"
+              }
             `}
             style={style}
           >
@@ -235,15 +236,14 @@ const StackedCardDeck = () => {
             )}
 
             <div className="relative z-10">
-              <div className="flex justify-between items-start mb-6">
+              <div className="flex items-start justify-between mb-6">
                 <div
                   className={`
                         w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 shadow-sm
-                        ${
-                          isTop
-                            ? "bg-blue-900/20 border border-blue-500/50 text-blue-400"
-                            : "bg-white/5 border border-white/5 text-neutral-600"
-                        }
+                        ${isTop
+                      ? "bg-blue-900/20 border border-blue-500/50 text-blue-400"
+                      : "bg-white/5 border border-white/5 text-neutral-600"
+                    }
                     `}
                 >
                   <step.icon size={26} strokeWidth={isTop ? 2 : 1.5} />
@@ -254,9 +254,8 @@ const StackedCardDeck = () => {
                     System
                   </span>
                   <span
-                    className={`font-black text-3xl leading-none font-mono ${
-                      isTop ? "text-blue-500" : "text-neutral-800"
-                    }`}
+                    className={`font-black text-3xl leading-none font-mono ${isTop ? "text-blue-500" : "text-neutral-800"
+                      }`}
                   >
                     0{index + 1}
                   </span>
@@ -264,27 +263,24 @@ const StackedCardDeck = () => {
               </div>
 
               <h3
-                className={`text-2xl font-bold mb-3 leading-[1.1] tracking-tight ${
-                  isTop ? "text-white" : "text-neutral-600"
-                }`}
+                className={`text-2xl font-bold mb-3 leading-[1.1] tracking-tight ${isTop ? "text-white" : "text-neutral-600"
+                  }`}
               >
                 {step.title}
               </h3>
               <p
-                className={`text-sm leading-relaxed ${
-                  isTop ? "text-neutral-400" : "text-neutral-700"
-                }`}
+                className={`text-sm leading-relaxed ${isTop ? "text-neutral-400" : "text-neutral-700"
+                  }`}
               >
                 {step.description}
               </p>
             </div>
 
-            <div className="relative z-10 border-t border-white/5 pt-4 flex justify-between items-center">
-              <div className="flex gap-2 items-center">
+            <div className="relative z-10 flex items-center justify-between pt-4 border-t border-white/5">
+              <div className="flex items-center gap-2">
                 <div
-                  className={`w-1.5 h-1.5 rounded-full ${
-                    isTop ? "bg-blue-500 animate-pulse" : "bg-neutral-800"
-                  }`}
+                  className={`w-1.5 h-1.5 rounded-full ${isTop ? "bg-blue-500 animate-pulse" : "bg-neutral-800"
+                    }`}
                 ></div>
                 <span className="font-mono text-[9px] uppercase tracking-wider text-neutral-500">
                   {isTop ? "Click_Next" : "Locked"}
@@ -300,7 +296,7 @@ const StackedCardDeck = () => {
         );
       })}
 
-      <div className="absolute -bottom-8 w-full text-center text-xs font-mono text-blue-900/50 animate-pulse tracking-widest">
+      <div className="absolute w-full font-mono text-xs tracking-widest text-center -bottom-8 text-blue-900/50 animate-pulse">
         [ CLICK TO CYCLE PROCESS ]
       </div>
     </div>
@@ -310,7 +306,7 @@ const StackedCardDeck = () => {
 // --- MAIN EXPORT ---
 export default function Animate1() {
   return (
-    <section className="py-32 bg-black overflow-hidden relative">
+    <section className="relative py-32 overflow-hidden bg-black">
       {/* Global Overlays */}
       <FilmGrain />
 
@@ -321,18 +317,18 @@ export default function Animate1() {
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05]"></div>
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+      <div className="container relative z-10 px-4 mx-auto">
+        <div className="grid items-center grid-cols-1 gap-20 lg:grid-cols-2">
           {/* Left: Text & Graphic */}
-          <div className="text-left relative z-20">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-8 backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+          <div className="relative z-20 text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1 mb-8 border rounded-full bg-blue-500/10 border-blue-500/20 backdrop-blur-md">
+              <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
               <span className="text-xs font-bold tracking-widest text-blue-400 uppercase">
                 The Solution
               </span>
             </div>
 
-            <h2 className="text-5xl md:text-6xl font-black text-white mb-8 leading-tight tracking-tighter">
+            <h2 className="mb-8 text-5xl font-black leading-tight tracking-tighter text-white md:text-6xl">
               Your Expertise. <br />
               Our Strategy. <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-300">
@@ -340,13 +336,13 @@ export default function Animate1() {
               </span>
             </h2>
 
-            <div className="text-neutral-400 text-lg mb-16 max-w-md leading-relaxed space-y-6">
+            <div className="max-w-md mb-16 space-y-6 text-lg leading-relaxed text-neutral-400">
               <p>
                 Every founder has a story. Every entrepreneur has insights no
                 one else sees. Every leader carries a perspective that can
                 change someone’s life, or business, or belief.
               </p>
-              <p className="text-white font-medium border-l-2 border-blue-500 pl-4">
+              <p className="pl-4 font-medium text-white border-l-2 border-blue-500">
                 We turn that into a brand people want to learn from.
               </p>
             </div>
