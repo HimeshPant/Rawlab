@@ -7,7 +7,7 @@ export default function TrustedBy() {
     "/2.jpeg",
     "/3.jpeg",
     // "/4.jpeg",
-    // "/5.jpeg",
+    "/5.jpeg",
     "/25.jpeg",
     "/7.jpeg",
     "/8.jpeg",
