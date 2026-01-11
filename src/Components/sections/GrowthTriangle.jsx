@@ -1,8 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 // --- DATA: Defined locally with specific colors ---
+// Memoized to prevent re-creation on renders
 const growthTriangleData = [
   {
     title: "Personal Brand Growth",
@@ -43,7 +44,6 @@ const growthTriangleData = [
 const GrowthCard = ({
   title,
   image,
-  index,
   path,
   color,
   glowColor,
@@ -54,6 +54,7 @@ const GrowthCard = ({
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
   const [opacity, setOpacity] = useState(0);
 
+  // Optimized Mouse Move - Reduced complexity
   const handleMouseMove = (e) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
@@ -64,11 +65,13 @@ const GrowthCard = ({
     cardRef.current.style.setProperty("--mouse-x", `${x}px`);
     cardRef.current.style.setProperty("--mouse-y", `${y}px`);
 
-    // Calculate Tilt
+    // Calculate Tilt - Simplified math
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * -5;
-    const rotateY = ((x - centerX) / centerX) * 5;
+
+    // Limit rotation degrees for smoother performance
+    const rotateX = ((y - centerY) / centerY) * -3;
+    const rotateY = ((x - centerX) / centerX) * 3;
 
     setRotate({ x: rotateX, y: rotateY });
     setOpacity(1);
@@ -81,22 +84,26 @@ const GrowthCard = ({
 
   // Image handling
   const imageSrc = image && typeof image === "object" ? image.src : image;
-  const isFirst = index === 0;
 
-  // Dynamic text color classes
-  const textColorClass =
-    {
-      red: "text-red-300",
-      green: "text-green-300",
-      blue: "text-blue-300",
-    }[color] || "text-blue-300";
+  // Memoize style classes to avoid recalculation
+  const { textColorClass, badgeBorderClass } = useMemo(() => {
+    const base = {
+      red: { text: "text-red-300", border: "border-red-500/30 bg-red-900/40" },
+      green: {
+        text: "text-green-300",
+        border: "border-green-500/30 bg-green-900/40",
+      },
+      blue: {
+        text: "text-blue-300",
+        border: "border-blue-500/30 bg-blue-900/40",
+      },
+    }[color] || {
+      text: "text-blue-300",
+      border: "border-blue-500/30 bg-blue-900/40",
+    };
 
-  const badgeBorderClass =
-    {
-      red: "border-red-500/30 bg-red-900/40",
-      green: "border-green-500/30 bg-green-900/40",
-      blue: "border-blue-500/30 bg-blue-900/40",
-    }[color] || "border-blue-500/30";
+    return { textColorClass: base.text, badgeBorderClass: base.border };
+  }, [color]);
 
   return (
     <Link to={path} className="block h-full group perspective-1000">
@@ -108,7 +115,7 @@ const GrowthCard = ({
             relative h-[450px] w-full rounded-[2rem] overflow-hidden 
             bg-white border-2 ${borderColor}
             transition-all duration-300 ease-out 
-            hover:shadow-2xl
+            hover:shadow-2xl will-change-transform
         `}
         style={{
           transform: `rotateX(${rotate.x}deg) rotateY(${rotate.y}deg)`,
@@ -119,10 +126,13 @@ const GrowthCard = ({
         }}
       >
         {/* 1. Background Image Layer - Bright & Clear */}
-        <div className="absolute inset-0 z-0 bg-white">
+        <div className="absolute inset-0 z-0 bg-neutral-100">
+          {/* Added loading="lazy" and decoding="async" for performance */}
           <img
             src={imageSrc}
             alt={title}
+            loading="lazy"
+            decoding="async"
             className={`w-full h-full transition-transform duration-700 ease-out group-hover:scale-110 opacity-100 object-cover`}
           />
           {/* Gradient Overlay ONLY at bottom for Text Readability */}
@@ -180,8 +190,8 @@ const GrowthCard = ({
             }
         `}</style>
 
-        {/* 4. Noise Texture (Subtle) */}
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.1] mix-blend-overlay pointer-events-none z-10"></div>
+        {/* 4. Noise Texture (Subtle) - Reduced opacity for performance */}
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05] mix-blend-overlay pointer-events-none z-10"></div>
 
         {/* 5. Content Layer */}
         <div className="absolute inset-0 z-20 flex flex-col justify-end p-8 transform translate-z-10">
@@ -233,7 +243,8 @@ export default function GrowthTriangle() {
     >
       {/* Background Decor - White Theme */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-[radial-gradient(ellipse_at_top,_rgba(59,130,246,0.1),_transparent_70%)] pointer-events-none mix-blend-multiply"></div>
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none"></div>
+      {/* Optimized Noise: Reduced opacity */}
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] pointer-events-none"></div>
 
       <div className="container relative z-10 px-4 mx-auto max-w-7xl">
         {/* Header */}
