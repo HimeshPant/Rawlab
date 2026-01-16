@@ -40,23 +40,7 @@ const CinematicBackground = () => (
 );
 
 // --- 2. COMPONENT: LANDING BUTTON ---
-const LandingButton = ({ children, href, variant = "primary" }) => {
-  const baseStyle =
-    "inline-flex items-center justify-center px-10 py-4 text-base font-semibold transition-all duration-500 transform rounded-full tracking-wide relative overflow-hidden group shadow-xl hover:-translate-y-1";
-
-  const variants = {
-    primary: "bg-red-600 text-white hover:bg-red-700 hover:shadow-red-500/30",
-    secondary:
-      "bg-white border border-neutral-200 text-neutral-900 hover:bg-neutral-50 hover:border-neutral-300 backdrop-blur-md",
-  };
-
-  return (
-    <a href={href} className={`${baseStyle} ${variants[variant]}`}>
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out"></div>
-      <span className="relative z-10 flex items-center gap-2">{children}</span>
-    </a>
-  );
-};
+import LandingButton from "../Components/ui/LandingButton.jsx";
 
 // --- 3. COMPONENT: 3D VIRAL REACTOR (Optimized) ---
 const ViralReactor = () => {
@@ -199,8 +183,9 @@ const AestheticCard = ({
     >
       {/* Subtle Drop Shadow - Always visible on mobile, hover on desktop */}
       <div
-        className={`absolute inset-0 rounded-[2rem] blur-xl transition-opacity duration-700 transform translate-y-4 opacity-50 md:opacity-0 md:group-hover:opacity-100 ${isDark ? "bg-red-600/30" : "bg-red-100/50"
-          }`}
+        className={`absolute inset-0 rounded-[2rem] blur-xl transition-opacity duration-700 transform translate-y-4 opacity-50 md:opacity-0 md:group-hover:opacity-100 ${
+          isDark ? "bg-red-600/30" : "bg-red-100/50"
+        }`}
       ></div>
 
       <div
@@ -209,36 +194,40 @@ const AestheticCard = ({
         className={`
         relative h-full rounded-[2rem] p-10 border overflow-hidden transition-all duration-300 ease-out flex flex-col justify-between
         md:group-hover:-translate-y-1 md:group-hover:shadow-2xl
-        ${isDark
+        ${
+          isDark
             ? "bg-[#0a0a0a] border-red-900/30 md:group-hover:border-red-600 text-white shadow-xl"
             : "bg-white border-neutral-100 md:group-hover:border-red-100 shadow-md"
-          }
+        }
       `}
       >
         {/* MOBILE: Static Tint Background */}
         <div
-          className={`absolute inset-0 pointer-events-none md:hidden opacity-30 ${isDark
+          className={`absolute inset-0 pointer-events-none md:hidden opacity-30 ${
+            isDark
               ? "bg-gradient-to-br from-red-900/40 to-transparent"
               : "bg-gradient-to-br from-red-50 to-transparent"
-            }`}
+          }`}
         ></div>
 
         {/* DESKTOP: Dynamic Spotlight Interaction */}
         <div
           className="hidden md:block absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
           style={{
-            background: `radial-gradient(600px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), ${isDark ? "rgba(127, 29, 29, 0.4)" : "rgba(254, 242, 242, 1)"
-              }, transparent 40%)`,
+            background: `radial-gradient(600px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), ${
+              isDark ? "rgba(127, 29, 29, 0.4)" : "rgba(254, 242, 242, 1)"
+            }, transparent 40%)`,
           }}
         ></div>
 
         {/* Index Number */}
         <div
           className={`absolute top-8 right-8 text-7xl font-bold select-none font-sans tracking-tighter scale-100 md:scale-150 md:origin-top-right md:group-hover:scale-100 transition-all duration-500 
-           ${isDark
-              ? "text-red-900 opacity-20 md:text-neutral-800 md:group-hover:text-red-900 md:group-hover:opacity-100"
-              : "text-red-50 opacity-100 md:text-neutral-50 md:opacity-40 md:group-hover:text-red-50 md:group-hover:opacity-100"
-            }`}
+           ${
+             isDark
+               ? "text-red-900 opacity-20 md:text-neutral-800 md:group-hover:text-red-900 md:group-hover:opacity-100"
+               : "text-red-50 opacity-100 md:text-neutral-50 md:opacity-40 md:group-hover:text-red-50 md:group-hover:opacity-100"
+           }`}
         >
           0{index + 1}
         </div>
@@ -248,10 +237,11 @@ const AestheticCard = ({
           {/* Icon Box */}
           <div
             className={`w-16 h-16 rounded-2xl border flex items-center justify-center transition-all duration-500 relative overflow-hidden md:group-hover:scale-110 md:group-hover:rotate-[-3deg] md:group-hover:shadow-lg
-                ${isDark
-                ? "bg-red-900/20 border-red-500/30 text-red-500 md:group-hover:bg-red-600 md:group-hover:text-white"
-                : "bg-neutral-50 border-neutral-100 text-neutral-400 md:bg-red-50 md:text-red-600 md:border-red-100 md:group-hover:bg-red-600 md:group-hover:text-white md:group-hover:shadow-red-500/20"
-              }
+                ${
+                  isDark
+                    ? "bg-red-900/20 border-red-500/30 text-red-500 md:group-hover:bg-red-600 md:group-hover:text-white"
+                    : "bg-neutral-50 border-neutral-100 text-neutral-400 md:bg-red-50 md:text-red-600 md:border-red-100 md:group-hover:bg-red-600 md:group-hover:text-white md:group-hover:shadow-red-500/20"
+                }
             `}
           >
             <Icon size={28} strokeWidth={1.5} className="relative z-10" />
@@ -260,30 +250,33 @@ const AestheticCard = ({
           <div className="space-y-4">
             {/* Title */}
             <p
-              className={`text-2xl font-bold leading-tight tracking-tight transition-colors duration-300 ${isDark
+              className={`text-2xl font-bold leading-tight tracking-tight transition-colors duration-300 ${
+                isDark
                   ? "text-white"
                   : "text-neutral-900 md:group-hover:text-red-700"
-                }`}
+              }`}
             >
               {title}
             </p>
 
             {/* Description */}
             <p
-              className={`text-sm font-medium leading-relaxed transition-colors ${isDark
+              className={`text-sm font-medium leading-relaxed transition-colors ${
+                isDark
                   ? "text-neutral-400 md:group-hover:text-neutral-200"
                   : "text-neutral-500 md:group-hover:text-neutral-700"
-                }`}
+              }`}
             >
               {description}
             </p>
 
             {/* Decorative Line */}
             <div
-              className={`w-12 md:w-12 h-1 rounded-full md:group-hover:w-full transition-all duration-700 ease-in-out ${isDark
+              className={`w-12 md:w-12 h-1 rounded-full md:group-hover:w-full transition-all duration-700 ease-in-out ${
+                isDark
                   ? "bg-red-900 md:group-hover:bg-red-500"
                   : "bg-red-500 md:bg-neutral-100 md:group-hover:bg-red-600"
-                }`}
+              }`}
             ></div>
           </div>
         </div>
@@ -422,7 +415,7 @@ const TestimonialsSection = () => {
 };
 
 // --- MAIN PAGE ---
-export default function YouTubeGrowth() {
+export default function YouTubeGrowth({ onBookCall }) {
   const features = [
     {
       title: "YouTube Authority Positioning",
@@ -514,7 +507,12 @@ export default function YouTubeGrowth() {
             className="flex flex-col sm:flex-row items-center justify-center gap-6 animate-fade-in-up"
             style={{ animationDelay: "300ms" }}
           >
-            <LandingButton href="#contact" variant="primary">
+            <LandingButton
+              as="button"
+              type="button"
+              variant="primary"
+              onClick={onBookCall}
+            >
               👉 Build My Personal Brand
             </LandingButton>
           </div>
@@ -661,8 +659,10 @@ export default function YouTubeGrowth() {
           </p>
 
           <LandingButton
-            href="https://docs.google.com/forms/d/e/1FAIpQLSf8jNC6LO5KNpe1Rf0oJ-sqo9C_6UrtJopoyEdxnx45Yil_oA/viewform"
+            as="button"
+            type="button"
             variant="primary"
+            onClick={onBookCall}
           >
             <Mic className="w-5 h-5 mr-2" /> Schedule My Brand Growth Call
           </LandingButton>

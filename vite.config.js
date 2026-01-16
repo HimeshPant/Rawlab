@@ -35,9 +35,8 @@ export default defineConfig({
       },
     },
   },
+  // REMOVED the aggressive caching headers here to fix WebSocket/HMR
   server: {
-    headers: {
-      "Cache-Control": "public, max-age=31536000, immutable",
-    },
+    // defaults are usually fine
   },
 });

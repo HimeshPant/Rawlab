@@ -28,28 +28,10 @@ const CinematicBackground = () => (
   </div>
 );
 
-// --- 2. COMPONENT: LANDING BUTTON ---
-const LandingButton = ({ children, href, variant = "primary" }) => {
-  const baseStyle =
-    "inline-flex items-center justify-center px-10 py-4 text-base font-semibold transition-all duration-500 transform rounded-full tracking-wide relative overflow-hidden group shadow-xl hover:-translate-y-1";
-
-  const variants = {
-    primary:
-      "bg-blue-600 text-white hover:bg-blue-700 hover:shadow-blue-500/30",
-    secondary:
-      "bg-white border border-neutral-200 text-neutral-900 hover:bg-neutral-50 hover:border-neutral-300 backdrop-blur-md",
-  };
-
-  return (
-    <a href={href} className={`${baseStyle} ${variants[variant]}`}>
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out"></div>
-      <span className="relative z-10 flex items-center gap-2">{children}</span>
-    </a>
-  );
-};
+import LandingButton from "../Components/ui/LandingButton.jsx";
 
 // --- MAIN PAGE ---
-const OurStory = () => {
+const OurStory = ({ onBookCall }) => {
   return (
     <div className="relative min-h-screen bg-white text-neutral-900 font-sans selection:bg-blue-100 selection:text-blue-900 overflow-x-hidden">
       {/* BACKGROUND */}
@@ -203,8 +185,10 @@ const OurStory = () => {
                   style={{ animationDelay: "500ms" }}
                 >
                   <LandingButton
-                    href="https://docs.google.com/forms/d/e/1FAIpQLSf8jNC6LO5KNpe1Rf0oJ-sqo9C_6UrtJopoyEdxnx45Yil_oA/viewform"
+                    as="button"
+                    type="button"
                     variant="primary"
+                    onClick={onBookCall}
                   >
                     <Mic className="w-5 h-5 mr-2" /> Start Your Chapter
                   </LandingButton>

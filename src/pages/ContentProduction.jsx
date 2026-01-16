@@ -58,20 +58,7 @@ const HeroGraphic = () => (
   </div>
 );
 
-// --- COMPONENT: LANDING BUTTON ---
-const LandingButton = ({ children, href }) => {
-  return (
-    <a
-      href={href}
-      className="group relative inline-flex items-center justify-center px-10 py-5 bg-neutral-900 text-white overflow-hidden rounded-none skew-x-[-10deg] hover:bg-black transition-colors shadow-xl"
-    >
-      <div className="absolute inset-0 w-full h-full bg-blue-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
-      <span className="relative skew-x-[10deg] font-bold tracking-wider text-sm md:text-base flex items-center gap-2">
-        {children}
-      </span>
-    </a>
-  );
-};
+import LandingButton from "../Components/ui/LandingButton.jsx";
 
 // --- COMPONENT: SIMPLE FEATURE CARD (Optimized) ---
 const FeatureCard = ({ title, description, icon: Icon, index }) => {
@@ -159,7 +146,7 @@ const FilmStrip = () => {
 };
 
 // --- MAIN PAGE ---
-export default function ContentProduction() {
+export default function ContentProduction({ onBookCall }) {
   const [features] = useState([
     {
       title: "Scripting & Strategy",
@@ -229,7 +216,9 @@ export default function ContentProduction() {
           </p>
 
           <div className="flex flex-col items-center gap-4">
-            <LandingButton href="#contact">PLAN MY SHOOT</LandingButton>
+            <LandingButton as="button" type="button" onClick={onBookCall}>
+              PLAN MY SHOOT
+            </LandingButton>
             <span className="font-mono text-xs text-neutral-400 mt-4 animate-bounce">
               SCROLL TO EXPLORE
             </span>

@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { MenuIcon, CloseIcon } from "../icons/Icons.jsx";
 import LandingButton from "../ui/LandingButton.jsx";
+import { X as CloseIcon, Menu as MenuIcon } from "lucide-react";
 
-export default function Header() {
+export default function Header({ onBookCall }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // Navigation links configuration
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/services/youtube-growth", label: "YouTube Growth" },
@@ -15,7 +13,6 @@ export default function Header() {
     { href: "/about", label: "About" },
     { href: "/OurStory", label: "Our Story" },
   ];
-
   return (
     <header className="sticky top-0 z-50 w-full border-b backdrop-blur-md bg-black/30 border-white/10">
       <nav className="container px-4 mx-auto sm:px-6 lg:px-8">
@@ -26,7 +23,6 @@ export default function Header() {
               Teach 2 Grow
             </span>
           </Link>
-
           {/* Desktop Navigation */}
           <div className="hidden lg:flex lg:items-center lg:space-x-8">
             {navLinks.map((link) => (
@@ -39,19 +35,18 @@ export default function Header() {
               </Link>
             ))}
           </div>
-
           {/* Desktop CTA Button */}
           <div className="items-center hidden space-x-4 lg:flex">
             <LandingButton
-              as="a"
-              href="https://docs.google.com/forms/d/e/1FAIpQLSf8jNC6LO5KNpe1Rf0oJ-sqo9C_6UrtJopoyEdxnx45Yil_oA/viewform"
+              as="button"
+              type="button"
               size="sm"
               variant="default"
+              onClick={onBookCall}
             >
               Book Free Call
             </LandingButton>
           </div>
-
           {/* Mobile Menu Toggle Button */}
           <div className="flex items-center lg:hidden">
             <button
@@ -63,12 +58,11 @@ export default function Header() {
           </div>
         </div>
       </nav>
-
       {/* Mobile Menu Dropdown */}
       <div
-        className={`${
-          isMenuOpen ? "block" : "hidden"
-        } lg:hidden absolute top-16 left-0 w-full bg-black/80 backdrop-blur-lg p-6 space-y-4 border-b border-t border-white/10`}
+        className={`$
+          {isMenuOpen ? "block" : "hidden"}
+        lg:hidden absolute top-16 left-0 w-full bg-black/80 backdrop-blur-lg p-6 space-y-4 border-b border-t border-white/10`}
       >
         {navLinks.map((link) => (
           <Link
@@ -81,11 +75,12 @@ export default function Header() {
           </Link>
         ))}
         <LandingButton
-          as="a"
-          href="https://docs.google.com/forms/d/e/1FAIpQLSf8jNC6LO5KNpe1Rf0oJ-sqo9C_6UrtJopoyEdxnx45Yil_oA/viewform"
+          as="button"
+          type="button"
           size="sm"
           variant="default"
           className="w-full text-center"
+          onClick={onBookCall}
         >
           Book Free Call
         </LandingButton>

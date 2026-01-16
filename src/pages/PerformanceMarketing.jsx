@@ -152,20 +152,7 @@ const InteractiveBentoCard = ({ children, className = "", delay = "0ms" }) => {
   );
 };
 
-// --- COMPONENT: LANDING BUTTON ---
-const LandingButton = ({ children, href }) => {
-  return (
-    <a
-      href={href}
-      className="group relative inline-flex items-center justify-center px-10 py-5 bg-neutral-900 text-white overflow-hidden rounded-full font-bold tracking-wide transition-all duration-300 hover:scale-105 shadow-[0_10px_20px_-10px_rgba(16,185,129,0.4)]"
-    >
-      <div className="absolute inset-0 w-full h-full bg-emerald-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
-      <span className="relative z-10 flex items-center gap-2 group-hover:text-white">
-        {children}
-      </span>
-    </a>
-  );
-};
+import LandingButton from "../Components/ui/LandingButton.jsx";
 
 // --- COMPONENT: TARGETING RADAR (Simple CSS Animation) ---
 const TargetingRadar = () => {
@@ -205,10 +192,11 @@ const MetricCardContent = ({ title, value, sub, icon: Icon, trend = "up" }) => (
         <Icon size={24} />
       </div>
       <div
-        className={`flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-full border ${trend === "up"
+        className={`flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-full border ${
+          trend === "up"
             ? "bg-emerald-50 text-emerald-700 border-emerald-100"
             : "bg-red-50 text-red-700 border-red-100"
-          }`}
+        }`}
       >
         <TrendingUp size={12} className={trend !== "up" ? "rotate-180" : ""} />
         {sub}
@@ -391,7 +379,7 @@ const CampaignSlider = () => {
 };
 
 // --- MAIN PAGE ---
-export default function PerformanceMarketing() {
+export default function PerformanceMarketing({ onBookCall }) {
   return (
     <div className="relative min-h-screen bg-white text-neutral-900 font-sans selection:bg-emerald-100 selection:text-emerald-900 overflow-x-hidden">
       <DigitalNoise />
@@ -426,7 +414,9 @@ export default function PerformanceMarketing() {
           </p>
 
           <div className="flex flex-col items-center gap-4">
-            <LandingButton href="#contact">SCALE MY REVENUE</LandingButton>
+            <LandingButton as="button" type="button" onClick={onBookCall}>
+              SCALE MY REVENUE
+            </LandingButton>
             <span className="font-medium text-xs text-green-800 mt-4 animate-bounce">
               Ready to Scale?
             </span>
