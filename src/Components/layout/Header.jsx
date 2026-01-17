@@ -63,9 +63,9 @@ export default function Header({ onBookCall }) {
       </nav>
       {/* Mobile Menu Dropdown */}
       <div
-        className={`$
-          {isMenuOpen ? "block" : "hidden"}
-        lg:hidden absolute top-16 left-0 w-full bg-black/80 backdrop-blur-lg p-6 space-y-4 border-b border-t border-white/10`}
+        className={`${
+          isMenuOpen ? "block" : "hidden"
+        } lg:hidden absolute top-16 left-0 w-full bg-black/80 backdrop-blur-lg p-6 space-y-4 border-b border-t border-white/10 z-50`}
       >
         {navLinks.map((link) => (
           <Link
