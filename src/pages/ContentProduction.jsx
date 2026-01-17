@@ -70,7 +70,7 @@ const FeatureCard = ({ title, description, icon, index }) => {
 
       <div className="relative z-10">
         <div className="w-14 h-14 rounded-xl bg-neutral-50 flex items-center justify-center text-neutral-600 mb-6 group-hover:bg-red-600 group-hover:text-white transition-colors duration-300">
-          <Icon size={24} strokeWidth={1.5} />
+          {React.createElement(icon, { size: 24, strokeWidth: 1.5 })}
         </div>
 
         <h3 className="text-xl font-bold text-neutral-900 mb-3">{title}</h3>

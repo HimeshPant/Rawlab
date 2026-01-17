@@ -7,7 +7,7 @@ export default function Header({ onBookCall }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/services/youtube-growth", label: "YouTube Growth" },
+    { href: "/services/youtube-growth", label: "Personal Brand Growth" },
     { href: "/services/performance-marketing", label: "Performance-marketing" },
     { href: "/services/content-production", label: "Content-production" },
     { href: "/about", label: "About" },
