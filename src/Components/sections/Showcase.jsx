@@ -47,7 +47,7 @@ export default function Showcase() {
 
             <p className="text-lg text-gray-600 leading-relaxed font-medium mb-8 max-w-lg">
               From high-end studio shoots to data-driven war rooms, get a
-              glimpse into how we engineer growth for educators like you.
+              glimpse into how we engineer growth for creators like you.
             </p>
 
             {/* Stats Grid */}
