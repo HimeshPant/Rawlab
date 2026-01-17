@@ -14,7 +14,10 @@ export default function Header({ onBookCall }) {
     { href: "/OurStory", label: "Our Story" },
   ];
   return (
-    <header className="sticky top-0 z-50 w-full border-b backdrop-blur-md bg-blue-950/80 border-white/10">
+    <header
+      className="sticky top-0 z-50 w-full border-b backdrop-blur-md bg-[#020617]/95
+ border-white/10"
+    >
       <nav className="container px-4 mx-auto sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo links to Home */}
