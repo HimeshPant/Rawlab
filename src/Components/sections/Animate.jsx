@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  PenTool,
-  Rocket,
-  Zap,
-  Youtube,
-  Instagram,
-  Repeat,
-} from "lucide-react";
+import { PenTool, Rocket, Zap, Youtube, Instagram, Repeat } from "lucide-react";
 
 // --- COMPONENT: LANDING BUTTON ---
 const LandingButton = ({ children, href, variant = "primary" }) => {
@@ -21,7 +14,12 @@ const LandingButton = ({ children, href, variant = "primary" }) => {
   };
 
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className={`${baseStyle} ${variants[variant]}`}>
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`${baseStyle} ${variants[variant]}`}
+    >
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out"></div>
       <span className="relative z-10 flex items-center gap-2">{children}</span>
     </a>
@@ -72,7 +70,7 @@ const SimpleCard = ({ title, description, icon: Icon, id }) => (
   <div className="relative h-full p-8 overflow-hidden transition-all duration-300 bg-white border group rounded-3xl border-neutral-100 hover:border-blue-100 hover:shadow-xl hover:-translate-y-1">
     {/* Hover Glow Gradient */}
     <div className="absolute inset-0 transition-opacity duration-500 opacity-0 bg-gradient-to-br from-blue-50/50 to-transparent group-hover:opacity-100"></div>
-    
+
     <div className="relative z-10 flex flex-col h-full">
       <div className="flex items-start justify-between mb-6">
         <div className="inline-flex items-center justify-center w-12 h-12 text-blue-600 transition-transform duration-300 border border-blue-100 rounded-xl bg-blue-50 group-hover:scale-110">
@@ -82,11 +80,11 @@ const SimpleCard = ({ title, description, icon: Icon, id }) => (
           0{id}
         </span>
       </div>
-      
+
       <h3 className="mb-3 text-xl font-bold tracking-tight transition-colors text-neutral-900 group-hover:text-blue-700">
         {title}
       </h3>
-      
+
       <p className="text-sm leading-relaxed transition-colors text-neutral-500 group-hover:text-neutral-600">
         {description}
       </p>
@@ -99,7 +97,7 @@ export default function Animate1() {
   return (
     <section className="relative py-24 overflow-hidden bg-white">
       {/* Background set to pure white, no gradients or blur for max performance */}
-      
+
       <div className="container relative z-10 px-4 mx-auto">
         {/* Header Section */}
         <div className="max-w-4xl mx-auto mb-16 text-center">
@@ -111,15 +109,15 @@ export default function Animate1() {
           </div>
 
           <h2 className="mb-6 text-4xl font-black leading-tight tracking-tighter md:text-6xl text-neutral-900">
-            Your Expertise. Our Strategy. <br />
+            Our Proven Growth Systems <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
-              Global Influence.
+              = Authority That Compounds Over Time.
             </span>
           </h2>
 
           <p className="max-w-2xl mx-auto text-lg leading-relaxed text-neutral-500">
-            Every founder has a story. We turn that into a brand people want to learn from.
-            Simple, scalable, and built for growth.
+            Built for Brands Playing the Long Game. From ambitious startup
+            founders, educators, creators to category-defining companies.
           </p>
         </div>
 
@@ -128,17 +126,21 @@ export default function Animate1() {
           {steps.map((step) => (
             <SimpleCard key={step.id} {...step} />
           ))}
-          
+
           {/* CTA Card (Last Grid Item - Light Mode) */}
           <div className="relative flex flex-col items-center justify-center h-full p-8 text-center transition-all duration-300 border border-blue-100 group rounded-3xl bg-gradient-to-br from-blue-50 to-white hover:shadow-xl hover:-translate-y-1">
-             <div className="p-4 mb-4 text-blue-600 bg-white border rounded-full shadow-sm border-blue-50 animate-pulse">
-                <Zap size={32} />
-             </div>
-             <h3 className="mb-2 text-xl font-bold text-blue-900">Ready to Start?</h3>
-             <p className="mb-6 text-sm text-blue-700/70">Let's build your authority today.</p>
-             <LandingButton href="https://docs.google.com/forms/d/e/1FAIpQLSf8jNC6LO5KNpe1Rf0oJ-sqo9C_6UrtJopoyEdxnx45Yil_oA/viewform">
-                Book Strategy Call
-             </LandingButton>
+            <div className="p-4 mb-4 text-blue-600 bg-white border rounded-full shadow-sm border-blue-50 animate-pulse">
+              <Zap size={32} />
+            </div>
+            <h3 className="mb-2 text-xl font-bold text-blue-900">
+              Ready to Start?
+            </h3>
+            <p className="mb-6 text-sm text-blue-700/70">
+              Let's build your authority today.
+            </p>
+            <LandingButton href="https://docs.google.com/forms/d/e/1FAIpQLSf8jNC6LO5KNpe1Rf0oJ-sqo9C_6UrtJopoyEdxnx45Yil_oA/viewform">
+              Book Strategy Call
+            </LandingButton>
           </div>
         </div>
       </div>

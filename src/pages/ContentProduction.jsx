@@ -61,7 +61,7 @@ const HeroGraphic = () => (
 import LandingButton from "../Components/ui/LandingButton.jsx";
 
 // --- COMPONENT: SIMPLE FEATURE CARD (Optimized) ---
-const FeatureCard = ({ title, description, icon: Icon, index }) => {
+const FeatureCard = ({ title, description, icon, index }) => {
   return (
     <div className="group relative p-8 rounded-2xl bg-white border border-neutral-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
       <div className="absolute top-6 right-6 font-mono text-4xl font-black text-neutral-100 select-none group-hover:text-red-50 transition-colors">

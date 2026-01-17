@@ -482,9 +482,9 @@ export default function YouTubeGrowth({ onBookCall }) {
             style={{ animationDelay: "100ms" }}
           >
             You’re One Strategy <br className="hidden md:block" /> Away From
-            Becoming a <br />
+            Leading on <br />
             <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-red-600 to-orange-500 pb-2">
-              Category Leader.
+              YouTube and Instagram.
             </span>
           </h1>
 
