@@ -23,10 +23,10 @@ export default function App() {
 
   // TODO: Replace with your Google Form endpoint and field names
   const GOOGLE_FORM_ACTION =
-    "https://docs.google.com/forms/d/e/1FAIpQLSf8jNC6LO5KNpe1Rf0oJ-sqo9C_6UrtJopoyEdxnx45Yil_oA/formResponse";
-  const FIELD_NAME = "entry.1234567890"; // Replace with actual field names
-  const FIELD_EMAIL = "entry.0987654321";
-  const FIELD_MESSAGE = "entry.1122334455";
+    "https://docs.google.com/forms/u/0/d/e/1FAIpQLSf8jNC6LO5KNpe1Rf0oJ-sqo9C_6UrtJopoyEdxnx45Yil_oA/formResponse";
+  const FIELD_NAME = "entry.1213694414"; // Replace with actual field names
+  const FIELD_PHONENUMBER = "entry.873237726";
+  const FIELD_YOUTUBELINK = "entry.234593872";
 
   const handleModalOpen = () => setModalOpen(true);
   const handleModalClose = () => {
@@ -35,20 +35,48 @@ export default function App() {
     setError("");
   };
 
-  const handleFormSubmit = async (form) => {
+  const handleFormSubmit = (form) => {
     setSubmitting(true);
     setError("");
     try {
-      const formData = new FormData();
-      formData.append(FIELD_NAME, form.name);
-      formData.append(FIELD_EMAIL, form.email);
-      formData.append(FIELD_MESSAGE, form.message);
+      // Create an iframe to submit the form without redirecting the main page
+      const iframe = document.createElement("iframe");
+      iframe.style.display = "none";
+      document.body.appendChild(iframe);
 
-      await fetch(GOOGLE_FORM_ACTION, {
-        method: "POST",
-        mode: "no-cors",
-        body: formData,
-      });
+      // Create the form inside the iframe
+      const hiddenForm = iframe.contentDocument.createElement("form");
+      hiddenForm.action = GOOGLE_FORM_ACTION;
+      hiddenForm.method = "POST";
+
+      // Create input elements for each field
+      const nameInput = iframe.contentDocument.createElement("input");
+      nameInput.type = "hidden";
+      nameInput.name = FIELD_NAME;
+      nameInput.value = form.name;
+      hiddenForm.appendChild(nameInput);
+
+      const phoneInput = iframe.contentDocument.createElement("input");
+      phoneInput.type = "hidden";
+      phoneInput.name = FIELD_PHONENUMBER;
+      phoneInput.value = form.phone;
+      hiddenForm.appendChild(phoneInput);
+
+      const youtubeInput = iframe.contentDocument.createElement("input");
+      youtubeInput.type = "hidden";
+      youtubeInput.name = FIELD_YOUTUBELINK;
+      youtubeInput.value = form.youtube;
+      hiddenForm.appendChild(youtubeInput);
+
+      // Append to iframe body and submit
+      iframe.contentDocument.body.appendChild(hiddenForm);
+      hiddenForm.submit();
+
+      // Clean up after a short delay
+      setTimeout(() => {
+        document.body.removeChild(iframe);
+      }, 1000);
+
       setSubmitted(true);
     } catch {
       setError("Submission failed. Please try again.");

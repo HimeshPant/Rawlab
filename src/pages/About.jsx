@@ -468,7 +468,7 @@ const About = ({ onBookCall }) => {
 
       {/* Footer */}
       <footer className="border-t border-neutral-200 py-12 bg-white text-center text-neutral-500 text-sm relative z-10">
-        <p>&copy; 2024 Teach2Grow. All rights reserved.</p>
+        <p>&copy; 2026 Teach2Grow. All rights reserved.</p>
       </footer>
     </div>
   );
