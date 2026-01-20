@@ -98,7 +98,7 @@ export default function App() {
 
         <main className="flex-grow">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home onOpenModal={handleModalOpen} />} />
             {/* ✅ Service Routes matching the paths in servicesData.js */}
             <Route
               path="/services/youtube-growth"

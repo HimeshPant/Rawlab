@@ -7,15 +7,15 @@ export default function Header({ onBookCall }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/services/youtube-growth", label: "Personal Brand Growth" },
+    { href: "/services/youtube-growth", label: "Youtube and Instagram Growth" },
     { href: "/services/performance-marketing", label: "Performance-marketing" },
     { href: "/services/content-production", label: "Content-production" },
-    { href: "/about", label: "About" },
-    { href: "/OurStory", label: "Our Story" },
+    // { href: "/about", label: "About" },
+    // { href: "/OurStory", label: "Our Story" },
   ];
   return (
     <header
-      className="sticky top-0 z-50 w-full border-b backdrop-blur-md bg-[#020617]/95
+      className="sticky top-0 z-50 w-full border-b backdrop-blur-md bg-[#000000]/100
  border-white/10"
     >
       <nav className="container px-4 mx-auto sm:px-6 lg:px-8">
