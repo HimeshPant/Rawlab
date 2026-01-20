@@ -330,8 +330,8 @@ export default function App() {
 
           <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-8 text-neutral-900 leading-[0.9]">
             VISUAL <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-b from-neutral-800 to-neutral-400">
-              IMPACT.
+            <span className="text-transparent bg-clip-text bg-gradient-to-b text-neutral-800 ">
+              REMEMBER
             </span>
           </h1>
 
