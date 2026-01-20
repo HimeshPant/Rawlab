@@ -15,7 +15,7 @@ const buttonVariants = cva(
         outline:
           "bg-white/10 border border-white/20 text-white hover:bg-white/20",
         // Simple white/black button
-        default: "bg-white text-black hover:bg-gray-200",
+        default: "bg-white text-black hover:bg-grayz-200",
       },
       size: {
         default: "px-6 py-3 text-base", // Hero/CTA size
@@ -26,7 +26,7 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  }
+  },
 );
 
 /**
@@ -48,7 +48,7 @@ const LandingButton = React.forwardRef(
         {...props}
       />
     );
-  }
+  },
 );
 LandingButton.displayName = "LandingButton";
 

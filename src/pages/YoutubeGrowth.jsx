@@ -490,15 +490,16 @@ export default function YouTubeGrowth({ onBookCall }) {
 
           {/* Subheadline */}
           <p
-            className="max-w-3xl mx-auto text-xl md:text-2xl text-neutral-500 mb-16 leading-relaxed font-light animate-fade-in-up"
+            className="max-w-3xl mx-auto text-xl md:text-2xl text-neutral-900 mb-16 leading-relaxed font-light animate-fade-in-up"
             style={{ animationDelay: "200ms" }}
           >
-            Your experience deserves attention. Your ideas deserve followers.
-            Your story deserves a stage. We help founders & leaders turn their
-            personality, expertise, and voice into a{" "}
             <strong className="font-semibold text-neutral-900">
-              powerful personal brand that attracts opportunities, clients,
-              talent, and trust.
+              Your experience deserves attention. <br />
+              Your ideas deserve followers. <br />
+              Your story deserves a stage. <br />
+              We help founders & leaders turn their personality, expertise, and
+              voice into a powerful personal brand that attracts opportunities,
+              clients, talent, and trust.
             </strong>
           </p>
 
@@ -510,10 +511,10 @@ export default function YouTubeGrowth({ onBookCall }) {
             <LandingButton
               as="button"
               type="button"
-              variant="primary"
+              variant="default"
               onClick={onBookCall}
             >
-              👉 Build My Personal Brand
+              Build My Personal Brand
             </LandingButton>
           </div>
         </div>
@@ -533,7 +534,7 @@ export default function YouTubeGrowth({ onBookCall }) {
 
               <h2 className="text-4xl md:text-6xl font-black text-neutral-900 mb-10 leading-[1.1] tracking-tight">
                 You Speak, But the <br />
-                <span className="text-neutral-400">
+                <span className="text-neutral-900">
                   Internet Doesn’t Hear You Yet.
                 </span>
               </h2>
@@ -661,7 +662,7 @@ export default function YouTubeGrowth({ onBookCall }) {
           <LandingButton
             as="button"
             type="button"
-            variant="primary"
+            variant="default"
             onClick={onBookCall}
           >
             <Mic className="w-5 h-5 mr-2" /> Schedule My Brand Growth Call

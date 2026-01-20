@@ -346,13 +346,6 @@ const HeroSection = ({ onOpenModal }) => (
         >
           Book a Strategy Call
         </LandingButton>
-        <button
-          onClick={onOpenModal}
-          className="px-8 py-4 rounded-full border border-white/10 text-white font-bold hover:bg-white/5 transition-colors flex items-center gap-2 group"
-        >
-          View Our Work{" "}
-          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-        </button>
       </div>
     </div>
 
