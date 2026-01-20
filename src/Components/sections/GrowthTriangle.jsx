@@ -44,7 +44,6 @@ const growthTriangleData = [
 const GrowthCard = ({
   title,
   image,
-  index,
   path,
   color,
   glowColor,

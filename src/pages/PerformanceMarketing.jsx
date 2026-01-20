@@ -11,6 +11,7 @@ import {
   Filter,
   ArrowRight,
 } from "lucide-react";
+import LandingButton from "../Components/ui/LandingButton.jsx";
 
 // --- VISUAL ELEMENTS ---
 
@@ -152,8 +153,6 @@ const InteractiveBentoCard = ({ children, className = "", delay = "0ms" }) => {
   );
 };
 
-import LandingButton from "../Components/ui/LandingButton.jsx";
-
 // --- COMPONENT: TARGETING RADAR (Simple CSS Animation) ---
 const TargetingRadar = () => {
   return (
@@ -185,38 +184,43 @@ const TargetingRadar = () => {
 };
 
 // --- COMPONENT: METRIC CARD CONTENT ---
-const MetricCardContent = ({ title, value, sub, icon: Icon, trend = "up" }) => (
-  <div className="p-8 flex flex-col justify-between h-full">
-    <div className="flex justify-between items-start">
-      <div className="p-3 bg-neutral-50 rounded-2xl text-neutral-500 group-hover:bg-emerald-50 group-hover:text-emerald-600 transition-colors">
-        <Icon size={24} />
+const MetricCardContent = ({ title, value, sub, icon, trend = "up" }) => {
+  const Icon = icon;
+  return (
+    <div className="p-8 flex flex-col justify-between h-full">
+      <div className="flex justify-between items-start">
+        <div className="p-3 bg-neutral-50 rounded-2xl text-neutral-500 group-hover:bg-emerald-50 group-hover:text-emerald-600 transition-colors">
+          <Icon size={24} />
+        </div>
+        <div
+          className={`flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-full border ${
+            trend === "up"
+              ? "bg-emerald-50 text-emerald-700 border-emerald-100"
+              : "bg-red-50 text-red-700 border-red-100"
+          }`}
+        >
+          <TrendingUp
+            size={12}
+            className={trend !== "up" ? "rotate-180" : ""}
+          />
+          {sub}
+        </div>
       </div>
-      <div
-        className={`flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-full border ${
-          trend === "up"
-            ? "bg-emerald-50 text-emerald-700 border-emerald-100"
-            : "bg-red-50 text-red-700 border-red-100"
-        }`}
-      >
-        <TrendingUp size={12} className={trend !== "up" ? "rotate-180" : ""} />
-        {sub}
+
+      <div>
+        <div className="text-5xl font-extrabold text-neutral-900 tracking-tighter mb-1">
+          {value}
+        </div>
+        <div className="text-sm font-medium text-neutral-500">{title}</div>
+      </div>
+
+      {/* Decorative Graph Line */}
+      <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-neutral-100 overflow-hidden">
+        <div className="h-full bg-emerald-500 w-2/3 rounded-r-full group-hover:w-full transition-all duration-1000 ease-out"></div>
       </div>
     </div>
-
-    <div>
-      <div className="text-5xl font-extrabold text-neutral-900 tracking-tighter mb-1">
-        {value}
-      </div>
-      <div className="text-sm font-medium text-neutral-500">{title}</div>
-    </div>
-
-    {/* Decorative Graph Line */}
-    <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-neutral-100 overflow-hidden">
-      <div className="h-full bg-emerald-500 w-2/3 rounded-r-full group-hover:w-full transition-all duration-1000 ease-out"></div>
-    </div>
-  </div>
-);
-
+  );
+};
 // --- COMPONENT: FUNNEL VISUALIZER ---
 const FunnelVisualizer = () => (
   <div className="relative p-8 h-full bg-white">

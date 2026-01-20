@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import {
   ArrowRight,
   Zap,
@@ -22,12 +22,48 @@ import {
   ChevronDown,
   X,
   Check,
+  BarChart,
+  Users,
+  CheckCircle,
+  Star,
+  Menu,
 } from "lucide-react";
 
-// --- IMPORTS ---
-import GrowthTriangle from "../Components/sections/GrowthTriangle.jsx";
-import Showcase from "../Components/sections/Showcase.jsx";
-import LandingButton from "../Components/ui/LandingButton.jsx";
+import Testimonials from "../Components/sections/Testimonials";
+import GrowthTriangle from "../Components/sections/GrowthTriangle";
+
+// --- INLINED COMPONENTS ---
+
+const LandingButton = ({
+  children,
+  variant = "primary",
+  className = "",
+  icon: Icon,
+  ...props
+}) => {
+  const baseStyle =
+    "inline-flex items-center justify-center px-10 py-4 text-base font-semibold transition-all duration-500 transform rounded-full tracking-wide relative overflow-hidden group shadow-xl hover:-translate-y-1 cursor-pointer";
+
+  const variants = {
+    primary:
+      "bg-blue-600 text-white hover:bg-blue-500 hover:shadow-blue-500/40",
+    secondary:
+      "bg-white border border-neutral-200 text-neutral-900 hover:bg-neutral-50 hover:border-neutral-300 backdrop-blur-md",
+  };
+
+  return (
+    <button
+      className={`${baseStyle} ${variants[variant] || variants.primary} ${className}`}
+      {...props}
+    >
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out"></div>
+      <span className="relative z-10 flex items-center gap-2">
+        {children}
+        {Icon && <Icon className="w-5 h-5" />}
+      </span>
+    </button>
+  );
+};
 
 // --- 1. CONFIGURATION & STYLES ---
 const FONT_IMPORT = `
@@ -78,7 +114,7 @@ const FilmGrain = () => (
   </div>
 );
 
-// New 3D Grid Background for Hero - UPDATED COLORS (Premium Emerald/Slate)
+// New 3D Grid Background for Hero
 const PerspectiveGrid = () => (
   <div className="absolute inset-0 overflow-hidden pointer-events-none">
     {/* Floor Grid */}
@@ -101,215 +137,151 @@ const PerspectiveGrid = () => (
   </div>
 );
 
-// Floating Stats Card - UPDATED COLORS
-const FloatingStat = ({
-  label,
-  value,
-  icon: Icon,
-  color,
-  top,
-  left,
-  right,
-  bottom,
-  delay,
-}) => (
-  <div
-    className="absolute hidden md:flex items-center gap-3 p-3 pr-5 bg-[#0a0a0a]/90 backdrop-blur-md border border-white/5 rounded-full shadow-2xl animate-float z-20 hover:scale-105 transition-transform cursor-default ring-1 ring-white/5"
-    style={{ top, left, right, bottom, animationDelay: delay }}
-  >
-    <div className={`p-2 rounded-full ${color} bg-opacity-10 text-white`}>
-      <Icon size={16} />
-    </div>
-    <div>
-      <div className="text-xs text-neutral-400 font-medium uppercase tracking-wider">
-        {label}
-      </div>
-      <div className="text-sm font-bold text-white">{value}</div>
-    </div>
-  </div>
-);
+// --- 3. CREATIVE ECOSYSTEM SECTION (New Services Card Style) ---
 
-// --- 3. BENTO GRID VISUALS ---
+const CreativeEcosystemSection = ({ onOpenModal }) => {
+  const steps = [
+    {
+      id: 1,
+      title: "YouTube Authority",
+      description:
+        "Crafting videos that educate, inspire, and position you as a category leader.",
+      icon: Youtube,
+      color: "red",
+      benefit: "Category Leadership",
+    },
+    {
+      id: 2,
+      title: "Instagram Reputation",
+      description:
+        "Reels, carousels, stories — strategically aligned to your voice & audience psychology.",
+      icon: Instagram,
+      color: "pink",
+      benefit: "Audience Trust",
+    },
+    {
+      id: 3,
+      title: "Content Strategy",
+      description:
+        "We turn your experiences into consumable, viral, emotional storytelling.",
+      icon: PenTool,
+      color: "blue",
+      benefit: "High Conversion",
+    },
+    {
+      id: 4,
+      title: "Repurposing Engine",
+      description:
+        "1 shoot → 30+ premium pieces across platforms. Maximum output, minimum input.",
+      icon: Repeat,
+      color: "purple",
+      benefit: "Max Output",
+    },
+    {
+      id: 5,
+      title: "Growth Systems",
+      description:
+        "What to publish, when to publish, who it’s for, and how it scales.",
+      icon: Rocket,
+      color: "emerald",
+      benefit: "Scalable Revenue",
+    },
+  ];
 
-const InteractiveBentoCard = ({ children, className = "", delay = "0ms" }) => {
-  const cardRef = useRef(null);
-
-  const handleMouseMove = (e) => {
-    if (window.matchMedia("(pointer: coarse)").matches) return;
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    cardRef.current.style.setProperty("--mouse-x", `${x}px`);
-    cardRef.current.style.setProperty("--mouse-y", `${y}px`);
-    cardRef.current.style.setProperty("--opacity", "1");
-  };
-
-  const handleMouseLeave = () => {
-    if (!cardRef.current) return;
-    cardRef.current.style.setProperty("--opacity", "0");
+  const getCardTheme = (color) => {
+    const themes = {
+      red: { ribbon: "bg-red-600", box: "bg-red-600" },
+      pink: { ribbon: "bg-pink-600", box: "bg-pink-600" },
+      blue: { ribbon: "bg-blue-600", box: "bg-blue-600" },
+      purple: { ribbon: "bg-purple-600", box: "bg-purple-600" },
+      emerald: { ribbon: "bg-emerald-600", box: "bg-emerald-600" },
+    };
+    return themes[color] || themes.blue;
   };
 
   return (
-    <div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className={`relative overflow-hidden bg-[#0F0F11]/60 backdrop-blur-md rounded-3xl border border-white/5 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-900/10 group animate-fade-in-up hover:-translate-y-1 ${className}`}
-      style={{ animationDelay: delay }}
-    >
-      <div
-        className="pointer-events-none absolute -inset-px transition-opacity duration-300 z-0 hidden md:block"
-        style={{
-          opacity: "var(--opacity, 0)",
-          background: `radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(16, 185, 129, 0.1), transparent 40%)`,
-        }}
-      />
-      <div className="relative z-10 h-full">{children}</div>
-    </div>
+    <section className="py-24 bg-slate-50 relative overflow-hidden">
+      {/* Dark overlay for top part transition if needed, or keeping it light to match white cards */}
+      <div className="container mx-auto px-4">
+        <div className="mb-16 text-center">
+          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4 text-slate-900">
+            The Ecosystem
+          </h2>
+          <p className="text-emerald-600 font-medium max-w-lg mx-auto tracking-wide text-sm">
+            CREATIVE • DATA • PERFORMANCE
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {steps.map((step) => {
+            const theme = getCardTheme(step.color);
+            const Icon = step.icon;
+
+            return (
+              <div
+                key={step.id}
+                className="group relative bg-white border border-slate-100 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+              >
+                <div
+                  className={`absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity ${theme.ribbon} rounded-bl-3xl`}
+                >
+                  <div className="w-24 h-24 rounded-full"></div>
+                </div>
+                <div
+                  className={`w-12 h-12 ${theme.box} rounded-lg flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform`}
+                >
+                  <Icon className="w-6 h-6 text-white" />
+                </div>
+                <div className="mb-2 text-xs font-bold uppercase tracking-wider text-slate-400">
+                  Step 0{step.id}
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-4">
+                  {step.title}
+                </h3>
+                <p className="text-slate-600 text-sm mb-6 leading-relaxed">
+                  {step.description}
+                </p>
+                <div className="flex items-center space-x-2 text-slate-700 font-medium bg-slate-50 p-3 rounded-lg">
+                  <CheckCircle className="w-5 h-5 text-green-500" />
+                  <span>{step.benefit}</span>
+                </div>
+              </div>
+            );
+          })}
+
+          {/* CTA Card matching the style */}
+          <div className="group relative bg-slate-900 border border-slate-800 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden flex flex-col items-center justify-center text-center">
+            <div className="absolute top-0 right-0 p-4 opacity-10 bg-white rounded-bl-3xl">
+              <div className="w-24 h-24 rounded-full"></div>
+            </div>
+            <div className="w-16 h-16 bg-emerald-500 rounded-full flex items-center justify-center mb-6 shadow-lg shadow-emerald-500/30 animate-pulse">
+              <Rocket className="w-8 h-8 text-white" />
+            </div>
+            <h3 className="text-2xl font-bold text-white mb-2">
+              Ready to Scale?
+            </h3>
+            <p className="text-slate-400 text-sm mb-8">
+              Let's build your authority.
+            </p>
+            <LandingButton
+              onClick={onOpenModal}
+              variant="primary"
+              className="!px-8 !py-3 w-full !bg-white !text-slate-900 hover:!bg-slate-100"
+            >
+              Start Now
+            </LandingButton>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
-
-// Visual: Studio Monitor - UPDATED
-const StudioMonitorVisual = () => (
-  <div className="w-full h-full min-h-[200px] bg-black relative rounded-xl overflow-hidden flex items-center justify-center border border-white/5">
-    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
-    <div className="absolute inset-0 border-[0.5px] border-white/10 m-4 rounded-sm">
-      <div className="absolute top-1/2 left-0 w-full h-[1px] bg-white/10"></div>
-      <div className="absolute top-0 left-1/2 h-full w-[1px] bg-white/10"></div>
-    </div>
-    <div className="absolute top-6 right-6 flex items-center gap-2">
-      <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-      <span className="text-[10px] text-white font-mono tracking-widest">
-        LIVE
-      </span>
-    </div>
-    <div className="w-16 h-16 border border-white/20 rounded-full flex items-center justify-center">
-      <div className="w-1 h-1 bg-white/40 rounded-full"></div>
-    </div>
-    <div className="absolute bottom-6 left-6 text-[10px] text-neutral-500 font-mono">
-      RAW <span className="mx-2">|</span> 6K <span className="mx-2">|</span>{" "}
-      CINEMA
-    </div>
-  </div>
-);
-
-// Visual: Orbiting Ecosystem - UPDATED
-const EcosystemOrbit = () => (
-  <div className="w-full h-full min-h-[300px] relative flex items-center justify-center">
-    <div className="w-20 h-20 bg-emerald-600 rounded-full flex items-center justify-center z-10 shadow-lg shadow-emerald-500/20">
-      <Zap className="text-white w-8 h-8" />
-    </div>
-    <div className="absolute w-[200px] h-[200px] border border-white/5 rounded-full"></div>
-    <div className="absolute w-[300px] h-[300px] border border-white/5 rounded-full opacity-50"></div>
-
-    <div className="absolute w-full h-full animate-spin-slow">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px]">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-[#0A0A0A] border border-white/10 rounded-full flex items-center justify-center shadow-lg">
-          <Youtube size={16} className="text-white" />
-        </div>
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-10 h-10 bg-[#0A0A0A] border border-white/10 rounded-full flex items-center justify-center shadow-lg">
-          <Instagram size={16} className="text-white" />
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
-// Visual: Neural Network - UPDATED
-const NeuralNetwork = () => (
-  <div className="w-full h-full relative overflow-hidden bg-[#0A0A0A] p-6 rounded-xl border border-white/5">
-    <div className="absolute inset-0 bg-emerald-900/5"></div>
-    <div className="flex flex-col justify-between h-full relative z-10">
-      <div className="flex justify-between text-neutral-500 text-xs font-mono uppercase">
-        <span>In</span>
-        <span>Process</span>
-        <span>Out</span>
-      </div>
-      <div className="flex justify-between items-center h-40">
-        <div className="flex flex-col gap-4">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="w-2 h-2 bg-neutral-800 rounded-full"></div>
-          ))}
-        </div>
-        <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20">
-          <path
-            d="M40 100 C 100 100, 200 50, 300 100"
-            stroke="rgba(16, 185, 129, 0.5)"
-            strokeWidth="1"
-            fill="none"
-          />
-          <path
-            d="M40 120 C 100 120, 200 150, 300 120"
-            stroke="rgba(20, 184, 166, 0.5)"
-            strokeWidth="1"
-            fill="none"
-          />
-        </svg>
-        <div className="w-16 h-16 bg-emerald-500/10 rounded-full border border-emerald-500/30 flex items-center justify-center animate-pulse">
-          <Cpu className="text-emerald-500" size={24} />
-        </div>
-        <div className="flex flex-col gap-4">
-          {[1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className="w-2 h-2 bg-emerald-500 rounded-full shadow-[0_0_8px_rgba(16,185,129,0.5)]"
-            ></div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
-const CoreVisual = () => (
-  <div className="w-full h-full flex items-center justify-center relative">
-    <div className="absolute w-40 h-40 border border-emerald-500/20 rounded-full animate-spin-slow"></div>
-    <div
-      className="absolute w-56 h-56 border border-teal-500/10 rounded-full animate-spin-slow"
-      style={{ animationDirection: "reverse" }}
-    ></div>
-    <div className="w-24 h-24 bg-gradient-to-br from-emerald-600 to-teal-800 rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(16,185,129,0.3)] z-10 relative">
-      <Zap className="text-white w-10 h-10 fill-white" />
-      <div className="absolute inset-0 rounded-full border border-white/20 animate-ping opacity-20"></div>
-    </div>
-  </div>
-);
 
 // --- 4. SECTIONS ---
 
 const HeroSection = ({ onOpenModal }) => (
   <section className="relative min-h-[100vh] flex flex-col items-center justify-center pt-32 pb-20 px-4 overflow-hidden bg-[#050505]">
     <PerspectiveGrid />
-
-    {/* Floating Elements - Updated Colors */}
-    <FloatingStat
-      label="ROAS"
-      value="4.5x"
-      icon={TrendingUp}
-      color="bg-emerald-500"
-      top="20%"
-      left="10%"
-      delay="0s"
-    />
-    <FloatingStat
-      label="Reach"
-      value="2.1M+"
-      icon={Globe}
-      color="bg-teal-500"
-      bottom="25%"
-      right="10%"
-      delay="1s"
-    />
-    <FloatingStat
-      label="Leads"
-      value="15k+"
-      icon={Target}
-      color="bg-white"
-      top="25%"
-      right="15%"
-      delay="2s"
-    />
 
     <div className="relative z-30 max-w-7xl mx-auto text-center">
       {/* Badge */}
@@ -323,7 +295,7 @@ const HeroSection = ({ onOpenModal }) => (
       {/* Headline */}
       <h1 className="text-5xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-8 leading-[0.95] text-white drop-shadow-2xl">
         We Turn Brands Into <br />
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-200 to-white relative inline-block pb-2">
+        <span className="text-emerald-500 relative inline-block pb-2">
           Category Leaders.
         </span>
       </h1>
@@ -432,7 +404,7 @@ const ProblemSection = () => (
                 <div
                   key={i}
                   style={{ height: `${h}%` }}
-                  className="flex-1 bg-neutral-800 rounded-t-sm"
+                  className="flex-1 bg-red-900/40 border-t border-red-500/50 rounded-t-sm"
                 ></div>
               ))}
             </div>
@@ -448,157 +420,9 @@ const ProblemSection = () => (
   </section>
 );
 
-// --- CREATIVE ECOSYSTEM (Bento Grid) ---
-const CreativeEcosystemSection = ({ onOpenModal }) => (
-  <section className="py-32 bg-[#050505] relative overflow-hidden">
-    <div className="container mx-auto px-4">
-      <div className="mb-20 text-center">
-        <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4 text-white">
-          The Ecosystem
-        </h2>
-        <p className="text-emerald-500 font-medium max-w-lg mx-auto tracking-wide text-sm">
-          CREATIVE • DATA • PERFORMANCE
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto auto-rows-[300px]">
-        {/* 1. Cinematic Production */}
-        <InteractiveBentoCard
-          delay="0ms"
-          className="md:col-span-1 bg-[#0A0A0A] border-white/5"
-        >
-          <div className="p-6 h-full flex flex-col relative overflow-hidden">
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
-            <div className="flex items-center gap-3 mb-4 relative z-10">
-              <div className="p-2 bg-white/5 rounded-lg">
-                <Aperture size={20} className="text-white" />
-              </div>
-              <h3 className="font-bold text-white">Visual Impact</h3>
-            </div>
-            <div className="flex-1 rounded-xl overflow-hidden relative border border-white/5 bg-black/50 flex items-center justify-center">
-              <div className="text-center">
-                <div className="text-4xl font-black text-neutral-800 mb-2">
-                  4K
-                </div>
-                <div className="text-xs text-neutral-600 tracking-widest uppercase">
-                  Cinema Grade
-                </div>
-              </div>
-              <div className="absolute bottom-4 right-4 w-2 h-2 bg-red-500 rounded-full animate-pulse shadow-[0_0_10px_red]"></div>
-            </div>
-          </div>
-        </InteractiveBentoCard>
-
-        {/* 2. Strategy Core */}
-        <InteractiveBentoCard
-          delay="100ms"
-          className="md:col-span-2 relative overflow-hidden border-emerald-500/20"
-        >
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/10 to-[#050505] z-0"></div>
-          <div className="relative z-10 h-full flex items-center justify-between px-10">
-            <div className="z-20">
-              <h3 className="text-3xl font-black text-white mb-2">
-                Full-Stack
-                <br />
-                Growth Engine
-              </h3>
-              <p className="text-neutral-400 text-sm max-w-xs mb-6">
-                From raw footage to revenue. We handle the entire pipeline.
-              </p>
-              <div className="flex gap-2">
-                <div className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-neutral-300">
-                  Strategy
-                </div>
-                <div className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-neutral-300">
-                  Production
-                </div>
-                <div className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-neutral-300">
-                  Ads
-                </div>
-              </div>
-            </div>
-            <div className="absolute right-0 top-0 h-full w-1/2 opacity-50 md:opacity-100">
-              <CoreVisual />
-            </div>
-          </div>
-        </InteractiveBentoCard>
-
-        {/* 3. Data Intelligence */}
-        <InteractiveBentoCard delay="200ms" className="md:col-span-1">
-          <div className="h-full flex flex-col">
-            <div className="p-6 pb-0">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="p-2 bg-white/5 rounded-lg">
-                  <Network size={20} className="text-teal-400" />
-                </div>
-                <h3 className="font-bold text-neutral-200">Data Core</h3>
-              </div>
-              <p className="text-xs text-neutral-500">
-                Real-time optimization.
-              </p>
-            </div>
-            <div className="flex-1 mt-4">
-              <NeuralNetwork />
-            </div>
-          </div>
-        </InteractiveBentoCard>
-
-        {/* 4. Global Reach */}
-        <InteractiveBentoCard
-          delay="300ms"
-          className="md:col-span-1 bg-[#0A0A0A] border-white/5"
-        >
-          <div className="p-6 h-full flex flex-col justify-between text-white relative overflow-hidden">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.1),transparent_70%)]"></div>
-            <div className="relative z-10">
-              <Globe className="text-emerald-500 mb-4" size={32} />
-              <h3 className="text-2xl font-bold mb-2">Global Impact</h3>
-              <p className="text-neutral-500 text-sm">
-                Reaching audiences in 15+ countries.
-              </p>
-            </div>
-            <div className="relative z-10 flex gap-2">
-              <div className="h-1 flex-1 bg-emerald-500 rounded-full animate-pulse"></div>
-              <div className="h-1 w-4 bg-teal-800 rounded-full"></div>
-            </div>
-          </div>
-        </InteractiveBentoCard>
-
-        {/* 5. CTA Card */}
-        <InteractiveBentoCard
-          delay="400ms"
-          className="md:col-span-1 bg-emerald-600 border-emerald-500"
-        >
-          <div className="h-full flex flex-col items-center justify-center p-8 text-center bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-cover relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-tr from-emerald-800 to-teal-600 opacity-90"></div>
-            <div className="relative z-10">
-              <div className="mb-4 p-3 bg-white/20 shadow-lg rounded-full border border-white/30 backdrop-blur-md inline-block">
-                <Rocket className="text-white fill-white" size={24} />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">
-                Ready to Scale?
-              </h3>
-              <p className="text-sm text-emerald-100 mb-6">
-                Let's build your authority.
-              </p>
-              <LandingButton
-                onClick={onOpenModal}
-                variant="secondary"
-                className="!bg-white !text-emerald-900 hover:!bg-gray-100"
-              >
-                Start Now
-              </LandingButton>
-            </div>
-          </div>
-        </InteractiveBentoCard>
-      </div>
-    </div>
-  </section>
-);
-
 // --- FAQ SECTION ---
 const FAQSection = () => {
-  const [openIndex, setOpenIndex] = useState(null);
+  const [openIndex, setOpenIndex] = React.useState(null);
 
   const faqs = [
     {
@@ -764,43 +588,39 @@ const FinalCTASection = ({ onOpenModal }) => (
 // --- MAIN PAGE COMPONENT ---
 
 export default function Home({ onOpenModal }) {
-  const [_, forceUpdate] = React.useState();
-
   return (
-    <div className="relative w-full overflow-hidden bg-[#050505] text-white font-outfit">
-      <style>{FONT_IMPORT}</style>
-      <FilmGrain />
+    <>
+      <div className="relative w-full overflow-hidden bg-[#050505] text-white font-outfit">
+        <style>{FONT_IMPORT}</style>
+        <FilmGrain />
 
-      {/* 1. Hero (Premium Onyx & Emerald) */}
-      <HeroSection onOpenModal={onOpenModal} />
+        {/* 1. Hero (Premium Onyx & Emerald) */}
+        <HeroSection onOpenModal={onOpenModal} />
 
-      {/* 2. Ticker */}
-      <TickerSection />
+        {/* 2. Ticker */}
+        <TickerSection />
 
-      {/* 3. Problem Section */}
-      <ProblemSection />
+        {/* 3. Problem Section */}
+        <ProblemSection />
 
-      {/* 4. Creative Ecosystem (Bento Grid) */}
-      <CreativeEcosystemSection onOpenModal={onOpenModal} />
+        {/* 4. Creative Ecosystem (UPDATED: White Cards from Animate content) */}
+        <CreativeEcosystemSection onOpenModal={onOpenModal} />
 
-      {/* 5. Growth Triangle (Imported - Needs white wrapper) */}
-      <div className="bg-white">
+        {/* 5. Growth Triangle (Imported - Needs white wrapper) */}
         <GrowthTriangle />
+
+        {/* 5. Showcase (Reverted to White Design) */}
+        <Testimonials />
+
+        {/* 6. Who We Work With (Inlined Dark) */}
+        <WhoWeWorkWithSection />
+
+        {/* 8. FAQ */}
+        <FAQSection />
+
+        {/* 7. Final CTA */}
+        <FinalCTASection onOpenModal={onOpenModal} />
       </div>
-
-      {/* 5. Showcase (Imported - Needs white wrapper) */}
-      <div className="bg-white">
-        <Showcase />
-      </div>
-
-      {/* 6. Who We Work With (Inlined Dark) */}
-      <WhoWeWorkWithSection />
-
-      {/* 8. FAQ */}
-      <FAQSection />
-
-      {/* 7. Final CTA */}
-      <FinalCTASection onOpenModal={onOpenModal} />
-    </div>
+    </>
   );
 }

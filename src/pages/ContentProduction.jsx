@@ -9,7 +9,55 @@ import {
   Play,
   Maximize2,
   ArrowRight,
+  CheckCircle,
 } from "lucide-react";
+
+// --- HELPERS ---
+
+const getCardTheme = (color) => {
+  const themes = {
+    blue: { ribbon: "bg-blue-600", box: "bg-blue-600" },
+    orange: { ribbon: "bg-orange-600", box: "bg-orange-600" },
+    rose: { ribbon: "bg-rose-600", box: "bg-rose-600" },
+    purple: { ribbon: "bg-purple-600", box: "bg-purple-600" },
+    teal: { ribbon: "bg-teal-600", box: "bg-teal-600" },
+    green: { ribbon: "bg-green-600", box: "bg-green-600" },
+  };
+  return themes[color] || themes.blue;
+};
+
+// --- INLINED COMPONENTS ---
+
+const LandingButton = ({
+  children,
+  variant = "primary",
+  className = "",
+  icon: Icon,
+  ...props
+}) => {
+  const baseStyle =
+    "inline-flex items-center justify-center px-10 py-4 text-base font-semibold transition-all duration-500 transform rounded-full tracking-wide relative overflow-hidden group shadow-xl hover:-translate-y-1 cursor-pointer";
+
+  const variants = {
+    primary:
+      "bg-neutral-900 text-white hover:bg-neutral-800 hover:shadow-neutral-500/20",
+    secondary:
+      "bg-white border border-neutral-200 text-neutral-900 hover:bg-neutral-50 hover:border-neutral-300 backdrop-blur-md",
+  };
+
+  return (
+    <button
+      className={`${baseStyle} ${variants[variant] || variants.primary} ${className}`}
+      {...props}
+    >
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out"></div>
+      <span className="relative z-10 flex items-center gap-2">
+        {children}
+        {Icon && <Icon className="w-5 h-5" />}
+      </span>
+    </button>
+  );
+};
 
 // --- VISUAL ELEMENTS ---
 
@@ -58,35 +106,88 @@ const HeroGraphic = () => (
   </div>
 );
 
-import LandingButton from "../Components/ui/LandingButton.jsx";
+// --- COMPONENT: FEATURE CARD (Updated Style) ---
+const FeatureCard = ({ title, description, icon, index, color, benefit }) => {
+  const Icon = icon;
+  const theme = getCardTheme(color);
 
-// --- COMPONENT: SIMPLE FEATURE CARD (Optimized) ---
-const FeatureCard = ({ title, description, icon, index }) => {
   return (
-    <div className="group relative p-8 rounded-2xl bg-white border border-neutral-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-      <div className="absolute top-6 right-6 font-mono text-4xl font-black text-neutral-100 select-none group-hover:text-red-50 transition-colors">
-        0{index + 1}
+    <div className="group relative bg-white border border-slate-100 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden">
+      {/* Ribbon */}
+      <div
+        className={`absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity ${theme.ribbon} rounded-bl-3xl`}
+      >
+        <div className="w-24 h-24 rounded-full"></div>
       </div>
 
-      <div className="relative z-10">
-        <div className="w-14 h-14 rounded-xl bg-neutral-50 flex items-center justify-center text-neutral-600 mb-6 group-hover:bg-red-600 group-hover:text-white transition-colors duration-300">
-          {React.createElement(icon, { size: 24, strokeWidth: 1.5 })}
-        </div>
-
-        <h3 className="text-xl font-bold text-neutral-900 mb-3">{title}</h3>
-
-        <p className="text-neutral-500 leading-relaxed text-sm">
-          {description}
-        </p>
+      {/* Icon Box */}
+      <div
+        className={`w-12 h-12 ${theme.box} rounded-lg flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform`}
+      >
+        <Icon className="w-6 h-6 text-white" />
       </div>
 
-      <div className="absolute bottom-0 left-0 w-0 h-1 bg-red-600 group-hover:w-full transition-all duration-500 rounded-b-2xl"></div>
+      {/* Step Label */}
+      <div className="mb-2 text-xs font-bold uppercase tracking-wider text-slate-400">
+        Step 0{index + 1}
+      </div>
+
+      {/* Title */}
+      <h3 className="text-2xl font-bold text-slate-900 mb-4">{title}</h3>
+
+      {/* Description */}
+      <p className="text-slate-600 text-sm mb-6 leading-relaxed">
+        {description}
+      </p>
+
+      {/* Benefit Badge */}
+      <div className="flex items-center space-x-2 text-slate-700 font-medium bg-slate-50 p-3 rounded-lg">
+        <CheckCircle className="w-5 h-5 text-green-500" />
+        <span>{benefit}</span>
+      </div>
     </div>
   );
 };
 
-// --- COMPONENT: FILM STRIP (Restored Visuals - No Interaction) ---
+// --- COMPONENT: FILM STRIP (Updated with placeholders + local names) ---
 const FilmStrip = () => {
+  // NOTE FOR USER: When running locally, remove the 'url' property and just use the 'file' property as the src.
+  // Example: src={item.file} if images are in public folder.
+  const footage = [
+    {
+      file: "b1.jpeg",
+      url: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=800&q=80",
+    },
+    {
+      file: "b2.jpeg",
+      url: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&q=80",
+    },
+    {
+      file: "b3.jpeg",
+      url: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800&q=80",
+    },
+    {
+      file: "b4.jpeg",
+      url: "https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=800&q=80",
+    },
+    {
+      file: "b5.jpeg",
+      url: "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=800&q=80",
+    },
+    {
+      file: "b6.jpeg",
+      url: "https://images.unsplash.com/photo-1533518463841-d62e1fc91373?w=800&q=80",
+    },
+    {
+      file: "b7.jpeg",
+      url: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&q=80",
+    },
+    {
+      file: "b8.jpeg",
+      url: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=800&q=80",
+    },
+  ];
+
   return (
     <div className="w-full overflow-hidden bg-neutral-900 py-12 rotate-[-2deg] scale-110 border-y-8 border-black pointer-events-none select-none">
       {/* Film Holes Top */}
@@ -101,32 +202,44 @@ const FilmStrip = () => {
 
       {/* Moving Content */}
       <div className="flex gap-8 animate-marquee whitespace-nowrap px-4">
-        {[1, 2, 3, 4, 5].map((i) => (
+        {footage.map((item, i) => (
           <div
             key={i}
-            className="w-[400px] h-[225px] bg-neutral-800 rounded-sm flex-shrink-0 relative overflow-hidden"
+            className="w-[400px] h-[225px] bg-neutral-800 rounded-sm flex-shrink-0 relative overflow-hidden group"
           >
-            <div className="absolute inset-0 bg-neutral-700/50"></div>
+            <img
+              // CHANGE THIS to src={item.file} when running locally with your images
+              src={item.url}
+              alt={`Raw Footage ${i + 1}`}
+              className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity"
+            />
+            <div className="absolute inset-0 bg-neutral-900/20"></div>
             <div className="absolute inset-0 flex items-center justify-center">
-              <Play className="w-12 h-12 text-white/50" />
+              <Play className="w-12 h-12 text-white/80 drop-shadow-lg" />
             </div>
-            <span className="absolute bottom-2 right-2 font-mono text-xs text-white/50">
-              RAW_FOOTAGE_{i}.MOV
+            <span className="absolute bottom-2 right-2 font-mono text-xs text-white/90 bg-black/50 px-2 py-1 rounded">
+              {item.file}
             </span>
           </div>
         ))}
         {/* Duplicates for Loop */}
-        {[1, 2, 3, 4, 5].map((i) => (
+        {footage.map((item, i) => (
           <div
             key={`d-${i}`}
-            className="w-[400px] h-[225px] bg-neutral-800 rounded-sm flex-shrink-0 relative overflow-hidden"
+            className="w-[400px] h-[225px] bg-neutral-800 rounded-sm flex-shrink-0 relative overflow-hidden group"
           >
-            <div className="absolute inset-0 bg-neutral-700/50"></div>
+            <img
+              // CHANGE THIS to src={item.file} when running locally with your images
+              src={item.url}
+              alt={`Raw Footage ${i + 1}`}
+              className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity"
+            />
+            <div className="absolute inset-0 bg-neutral-900/20"></div>
             <div className="absolute inset-0 flex items-center justify-center">
-              <Play className="w-12 h-12 text-white/50" />
+              <Play className="w-12 h-12 text-white/80 drop-shadow-lg" />
             </div>
-            <span className="absolute bottom-2 right-2 font-mono text-xs text-white/50">
-              RAW_FOOTAGE_{i}.MOV
+            <span className="absolute bottom-2 right-2 font-mono text-xs text-white/90 bg-black/50 px-2 py-1 rounded">
+              {item.file}
             </span>
           </div>
         ))}
@@ -146,40 +259,52 @@ const FilmStrip = () => {
 };
 
 // --- MAIN PAGE ---
-export default function ContentProduction({ onBookCall }) {
+export default function App() {
   const [features] = useState([
     {
       title: "Scripting & Strategy",
       description:
         "Narrative architecture that retains attention from the first second.",
       icon: Film,
+      color: "blue",
+      benefit: "High Retention",
     },
     {
       title: "Cinematic Lighting",
       description: "Studio-grade setups that build subconscious authority.",
       icon: Zap,
+      color: "orange",
+      benefit: "Subconscious Authority",
     },
     {
       title: "4K Multi-Cam",
       description:
         "High-fidelity recording using cinema cameras like Sony FX6/FX3.",
       icon: Aperture,
+      color: "rose",
+      benefit: "Future-Proof Quality",
     },
     {
       title: "Motion Graphics",
       description: "Custom animations that explain complex concepts simply.",
       icon: MonitorPlay,
+      color: "purple",
+      benefit: "Simplified Complexity",
     },
     {
       title: "Color Grading",
       description:
         "Professional grading that gives your brand a signature look.",
       icon: Clapperboard,
+      color: "teal",
+      benefit: "Brand Identity",
     },
     {
       title: "Social Distribution",
       description: "Formats optimized for every platform algorithm.",
       icon: Mic2,
+      color: "green",
+      benefit: "Algorithm Optimized",
     },
   ]);
 
@@ -216,9 +341,7 @@ export default function ContentProduction({ onBookCall }) {
           </p>
 
           <div className="flex flex-col items-center gap-4">
-            <LandingButton as="button" type="button" onClick={onBookCall}>
-              PLAN MY SHOOT
-            </LandingButton>
+            <LandingButton>PLAN MY SHOOT</LandingButton>
             <span className="font-mono text-xs text-neutral-400 mt-4 animate-bounce">
               SCROLL TO EXPLORE
             </span>

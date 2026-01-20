@@ -155,10 +155,11 @@ const ViralReactor = () => {
 const AestheticCard = ({
   title,
   description,
-  icon: Icon,
+  icon,
   index,
   variant = "default",
 }) => {
+  const Icon = icon;
   const isDark = variant === "dark";
   const cardRef = useRef(null);
 

@@ -66,7 +66,7 @@ const steps = [
 ];
 
 // --- COMPONENT: SIMPLE CARD (White on Dark Background) ---
-const SimpleCard = ({ title, description, icon: Icon, id }) => (
+const SimpleCard = ({ title, description, Icon, id }) => (
   <div className="relative h-full p-8 overflow-hidden transition-all duration-300 bg-white border group rounded-3xl border-white/10 hover:border-blue-400 hover:shadow-2xl hover:shadow-blue-900/20 hover:-translate-y-1">
     {/* Hover Glow Gradient (Light) */}
     <div className="absolute inset-0 transition-opacity duration-500 opacity-0 bg-gradient-to-br from-blue-50 to-transparent group-hover:opacity-100"></div>
