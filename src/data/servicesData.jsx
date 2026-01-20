@@ -45,17 +45,25 @@ export const growthTriangleData = [
 // --- Homepage Testimonials ---
 export const testimonialsData = [
   {
+    name: "Dear Sir",
+    title: "21 Million Subscribers",
     quote:
-      "Best agency for educators. They handled everything—the shoots, the ads, the content.",
-    name: "Rajat Kumar",
-    title: "Founder, XYZ Coaching",
-    logoUrl: "/XYZ.jpeg",
+      "Teach 2 Grow helped us take our channel from 500K to 21 million subscribers. Sincere, structured guidance.",
+    logoUrl: "/2.jpeg",
   },
   {
-    quote: "Record-breaking admissions. The ad campaigns are on another level.",
-    name: "Priya Singh",
-    title: "CEO, Apex Educators",
-    logoUrl: "/AE.png",
+    name: "Dhananjay Sir",
+    title: "Ignite Academy (1.16M Subs)",
+    quote:
+      "They understand YouTube at its deepest level. Our channel’s growth is a direct result of their data-driven expertise.",
+    logoUrl: "/D.jpeg",
+  },
+  {
+    name: "Teachee",
+    title: "EadTeach Platform",
+    quote:
+      "Their understanding of educators and students is what sets them apart from typical agencies.",
+    logoUrl: "/17.jpeg",
   },
   {
     name: "Growth.Ankur",
@@ -63,6 +71,13 @@ export const testimonialsData = [
     quote:
       "11,000 followers in just 90 days. They know exactly what makes a video perform.",
     logoUrl: "/A.jpeg",
+  },
+  {
+    name: "MagnatesMedia",
+    title: "1.83 Million Subscribers",
+    quote:
+      "World-class production quality. We consistently hit 70–80% retention.",
+    logoUrl: "/1.jpeg",
   },
 ];
 
@@ -88,8 +103,7 @@ export const youtubeFeatures = [
   },
   {
     title: "Content Repurposing Engine",
-    description:
-      "1 shoot → 30+ premium pieces across platforms.",
+    description: "1 shoot → 30+ premium pieces across platforms.",
     icon: <VideoIcon />,
   },
   {
@@ -140,8 +154,7 @@ export const marketingFeatures = [
   },
   {
     title: "Retargeting Funnels",
-    description:
-      "Turn \"thinking about it\" into \"take my money.\"",
+    description: 'Turn "thinking about it" into "take my money."',
     icon: <CheckCircleIcon />,
   },
   {

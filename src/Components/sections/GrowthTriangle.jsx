@@ -242,7 +242,7 @@ export default function GrowthTriangle() {
       className="relative py-32 overflow-hidden bg-white"
     >
       {/* Background Decor - White Theme */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-[radial-gradient(ellipse_at_top,_rgba(59,130,246,0.1),_transparent_70%)] pointer-events-none mix-blend-multiply"></div>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-[radial-gradient(ellipse_at_top,_rgba(0,128,0,0.1),_transparent_70%)] pointer-events-none mix-blend-multiply"></div>
       {/* Optimized Noise: Reduced opacity */}
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] pointer-events-none"></div>
 
@@ -258,7 +258,7 @@ export default function GrowthTriangle() {
 
           <h2 className="mb-6 text-4xl font-black tracking-tight md:text-6xl text-neutral-900">
             The Three{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-green-900">
               Growth Engines
             </span>
           </h2>
