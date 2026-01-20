@@ -64,7 +64,7 @@ export default function Footer() {
               <ul className="space-y-4">
                 <li>
                   <a
-                    href="/About"
+                    href="/about"
                     className="text-neutral-400 hover:text-cyan-400 text-sm transition-colors flex items-center justify-start lg:justify-center group"
                   >
                     <span className="w-0 group-hover:w-2 transition-all duration-300 h-[1px] bg-cyan-400 mr-0 group-hover:mr-2"></span>
