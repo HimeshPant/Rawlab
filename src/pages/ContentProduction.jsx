@@ -155,35 +155,27 @@ const FilmStrip = () => {
   // Example: src={item.file} if images are in public folder.
   const footage = [
     {
-      file: "b1.jpeg",
       url: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=800&q=80",
     },
     {
-      file: "b2.jpeg",
       url: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&q=80",
     },
     {
-      file: "b3.jpeg",
       url: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800&q=80",
     },
     {
-      file: "b4.jpeg",
       url: "https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=800&q=80",
     },
     {
-      file: "b5.jpeg",
       url: "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=800&q=80",
     },
     {
-      file: "b6.jpeg",
       url: "https://images.unsplash.com/photo-1533518463841-d62e1fc91373?w=800&q=80",
     },
     {
-      file: "b7.jpeg",
       url: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&q=80",
     },
     {
-      file: "b8.jpeg",
       url: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=800&q=80",
     },
   ];
