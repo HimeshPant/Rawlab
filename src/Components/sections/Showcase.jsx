@@ -1,9 +1,27 @@
 import React from "react";
 
-// Generated array of images from 1.jpg to 20.jpg
-const allPhotos = Array.from({ length: 25 }, (_, i) => ({
+// Main logo images (higher priority)
+const mainLogos = Array.from({ length: 8 }, (_, i) => ({
+  src: `/v${i + 1}.png`,
+}));
+
+// Normal gallery images
+const normalPhotos = Array.from({ length: 25 }, (_, i) => ({
   src: `/${i + 1}.jpeg`,
 }));
+
+// Mix logos in between normal photos
+const allPhotos = [
+  ...mainLogos, // show logos first
+  ...normalPhotos.flatMap((img, index) => {
+    // Every 3 images, inject a logo again
+    if (index % 3 === 0) {
+      const logo = mainLogos[index % mainLogos.length];
+      return [logo, img];
+    }
+    return [img];
+  }),
+];
 
 // Split images into three columns to make cards smaller
 const partSize = Math.ceil(allPhotos.length / 3);

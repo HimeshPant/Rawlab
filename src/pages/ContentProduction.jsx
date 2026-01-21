@@ -30,6 +30,7 @@ const getCardTheme = (color) => {
 
 const LandingButton = ({
   children,
+  href,
   variant = "primary",
   className = "",
   icon: Icon,
@@ -107,8 +108,14 @@ const HeroGraphic = () => (
 );
 
 // --- COMPONENT: FEATURE CARD (Updated Style) ---
-const FeatureCard = ({ title, description, icon, index, color, benefit }) => {
-  const Icon = icon;
+const FeatureCard = ({
+  title,
+  description,
+  icon: Icon,
+  index,
+  color,
+  benefit,
+}) => {
   const theme = getCardTheme(color);
 
   return (
@@ -149,35 +156,17 @@ const FeatureCard = ({ title, description, icon, index, color, benefit }) => {
   );
 };
 
-// --- COMPONENT: FILM STRIP (Updated with placeholders + local names) ---
+// --- COMPONENT: FILM STRIP (Optimized Display) ---
 const FilmStrip = () => {
-  // NOTE FOR USER: When running locally, remove the 'url' property and just use the 'file' property as the src.
-  // Example: src={item.file} if images are in public folder.
   const footage = [
-    {
-      url: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=800&q=80",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&q=80",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800&q=80",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=800&q=80",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=800&q=80",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1533518463841-d62e1fc91373?w=800&q=80",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&q=80",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=800&q=80",
-    },
+    { file: "b1.jpg", url: "https://i.postimg.cc/XGBW1nTv/b1.jpg" },
+    { file: "b2.jpg", url: "https://i.postimg.cc/YGL7DtJC/b2.jpg" },
+    { file: "b3.jpg", url: "https://i.postimg.cc/G8TRgbZh/b3.jpg" },
+    { file: "b4.jpg", url: "https://i.postimg.cc/qh6rDp9p/b4.jpg" },
+    { file: "b5.jpg", url: "https://i.postimg.cc/MMfw3zhx/b5.jpg" },
+    { file: "b6.jpg", url: "https://i.postimg.cc/bDSPVqKP/b6.jpg" },
+    { file: "b7.jpg", url: "https://i.postimg.cc/tZnbv9LX/b7.jpg" },
+    { file: "b8.jpg", url: "https://i.postimg.cc/cKbZcv5L/b8.jpg" },
   ];
 
   return (
@@ -197,20 +186,17 @@ const FilmStrip = () => {
         {footage.map((item, i) => (
           <div
             key={i}
-            className="w-[400px] h-[225px] bg-neutral-800 rounded-sm flex-shrink-0 relative overflow-hidden group"
+            className="w-[400px] h-[225px] bg-neutral-800 rounded-sm flex-shrink-0 relative overflow-hidden group shadow-2xl"
           >
+            {/* REMOVED: opacity-80 class. ADDED: contrast-110 and better hover scaling */}
             <img
-              // CHANGE THIS to src={item.file} when running locally with your images
               src={item.url}
               alt={`Raw Footage ${i + 1}`}
-              className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 contrast-[1.05]"
             />
-            <div className="absolute inset-0 bg-neutral-900/20"></div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <Play className="w-12 h-12 text-white/80 drop-shadow-lg" />
-            </div>
-            <span className="absolute bottom-2 right-2 font-mono text-xs text-white/90 bg-black/50 px-2 py-1 rounded">
-              {item.file}
+            {/* Play icon removed */}
+            <span className="absolute bottom-2 right-2 font-mono text-xs text-white/90 bg-black/50 px-2 py-1 rounded backdrop-blur-sm">
+              RAW_FOOTAGE_0{i + 1}.MOV
             </span>
           </div>
         ))}
@@ -218,20 +204,17 @@ const FilmStrip = () => {
         {footage.map((item, i) => (
           <div
             key={`d-${i}`}
-            className="w-[400px] h-[225px] bg-neutral-800 rounded-sm flex-shrink-0 relative overflow-hidden group"
+            className="w-[400px] h-[225px] bg-neutral-800 rounded-sm flex-shrink-0 relative overflow-hidden group shadow-2xl"
           >
+            {/* REMOVED: opacity-80 class. ADDED: contrast-110 and better hover scaling */}
             <img
-              // CHANGE THIS to src={item.file} when running locally with your images
               src={item.url}
               alt={`Raw Footage ${i + 1}`}
-              className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 contrast-[1.05]"
             />
-            <div className="absolute inset-0 bg-neutral-900/20"></div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <Play className="w-12 h-12 text-white/80 drop-shadow-lg" />
-            </div>
-            <span className="absolute bottom-2 right-2 font-mono text-xs text-white/90 bg-black/50 px-2 py-1 rounded">
-              {item.file}
+            {/* Play icon removed */}
+            <span className="absolute bottom-2 right-2 font-mono text-xs text-white/90 bg-black/50 px-2 py-1 rounded backdrop-blur-sm">
+              RAW_FOOTAGE_0{i + 1}.MOV
             </span>
           </div>
         ))}
@@ -321,7 +304,10 @@ export default function App() {
           </div>
 
           <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-8 text-neutral-900 leading-[0.9]">
-            BUILT TO <br /> REMEMBER
+            VISUAL <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-b from-neutral-800 to-neutral-400">
+              IMPACT.
+            </span>
           </h1>
 
           <p className="max-w-xl mx-auto text-lg md:text-xl text-neutral-600 font-medium leading-relaxed mb-12">

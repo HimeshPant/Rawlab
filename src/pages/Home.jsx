@@ -31,6 +31,7 @@ import {
 
 import Testimonials from "../Components/sections/Testimonials";
 import GrowthTriangle from "../Components/sections/GrowthTriangle";
+import Showcase from "../Components/sections/Showcase";
 
 // --- INLINED COMPONENTS ---
 
@@ -614,6 +615,9 @@ export default function Home({ onOpenModal }) {
 
         {/* 6. Who We Work With (Inlined Dark) */}
         <WhoWeWorkWithSection />
+
+        {/* Showcase */}
+        <Showcase />
 
         {/* 8. FAQ */}
         <FAQSection />
