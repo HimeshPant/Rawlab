@@ -349,25 +349,39 @@ const TestimonialCard = ({ name, title, quote, logoUrl }) => {
 const TestimonialsSection = () => {
   const testimonials = [
     {
-      name: "Sarah Jenkins",
-      title: "CEO & Founder",
+      name: "Dear Sir",
+      title: "21 Million Subscribers",
       quote:
-        "My personal brand now drives 80% of our inbound leads. The authority I've built is real.",
-      logoUrl: "https://placehold.co/100x100/222/fff?text=S",
+        "Teach 2 Grow helped us take our channel from 500K to 21 million subscribers. Sincere, structured guidance.",
+      logoUrl: "/2.jpeg",
     },
     {
-      name: "Dr. Ali Abdaal (Mock)",
-      title: "Productivity Expert",
+      name: "Dhananjay Sir",
+      title: "Ignite Academy (1.16M Subs)",
       quote:
-        "The best production team I've worked with. They understand retention like no one else.",
-      logoUrl: "https://placehold.co/100x100/222/fff?text=A",
+        "They understand YouTube at its deepest level. Our channel’s growth is a direct result of their data-driven expertise.",
+      logoUrl: "/D.jpeg",
     },
     {
-      name: "Tech Leader",
-      title: "Founder, SaaS",
+      name: "Teachee",
+      title: "EadTeach Platform",
       quote:
-        "They turned my expertise into a scalable content machine. My LinkedIn and YouTube are flying.",
-      logoUrl: "https://placehold.co/100x100/222/fff?text=T",
+        "Their understanding of educators and students is what sets them apart from typical agencies.",
+      logoUrl: "/17.jpeg",
+    },
+    {
+      name: "Growth.Ankur",
+      title: "Business Coach",
+      quote:
+        "11,000 followers in just 90 days. They know exactly what makes a video perform.",
+      logoUrl: "/A.jpeg",
+    },
+    {
+      name: "MagnatesMedia",
+      title: "1.83 Million Subscribers",
+      quote:
+        "World-class production quality. We consistently hit 70–80% retention.",
+      logoUrl: "/1.jpeg",
     },
   ];
 
