@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Twitter,
   Linkedin,
@@ -63,22 +64,22 @@ export default function Footer() {
               <h4 className="font-bold text-white mb-6">Company</h4>
               <ul className="space-y-4">
                 <li>
-                  <a
-                    href="/about"
+                  <Link
+                    to="/about"
                     className="text-neutral-400 hover:text-cyan-400 text-sm transition-colors flex items-center justify-start lg:justify-center group"
                   >
                     <span className="w-0 group-hover:w-2 transition-all duration-300 h-[1px] bg-cyan-400 mr-0 group-hover:mr-2"></span>
                     About Us
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="/OurStory"
+                  <Link
+                    to="/OurStory"
                     className="text-neutral-400 hover:text-cyan-400 text-sm transition-colors flex items-center justify-start lg:justify-center group"
                   >
                     <span className="w-0 group-hover:w-2 transition-all duration-300 h-[1px] bg-cyan-400 mr-0 group-hover:mr-2"></span>
                     Our Story
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
