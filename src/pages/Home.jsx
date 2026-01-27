@@ -47,7 +47,7 @@ const LandingButton = ({
 
   const variants = {
     primary:
-      "bg-blue-600 text-white hover:bg-blue-500 hover:shadow-blue-500/40",
+      "bg-green-600 text-white hover:bg-green-500 hover:shadow-green-500/40",
     secondary:
       "bg-white border border-neutral-200 text-neutral-900 hover:bg-neutral-50 hover:border-neutral-300 backdrop-blur-md",
   };
@@ -166,7 +166,7 @@ const CreativeEcosystemSection = ({ onOpenModal }) => {
       description:
         "We turn your experiences into consumable, viral, emotional storytelling.",
       icon: PenTool,
-      color: "blue",
+      color: "green",
       benefit: "High Conversion",
     },
     {
@@ -194,6 +194,7 @@ const CreativeEcosystemSection = ({ onOpenModal }) => {
       red: { ribbon: "bg-red-600", box: "bg-red-600" },
       pink: { ribbon: "bg-pink-600", box: "bg-pink-600" },
       blue: { ribbon: "bg-blue-600", box: "bg-blue-600" },
+      green: { ribbon: "bg-green-600", box: "bg-green-600" },
       purple: { ribbon: "bg-purple-600", box: "bg-purple-600" },
       emerald: { ribbon: "bg-emerald-600", box: "bg-emerald-600" },
     };

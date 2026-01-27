@@ -48,7 +48,7 @@ export const testimonialsData = [
     name: "Dear Sir",
     title: "21 Million Subscribers",
     quote:
-      "Teach 2 Grow helped us take our channel from 500K to 21 million subscribers. Sincere, structured guidance.",
+      "Growth Temple helped us take our channel from 500K to 21 million subscribers. Sincere, structured guidance.",
     logoUrl: "/2.jpeg",
   },
   {
@@ -119,7 +119,7 @@ export const youtubeTestimonials = [
     name: "Dear Sir",
     title: "21 Million Subscribers",
     quote:
-      "Teach 2 Grow helped us take our channel from 500K to 21 million subscribers. Sincere, structured guidance.",
+      "Growth Temple helped us take our channel from 500K to 21 million subscribers. Sincere, structured guidance.",
     logoUrl: "/2.jpeg",
   },
   {

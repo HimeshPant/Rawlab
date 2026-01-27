@@ -52,13 +52,13 @@ export default function Showcase() {
         <div className="grid items-center gap-12 lg:grid-cols-2">
           {/* --- LEFT COLUMN: TEXT CONTENT --- */}
           <div className="text-left relative z-10">
-            <span className="inline-block py-1 px-3 rounded-full bg-blue-50 border border-blue-100 text-xs font-bold tracking-widest text-blue-600 uppercase mb-4">
+            <span className="inline-block py-1 px-3 rounded-full bg-blue-50 border border-blue-100 text-xs font-bold tracking-widest text-green-600 uppercase mb-4">
               In Action
             </span>
 
             <h2 className="text-4xl md:text-5xl font-black text-black leading-tight mb-6">
               See How We <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-green-600">
                 Transform Brands.
               </span>
             </h2>

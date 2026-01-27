@@ -249,9 +249,9 @@ export default function GrowthTriangle() {
       <div className="container relative z-10 px-4 mx-auto max-w-7xl">
         {/* Header */}
         <div className="max-w-3xl mx-auto mb-20 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 mb-6 backdrop-blur-md shadow-sm">
-            <Sparkles size={14} className="text-blue-600" />
-            <span className="text-xs font-bold tracking-[0.2em] text-blue-600 uppercase">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-50 border border-green-100 mb-6 backdrop-blur-md shadow-sm">
+            <Sparkles size={14} className="text-green-600" />
+            <span className="text-xs font-bold tracking-[0.2em] text-green-600 uppercase">
               Core Architecture
             </span>
           </div>
