@@ -22,7 +22,12 @@ export default function Header({ onBookCall }) {
         <div className="flex items-center justify-between h-16">
           {/* Logo links to Home */}
           <Link to="/" className="flex items-center flex-shrink-0">
-            <span className="text-2xl font-bold text-transparent bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text">
+            <img
+              src="/growthtemple.jpeg"
+              alt="Growth Temple"
+              className="h-8 w-auto"
+            />
+            <span className="ml-2 text-white font-bold text-lg">
               Growth Temple
             </span>
           </Link>
