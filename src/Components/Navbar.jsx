@@ -17,7 +17,7 @@ const Navbar = () => {
           <a href="#" className="hover:text-white transition-colors">Work</a>
           <a href="#" className="hover:text-white transition-colors">Process</a>
           <button className="bg-raw-blue text-white px-5 py-2 hover:bg-blue-600 transition-all rounded-sm">
-            Contact
+            Contacts
           </button>
         </div>
         
